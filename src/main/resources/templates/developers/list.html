@@ -1,0 +1,39 @@
+<html layout:decorator="layout">
+
+<div layout:fragment="content">
+
+    <a class="btn btn-primary" href="/developers/new">Add new dev</a>
+
+    <table class="table table-striped" id="posts_list">
+        <thead>
+        <tr>
+            <th>Comments</th>
+            <th>Action</th>
+            <th></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="developer : ${developers}">
+            <td class="name" data-th-text="${developer.name}"></td>
+
+            <td>
+                <a th:href="@{'/developers/{id}/delete'(id=${developer.id})}" class="delete" th:attr="name=${developer.name}">
+                        <span class="fa-stack">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </span>
+                </a>
+            </td>
+
+            <td>
+                <a th:href="@{'/developers/{id}/edit'(id=${developer.id})}" class="edit" th:attr="name=${developer.name}">
+                    <span class="fa-stack">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </span>
+
+                </a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</html>

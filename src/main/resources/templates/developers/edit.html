@@ -1,0 +1,12 @@
+<html layout:decorator="layout">
+<div layout:fragment="content">
+    <form method="post" name="developer_form" id="developer_form" action="/developers/update" role="form">
+        <div class="form-group">
+            <label for="name">Name</label>
+            <textarea rows="5" class="form-control" id="name" name="name" th:text="${developer.name}"/>
+        </div>
+        <input type="hidden" id="developer_id" rows="5" class="form-control" name="developer_id" th:value="${developer.id}"/>
+        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
+    </form>
+</div>
+</html>
