@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="manager">
+<html lang="en" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
@@ -7,21 +8,24 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <!--<link rel="icon" href="../../favicon.ico"/>-->
+    <link rel="icon" href="../../favicon.ico"/>
 
     <title>PM_BOOSTER</title>
 
     <!-- Bootstrap core CSS -->
+    <!--<style>-->
+        <!--body {-->
+            <!--background-image: url(css/abstr5.jpg);-->
+        <!--}-->
+    <!--</style>-->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css" integrity="sha512-dTfge/zgoMYpP7QbHy4gWMEGsbsdZeCXz7irItjcC3sPUFtf0kuFbDz/ixG7ArTxmDjLXDmezHubeNikyKGVyQ==" crossorigin="anonymous"/>
-    <link href="/css/sticky-footer-navbar.css" rel="stylesheet"/>
+    <link href="/css/starter-template.css" rel="stylesheet"/>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous"></script>
 </head>
 
 <body>
 
-<!-- Fixed navbar -->
-<!--<nav class="navbar navbar-default navbar-fixed-top">-->
 <nav class="navbar navbar-inverse navbar-fixed-top">
     <div class="container">
         <div class="navbar-header">
@@ -31,7 +35,19 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="/developers">Home</a>
+            <a class="navbar-brand" href="/">Home</a>
+            <a class="navbar-brand" href="/developers">Bench</a>
+            <a class="navbar-brand" href="/tasks">Tasks</a>
+            <a class="navbar-brand" href="">Projects</a>
+            <a class="navbar-brand" href="">Portfolio</a>
+            <a class="navbar-brand" href="">Info</a>
+            <a class="navbar-brand" href="/logout">Exit</a>
+            <p class="navbar-text navbar-right" align="right">
+              <span sec:authorize="isAuthenticated()">
+                  Signed in as: <a href="#" class="navbar-link"><span sec:authentication="name"></span></a>
+                 | Role: <span sec:authentication="principal.authorities"></span>
+            </span>
+            </p>
         </div>
     </div>
 </nav>
@@ -39,30 +55,10 @@
 <div class="container">
 
     <div layout:fragment="content">
-        <!-- ============================================================================ -->
-        <!-- This content is only used for static prototyping purposes (natural templates)-->
-        <!-- and is therefore entirely optional.                                          -->
-        <!-- ============================================================================ -->
-        <h1>Static content for prototyping purposes only</h1>
-
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
-            Phasellus et placerat elit. Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-            Praesent scelerisque neque neque, ac elementum quam dignissim interdum.
-            Phasellus et placerat elit.
-        </p>
 
     </div>
 
 </div>
-<!-- /.container -->
-
-<footer class="footer">
-    <div class="container">
-        <p class="text-muted">Leonid Shelest</p>
-    </div>
-</footer>
 
 </body>
 

@@ -1,11 +1,21 @@
-<html layout:decorator="layout">
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content">
     <form method="post" name="developer_form" id="developer_form" action="/developers/create" role="form">
-        <div class="form-group">
-            <label for="name">Name</label>
-            <textarea rows="5" class="form-control" id="name" name="name"/>
-        </div>
-        <button type="submit" id="submit" class="btn btn-primary">Submit</button>
-    </form>
+
+            Name: <input title="name" type="text" name="name" align="left" />
+
+            Rank: <select id="rank" name="rank" class="form-group" align="left" >
+                    <option th:each="rank : ${T(com.shelest.booster.utilities.Rank).values()}"
+                            th:value="${{rank}}"
+                            th:text="${rank}"></option>
+                  </select>
+
+            Experience:  <input title="experience" type="number" step="0,01" name="experience" align="left"/>
+
+            Qualification:  <input title="qualification" type="number" name="qualification" align="left"/>
+
+            <input type="submit" value="Save" />
+        </form>
+
 </div>
 </html>

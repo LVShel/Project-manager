@@ -1,0 +1,20 @@
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content">
+    <form method="post" name="taskEdit_form" id="taskEdit_form" action="/tasks/updateTask" role="form">
+
+        <input type="hidden" id="task_id" rows="5" class="form-control" name="task_id" th:value="${task.id}"/>
+        Name of project: <input title="projectName" type="text" name="projectName" th:value="${task.projectName}" />
+        Type: <select id="taskType" name="taskType" class="form-group"  >
+        <option th:each="taskType : ${T(com.shelest.booster.utilities.TaskType).values()}"
+        th:value="${{taskType}}"
+        th:text="${taskType}"></option>
+        </select>
+        Start date:  <input title="startDate" type="datetime" name="startDate" th:value="${task.startDate}"/>
+        Deadline:  <input title="endDate" type="datetime" name="endDate" th:value="${task.endDate}"/>
+        Story points:  <input title="storyPoints" type="number" name="storyPoints" th:value="${task.storyPoints}" size="20mpx"/>
+        <input type="submit" value="Save" />
+
+    </form>
+
+</div>
+</html>

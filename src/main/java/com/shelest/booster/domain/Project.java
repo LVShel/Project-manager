@@ -1,0 +1,82 @@
+package com.shelest.booster.domain;
+
+import javax.persistence.*;
+import java.util.List;
+
+@Entity
+@Table(name = "projects")
+public class Project {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
+    private String name;
+    private int seniorsNeed;
+    private int middlesNeed;
+    private int juniorsNeed;
+    private int maxTasksForOneDev;
+    @OneToMany
+    private List<Developer> developersOnProject;
+
+    public Project() {
+    }
+
+    public Project(String name, int seniorsNeed, int middlesNeed, int juniorsNeed, int maxTasksForOneDev) {
+        this.name = name;
+        this.seniorsNeed = seniorsNeed;
+        this.middlesNeed = middlesNeed;
+        this.juniorsNeed = juniorsNeed;
+        this.maxTasksForOneDev = maxTasksForOneDev;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
+    }
+
+    public int getSeniorsNeed() {
+        return seniorsNeed;
+    }
+
+    public void setSeniorsNeed(int seniorsNeed) {
+        this.seniorsNeed = seniorsNeed;
+    }
+
+    public int getMiddlesNeed() {
+        return middlesNeed;
+    }
+
+    public void setMiddlesNeed(int middlesNeed) {
+        this.middlesNeed = middlesNeed;
+    }
+
+    public int getJuniorsNeed() {
+        return juniorsNeed;
+    }
+
+    public void setJuniorsNeed(int juniorsNeed) {
+        this.juniorsNeed = juniorsNeed;
+    }
+
+    public int getMaxTasksForOneDev() {
+        return maxTasksForOneDev;
+    }
+
+    public void setMaxTasksForOneDev(int maxTasksForOneDev) {
+        this.maxTasksForOneDev = maxTasksForOneDev;
+    }
+
+    public List<Developer> getDevelopersOnProject() {
+        return developersOnProject;
+    }
+
+    public void setDevelopersOnProject(List<Developer> developersOnProject) {
+        this.developersOnProject = developersOnProject;
+    }
+}
