@@ -120,4 +120,8 @@ public class Task {
     public void setExecutorID(long executorID) {
         this.executorID = executorID;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }

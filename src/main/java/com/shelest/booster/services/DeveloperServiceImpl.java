@@ -5,9 +5,6 @@ import com.shelest.booster.domain.Task;
 import com.shelest.booster.repositories.DeveloperRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 
-/**
- * Created by Home on 26.09.2017.
- */
 public class DeveloperServiceImpl implements DeveloperService {
 
     @Autowired

@@ -137,4 +137,8 @@ public class Developer {
         numberOfTasks--;
         numberOfRefactoringTasks--;
     }
+
+    public void setId(long id) {
+        this.id = id;
+    }
 }
