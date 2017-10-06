@@ -3,6 +3,7 @@ package com.shelest.booster.controllers;
 import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.services.DeveloperService;
+import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.TaskService;
 import com.shelest.booster.utilities.Rank;
 import com.shelest.booster.utilities.Status;
@@ -23,7 +24,10 @@ public class DeveloperController {
     private DeveloperService developerService;
 
     @Autowired
-    TaskService taskService;
+    private TaskService taskService;
+
+    @Autowired
+    private ManagementService managementService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String listDevelopers(Model model) {
@@ -85,10 +89,10 @@ public class DeveloperController {
                                @RequestParam("task_id") long taskId) {
         Developer developer = developerService.getById(developerId);
         Task task = taskService.getById(taskId);
-        if (task.getStatus()!= Status.ASSIGNED) {
-            developerService.assignTaskDirectly(developer, task);
+        if (task.getStatus() != Status.ASSIGNED) {
+            managementService.assignTask(developer, task);
             developerService.updateDeveloper(developer);
-        }else {
+        } else {
             return new ModelAndView("error/alreadyAssigned");
         }
         return new ModelAndView("redirect:/developers");
@@ -111,24 +115,19 @@ public class DeveloperController {
 
     @RequestMapping(value = "/{id}/showTasks/{taskId}", method = RequestMethod.GET)
     public ModelAndView cancelTask(@PathVariable(value = "id") long id,
-                             @PathVariable(value = "taskId") long taskId, Model model) {
+                                   @PathVariable(value = "taskId") long taskId, Model model) {
         Developer developer = developerService.getById(id);
         Task task = taskService.getById(taskId);
         model.addAttribute("assignedTasks", developerService.getById(id).getAssignedTasks());
         model.addAttribute("developer", developerService.getById(id));
         model.addAttribute("cancelled_task", taskService.getById(taskId));
-        if (task.getStatus()== Status.ASSIGNED) {
-            developerService.cancelExecuting(developer, task);
+        if (task.getStatus() == Status.ASSIGNED) {
+            managementService.cancelExecuting(developer, task);
             developerService.updateDeveloper(developer);
             taskService.updateTask(task);
-        }else {
+        } else {
             return new ModelAndView("error/403");
         }
         return new ModelAndView("redirect:/developers");
     }
-
-
-
-
-
 }

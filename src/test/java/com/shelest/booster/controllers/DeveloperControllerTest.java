@@ -3,6 +3,7 @@ package com.shelest.booster.controllers;
 import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.services.DeveloperService;
+import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.TaskService;
 import com.shelest.booster.utilities.Rank;
 import com.shelest.booster.utilities.Status;
@@ -36,6 +37,9 @@ public class DeveloperControllerTest {
 
     @Mock
     private TaskService taskService;
+
+    @Mock
+    private ManagementService managementService;
 
     @InjectMocks
     private DeveloperController developerController;
@@ -79,6 +83,7 @@ public class DeveloperControllerTest {
                 .andExpect(view().name("redirect:/developers"));
 
         verify(developerService, times(1)).removeDeveloper(DEVELOPER_ID);
+
     }
 
     @Test
@@ -167,7 +172,7 @@ public class DeveloperControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/developers"));
 
-        verify(developerService, times(1)).assignTaskDirectly(developer, task);
+        verify(managementService, times(1)).assignTask(developer, task);
     }
 
     @Test
@@ -228,7 +233,7 @@ public class DeveloperControllerTest {
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/developers"));
 
-        verify(developerService, times(1)).cancelExecuting(developer, task);
+        verify(managementService, times(1)).cancelExecuting(developer, task);
         verify(developerService, times(1)).updateDeveloper(developer);
         verify(taskService, times(1)).updateTask(task);
     }

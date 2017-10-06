@@ -22,4 +22,9 @@ public class SpringBootMySqlApplication {
 		return new TaskServiceIml();
 	}
 
+	@Bean
+	public ManagementService getManagementService() {
+		return new ManagementServiceImpl();
+	}
+
 }

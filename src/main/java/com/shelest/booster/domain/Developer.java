@@ -1,6 +1,7 @@
 package com.shelest.booster.domain;
 
 import com.shelest.booster.utilities.Rank;
+import com.shelest.booster.utilities.Status;
 
 import javax.persistence.*;
 import java.util.List;
@@ -30,6 +31,74 @@ public class Developer {
 
     public Developer() {
     }
+
+    public void execute(Task task) {
+        switch (task.getTaskType()) {
+
+            case BUGFIXING:
+                doBugFixing();
+                break;
+            case DEVELOPMENT:
+                doDevelopment();
+                break;
+            case REFACTORING:
+                doRefactoring();
+                break;
+        }
+        assignedTasks.add(task);
+        task.setStatus(Status.ASSIGNED);
+        task.setExecutorID(this.getId());
+    }
+
+    public void stopExecuting(Task task) {
+        switch (task.getTaskType()) {
+
+            case BUGFIXING:
+                stopBugFixing();
+                break;
+            case DEVELOPMENT:
+                stopDeveloping();
+                break;
+            case REFACTORING:
+                stopRefactoring();
+                break;
+        }
+        assignedTasks.remove(task);
+        task.setStatus(Status.NOT_ASSIGNED);
+        task.setExecutorID(0);
+    }
+
+    private void doBugFixing() {
+        numberOfTasks++;
+        numberOfBugfixingTasks++;
+    }
+
+    private void doDevelopment() {
+        numberOfTasks++;
+        numberOfDevelopmentTasks++;
+    }
+
+    private void doRefactoring() {
+        numberOfTasks++;
+        numberOfRefactoringTasks++;
+    }
+
+
+    private void stopBugFixing() {
+        numberOfTasks--;
+        numberOfBugfixingTasks--;
+    }
+
+    private void stopDeveloping() {
+        numberOfTasks--;
+        numberOfDevelopmentTasks--;
+    }
+
+    private void stopRefactoring() {
+        numberOfTasks--;
+        numberOfRefactoringTasks--;
+    }
+
     public String getName() {
         return name;
     }
@@ -105,37 +174,6 @@ public class Developer {
 
     public void setQualification(int qualification) {
         this.qualification = qualification;
-    }
-
-    public void doBugfixing() {
-        numberOfTasks++;
-        numberOfBugfixingTasks++;
-    }
-
-    public void doDevelopment() {
-        numberOfTasks++;
-        numberOfDevelopmentTasks++;
-    }
-
-    public void doRefactoring() {
-        numberOfTasks++;
-        numberOfRefactoringTasks++;
-    }
-
-
-    public void stopBugfixing() {
-        numberOfTasks--;
-        numberOfBugfixingTasks--;
-    }
-
-    public void stopDeveloping() {
-        numberOfTasks--;
-        numberOfDevelopmentTasks--;
-    }
-
-    public void stopRefactoring() {
-        numberOfTasks--;
-        numberOfRefactoringTasks--;
     }
 
     public void setId(long id) {

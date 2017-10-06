@@ -40,19 +40,24 @@ public class DeveloperServiceImpl implements DeveloperService {
 
 
 
+//    @Override
+//    public void assignTaskDirectly(Developer developer, Task task){
+//        task.execute(developer);
+//        developer.getAssignedTasks().add(task);
+//    }
+//
+//    public void cancelExecuting(Developer developer, Task task){
+//        task.cancelTask(developer);
+//        developer.getAssignedTasks().remove(task);
+//    }
+
     @Override
-    public void assignTaskDirectly(Developer developer, Task task){
-        task.execute(developer);
-        developer.getAssignedTasks().add(task);
+    public Iterable<Developer> getByExperienceGreaterThan(double experience) {
+        return repository.findByExperienceGreaterThan(experience);
     }
 
-    public void cancelExecuting(Developer developer, Task task){
-        task.cancelTask(developer);
-        developer.getAssignedTasks().remove(task);
-    }
-
-    @Override
-    public void executeAllTasks() {
-
-    }
+//    @Override
+//    public void executeAllTasks() {
+//
+//    }
 }

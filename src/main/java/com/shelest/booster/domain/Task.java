@@ -26,40 +26,6 @@ public class Task {
     public Task() {
     }
 
-    public void execute(Developer developer){
-        switch (this.taskType) {
-
-            case BUGFIXING:
-                developer.doBugfixing();
-                break;
-            case DEVELOPMENT:
-                developer.doDevelopment();
-                break;
-            case REFACTORING:
-                developer.doRefactoring();
-                break;
-        }
-        setStatus(Status.ASSIGNED);
-        setExecutorID(developer.getId());
-    }
-
-    public void cancelTask(Developer developer){
-        switch (this.taskType) {
-
-            case BUGFIXING:
-                developer.stopBugfixing();
-                break;
-            case DEVELOPMENT:
-                developer.stopDeveloping();
-                break;
-            case REFACTORING:
-                developer.stopRefactoring();
-                break;
-        }
-        setStatus(Status.NOT_ASSIGNED);
-        setExecutorID(0);
-    }
-
     public String getProjectName() {
         return projectName;
     }
@@ -103,7 +69,6 @@ public class Task {
     public long getId() {
         return id;
     }
-
 
     public Status getStatus() {
         return status;

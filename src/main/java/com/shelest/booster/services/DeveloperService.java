@@ -20,11 +20,7 @@ public interface DeveloperService {
 
     void updateDeveloper(Developer developer);
 
-    void assignTaskDirectly(Developer developer, Task task);
-
-    void cancelExecuting(Developer developer, Task task);
-
-    void executeAllTasks();
+    Iterable<Developer> getByExperienceGreaterThan(double experience);
 
 
 
