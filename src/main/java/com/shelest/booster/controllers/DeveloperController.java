@@ -20,14 +20,18 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/developers")
 public class DeveloperController {
 
-    @Autowired
-    private DeveloperService developerService;
+    private final DeveloperService developerService;
+
+    private final TaskService taskService;
+
+    private final ManagementService managementService;
 
     @Autowired
-    private TaskService taskService;
-
-    @Autowired
-    private ManagementService managementService;
+    public DeveloperController(DeveloperService developerService, TaskService taskService, ManagementService managementService) {
+        this.developerService = developerService;
+        this.taskService = taskService;
+        this.managementService = managementService;
+    }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String listDevelopers(Model model) {
@@ -98,11 +102,14 @@ public class DeveloperController {
         return new ModelAndView("redirect:/developers");
     }
 
-    @RequestMapping(value = "/{id}/assignTask", method = RequestMethod.GET)
-    public String assignTask(@PathVariable long id, Model model) {
+    @RequestMapping(value = "/{id}/assignTask/{taskId}", method = RequestMethod.GET)
+    public String assignTask(@PathVariable long id,
+                             @PathVariable long taskId, Model model) {
         Developer developer = developerService.getById(id);
+        Task task = taskService.getById(taskId);
         model.addAttribute("allTasks", taskService.showAllTasks());
         model.addAttribute("developer", developer);
+        model.addAttribute("task", task);
         return "developers/assignTask";
     }
 

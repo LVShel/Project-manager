@@ -1,0 +1,16 @@
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content">
+    <form method="post" name="projectEdit_form" id="projectEdit_form" action="/projects/updateProject" role="form">
+
+        <input type="hidden" id="project_id"  class="form-control" name="project_id" th:value="${project.id}"/>
+        Project name: <input title="projectName" type="text" name="project_name" th:value="${project.name}" />
+        Seniors need: <input title="seniors need" type="text" name="seniorsNeed" th:value="${project.seniorsNeed}" />
+        Middles need: <input title="middles need" type="text" name="middlesNeed" th:value="${project.middlesNeed}" />
+        Juniors need: <input title="juniors need" type="text" name="juniorsNeed" th:value="${project.juniorsNeed}" />
+        Max tasks for one developer:  <input title="juniors need" type="number" name="maxTasks" th:value="${project.maxTasksForOneDev}"/>
+        <input type="submit" value="Save" />
+
+    </form>
+
+</div>
+</html>

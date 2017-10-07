@@ -20,14 +20,6 @@ public class Project {
     public Project() {
     }
 
-    public Project(String name, int seniorsNeed, int middlesNeed, int juniorsNeed, int maxTasksForOneDev) {
-        this.name = name;
-        this.seniorsNeed = seniorsNeed;
-        this.middlesNeed = middlesNeed;
-        this.juniorsNeed = juniorsNeed;
-        this.maxTasksForOneDev = maxTasksForOneDev;
-    }
-
     public long getId() {
         return id;
     }
@@ -78,5 +70,9 @@ public class Project {
 
     public void setDevelopersOnProject(List<Developer> developersOnProject) {
         this.developersOnProject = developersOnProject;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 }

@@ -27,4 +27,9 @@ public class SpringBootMySqlApplication {
 		return new ManagementServiceImpl();
 	}
 
+	@Bean
+	public ProjectService getProjectService() {
+		return new ProjectServiceImpl();
+	}
+
 }

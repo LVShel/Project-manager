@@ -5,7 +5,7 @@
 
         <input type="hidden" id="developer_id" rows="5" class="form-control" name="developer_id" th:value="${developer.id}"/>
         <h3>Input Id of task you want to assign:</h3>
-        <input type="number" id="task_id" rows="5" class="form-control" name="task_id" value="${task.id}"/>
+        <input type="number" id="task_id"  name="task_id" value="${task.id}"/>
 
         <table class="table table-striped" id="tasks_list">
             <thead>
@@ -31,6 +31,16 @@
                 <td class="name" data-th-text="${task.storyPoints}"></td>
                 <td class="name" data-th-text="${task.status}"></td>
                 <td class="name" data-th-text="${task.executorID}"></td>
+
+                <td>
+                    <a th:href="@{'assignTask/{taskId}'(taskId=${task.id})}" class="delete" >
+                        <span class="fa-stack">
+                            <i class="glyphicon glyphicon-remove"></i>
+                        </span>
+                    </a>
+                </td>
+
+
 
             </tr>
             </tbody>

@@ -1,0 +1,14 @@
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content">
+    <form method="post" name="task_form" id="project_form" action="/projects/createProject" role="form">
+
+        Project name: <input title="name" type="text" name="project_name" align="left" />
+        Seniors need:  <input title="seniors need" type="number" name="seniorsNeed" />
+        Middles need:  <input title="middles need" type="number" name="middlesNeed" />
+        Juniors need:  <input title="juniors need" type="number" name="juniorsNeed" />
+        Max tasks for one developer:  <input title="juniors need" type="number" name="maxTasks" />
+        <input type="submit" value="Save" />
+    </form>
+
+</div>
+</html>

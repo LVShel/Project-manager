@@ -1,0 +1,49 @@
+<html layout:decorator="layout" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content">
+
+    <table class="table table-striped" id="project_list">
+        <thead>
+        <tr >
+            <th>Id</th>
+            <th>Name of project</th>
+            <th>Developers on project</th>
+            <th>Seniors:</th>
+            <th>Middles:</th>
+            <th>Juniors:</th>
+            <th>Tasks limit</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="project : ${projects}">
+            <td class="name" data-th-text="${project.id}"></td>
+            <td class="name" data-th-text="${project.name}"></td>
+            <td class="name" data-th-text="${project.developersOnProject.size()}"></td>
+            <td class="name" data-th-text="${project.seniorsNeed}"></td>
+            <td class="name" data-th-text="${project.middlesNeed}"></td>
+            <td class="name" data-th-text="${project.juniorsNeed}"></td>
+            <td class="name" data-th-text="${project.maxTasksForOneDev}"></td>
+
+            <td>
+                <a th:href="@{'/projects/{id}/deleteProject'(id=${project.id})}">
+                        <span class="fa-stack">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </span>
+                </a>
+            </td>
+
+            <td>
+                <a th:href="@{'/projects/{id}/editProject'(id=${project.id})}">
+                    <span class="fa-stack">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </span>
+
+                </a>
+            </td>
+
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-primary btn-lg btn-block" href="/projects/newProject">Add new project</a>
+</div>
+</html>
