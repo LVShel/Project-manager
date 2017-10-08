@@ -8,6 +8,7 @@ import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
 import com.shelest.booster.utilities.Rank;
+import com.shelest.booster.utilities.State;
 import com.shelest.booster.utilities.Status;
 import org.junit.Before;
 import org.junit.Test;
@@ -78,6 +79,24 @@ public class DeveloperControllerTest {
         mockMvc.perform(get("/developers"))
                 .andExpect(status().isOk())
                 .andExpect(view().name("developers/list"))
+                .andExpect(model().attribute("developers", hasSize(2)));
+    }
+
+    @Test
+    public void listBench() throws Exception {
+        List<Developer> developers = new ArrayList<>();
+        Developer developer = new Developer();
+        Developer anotherDev = new Developer();
+        developer.setState(State.ON_BENCH);
+        anotherDev.setState(State.ON_BENCH);
+        developers.add(developer);
+        developers.add(anotherDev);
+
+        doReturn(developers).when(developerService).getByState(State.ON_BENCH);
+
+        mockMvc.perform(get("/developers/bench"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("developers/bench"))
                 .andExpect(model().attribute("developers", hasSize(2)));
     }
 
@@ -182,6 +201,26 @@ public class DeveloperControllerTest {
     }
 
     @Test
+    public void assign2() throws Exception {
+        Developer developer = new Developer();
+        developer.setId(DEVELOPER_ID);
+        Task task = new Task();
+        task.setId(TASK_ID);
+        task.setStatus(Status.ASSIGNED);
+
+        doReturn(developer).when(developerService).getById(DEVELOPER_ID);
+        when(taskService.getById(TASK_ID)).thenReturn(task);
+
+        mockMvc.perform(post("/developers/assign")
+                .param("developer_id", String.valueOf(DEVELOPER_ID))
+                .param("task_id", String.valueOf(TASK_ID)))
+                .andExpect(status().isOk())
+                .andExpect(view().name("error/alreadyAssigned"));
+
+        verify(managementService, times(0)).assignTask(developer, task);
+    }
+
+    @Test
     public void assignTask() throws Exception {
 
         doReturn(new Developer()).when(developerService).getById(DEVELOPER_ID);
@@ -236,7 +275,7 @@ public class DeveloperControllerTest {
 
         doReturn(developer).when(developerService).getById(DEVELOPER_ID);
         doReturn(task).when(taskService).getById(TASK_ID);
-        //verifies that error page occurs, as far as the task is not assigned to anyone
+
         mockMvc.perform(get("/developers/1/showTasks/1"))
                 .andExpect(status().is3xxRedirection())
                 .andExpect(view().name("redirect:/developers/bench"));
@@ -275,6 +314,5 @@ public class DeveloperControllerTest {
                 .andExpect(model().attribute("developer", instanceOf(Developer.class)))
                 .andExpect(model().attribute("projects", projectService.showAllProjects()));
     }
-
 
 }
