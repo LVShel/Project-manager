@@ -1,9 +1,11 @@
 package com.shelest.booster.controllers;
 
 import com.shelest.booster.domain.Developer;
+import com.shelest.booster.domain.Project;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.services.DeveloperService;
 import com.shelest.booster.services.ManagementService;
+import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
 import com.shelest.booster.utilities.Rank;
 import com.shelest.booster.utilities.Status;
@@ -41,6 +43,9 @@ public class DeveloperControllerTest {
     @Mock
     private ManagementService managementService;
 
+    @Mock
+    private ProjectService projectService;
+
     @InjectMocks
     private DeveloperController developerController;
 
@@ -48,6 +53,7 @@ public class DeveloperControllerTest {
 
     private static final long DEVELOPER_ID = 1;
     private static final long TASK_ID = 1;
+    private static final long PROJECT_ID = 1;
     private static final String NAME = "NoName";
     private static final Rank RANK = Rank.MIDDLE;
     private static final double EXPERIENCE = 2.;
@@ -239,5 +245,36 @@ public class DeveloperControllerTest {
         verify(developerService).updateDeveloper(developer);
         verify(taskService).updateTask(task);
     }
+
+    @Test
+    public void assignToProject() throws Exception {
+        Developer developer = new Developer();
+        developer.setId(DEVELOPER_ID);
+        Project project = new Project();
+        project.setId(PROJECT_ID);
+
+        doReturn(developer).when(developerService).getById(DEVELOPER_ID);
+        doReturn(project).when(projectService).getById(PROJECT_ID);
+
+        mockMvc.perform(post("/developers/assignToProject")
+                .param("developer_id", String.valueOf(DEVELOPER_ID))
+                .param("project_id", String.valueOf(PROJECT_ID)))
+                .andExpect(status().is3xxRedirection())
+                .andExpect(view().name("redirect:/developers/bench"));
+
+        verify(managementService).assignDeveloperToProject(developer, project);
+    }
+
+    @Test
+    public void assignProject() throws Exception {
+        doReturn(new Developer()).when(developerService).getById(DEVELOPER_ID);
+
+        mockMvc.perform(get("/developers/1/assignToProject"))
+                .andExpect(status().isOk())
+                .andExpect(view().name("developers/assignToProject"))
+                .andExpect(model().attribute("developer", instanceOf(Developer.class)))
+                .andExpect(model().attribute("projects", projectService.showAllProjects()));
+    }
+
 
 }
