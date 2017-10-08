@@ -3,11 +3,10 @@ package com.shelest.booster.services;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.repositories.TaskRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-/**
- * Created by Home on 27.09.2017.
- */
-public class TaskServiceIml implements TaskService {
+@Service
+public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private TaskRepository repository;

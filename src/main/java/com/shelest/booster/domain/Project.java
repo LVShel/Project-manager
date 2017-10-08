@@ -75,4 +75,8 @@ public class Project {
     public void setId(long id) {
         this.id = id;
     }
+
+    public void dismiss(Developer developer) {
+        this.developersOnProject.remove(developer);
+    }
 }

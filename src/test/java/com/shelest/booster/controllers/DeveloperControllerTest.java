@@ -80,9 +80,9 @@ public class DeveloperControllerTest {
 
         mockMvc.perform(get("/developers/1/delete"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/developers"));
+                .andExpect(view().name("redirect:/developers/bench"));
 
-        verify(developerService, times(1)).removeDeveloper(DEVELOPER_ID);
+        verify(developerService).removeDeveloper(DEVELOPER_ID);
 
     }
 
@@ -105,7 +105,7 @@ public class DeveloperControllerTest {
                 .param("experience", String.valueOf(EXPERIENCE))
                 .param("qualification", String.valueOf(QUALIFICATION)))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/developers"));
+                .andExpect(view().name("redirect:/developers/bench"));
 
         ArgumentCaptor<Developer> boundDeveloper = ArgumentCaptor.forClass(Developer.class);
         verify(developerService).addDeveloper(boundDeveloper.capture());
@@ -134,7 +134,7 @@ public class DeveloperControllerTest {
                 .param("experience", String.valueOf(EXPERIENCE))
                 .param("qualification", String.valueOf(QUALIFICATION)))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/developers"));
+                .andExpect(view().name("redirect:/developers/bench"));
 
         ArgumentCaptor<Developer> boundDeveloper = ArgumentCaptor.forClass(Developer.class);
         verify(developerService).updateDeveloper(boundDeveloper.capture());
@@ -163,21 +163,22 @@ public class DeveloperControllerTest {
         Task task = new Task();
         task.setId(TASK_ID);
 
-        when(developerService.getById(DEVELOPER_ID)).thenReturn(developer);
+        doReturn(developer).when(developerService).getById(DEVELOPER_ID);
         when(taskService.getById(TASK_ID)).thenReturn(task);
 
         mockMvc.perform(post("/developers/assign")
                 .param("developer_id", String.valueOf(DEVELOPER_ID))
                 .param("task_id", String.valueOf(TASK_ID)))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/developers"));
+                .andExpect(view().name("redirect:/developers/bench"));
 
         verify(managementService, times(1)).assignTask(developer, task);
     }
 
     @Test
     public void assignTask() throws Exception {
-        when(developerService.getById(DEVELOPER_ID)).thenReturn(new Developer());
+
+        doReturn(new Developer()).when(developerService).getById(DEVELOPER_ID);
 
         mockMvc.perform(get("/developers/1/assignTask"))
                 .andExpect(status().isOk())
@@ -194,7 +195,7 @@ public class DeveloperControllerTest {
         tasks.add(new Task());
         developer.setAssignedTasks(tasks);
 
-        when(developerService.getById(DEVELOPER_ID)).thenReturn(developer);
+        doReturn(developer).when(developerService).getById(DEVELOPER_ID);
 
         mockMvc.perform(get("/developers/1/showTasks"))
                 .andExpect(status().isOk())
@@ -210,8 +211,9 @@ public class DeveloperControllerTest {
         task.setStatus(Status.NOT_ASSIGNED);
         task.setId(TASK_ID);
 
-        when(developerService.getById(DEVELOPER_ID)).thenReturn(developer);
-        when(taskService.getById(TASK_ID)).thenReturn(task);
+        doReturn(developer).when(developerService).getById(DEVELOPER_ID);
+        doReturn(task).when(taskService).getById(TASK_ID);
+
         //verifies that error page occurs, as far as the task is not assigned to anyone
         mockMvc.perform(get("/developers/1/showTasks/1"))
                 .andExpect(status().isOk())
@@ -226,16 +228,16 @@ public class DeveloperControllerTest {
         task.setStatus(Status.ASSIGNED);
         task.setId(TASK_ID);
 
-        when(developerService.getById(DEVELOPER_ID)).thenReturn(developer);
-        when(taskService.getById(TASK_ID)).thenReturn(task);
+        doReturn(developer).when(developerService).getById(DEVELOPER_ID);
+        doReturn(task).when(taskService).getById(TASK_ID);
         //verifies that error page occurs, as far as the task is not assigned to anyone
         mockMvc.perform(get("/developers/1/showTasks/1"))
                 .andExpect(status().is3xxRedirection())
-                .andExpect(view().name("redirect:/developers"));
+                .andExpect(view().name("redirect:/developers/bench"));
 
-        verify(managementService, times(1)).cancelExecuting(developer, task);
-        verify(developerService, times(1)).updateDeveloper(developer);
-        verify(taskService, times(1)).updateTask(task);
+        verify(managementService).cancelExecuting(developer, task);
+        verify(developerService).updateDeveloper(developer);
+        verify(taskService).updateTask(task);
     }
 
 }

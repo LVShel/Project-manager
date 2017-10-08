@@ -1,0 +1,84 @@
+<html layout:decorator="layout" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content">
+
+    <table class="table table-striped" id="bench_list">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Rank</th>
+            <th>Experience</th>
+            <th>Qualification</th>
+            <th>State</th>
+            <th>Project</th>
+            <th>Tasks</th>
+            <th>BFX</th>
+            <th>DEV</th>
+            <th>REF</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="developer : ${developers}">
+            <td class="name" data-th-text="${developer.id}"></td>
+            <td class="name" data-th-text="${developer.name}"></td>
+            <td class="name" data-th-text="${developer.rank}"></td>
+            <td class="name" data-th-text="${developer.experience}"></td>
+            <td class="name" data-th-text="${developer.qualification}"></td>
+            <td class="name" data-th-text="${developer.state}"></td>
+            <td class="name" data-th-text="${developer.nameOfCurrentProject}"></td>
+            <td class="name" data-th-text="${developer.numberOfTasks}"></td>
+            <td class="name" data-th-text="${developer.numberOfBugfixingTasks}"></td>
+            <td class="name" data-th-text="${developer.numberOfDevelopmentTasks}"></td>
+            <td class="name" data-th-text="${developer.numberOfRefactoringTasks}"></td>
+
+            <td title="assign to project">
+                <a th:href="@{'/developers/{id}/assignToProject'(id=${developer.id})}" >
+                    <span class="fa-stack">
+                        <i class="glyphicon glyphicon-share-alt"></i>
+                    </span>
+                </a>
+            </td>
+
+            <td title="assign a new task">
+                <a th:href="@{'/developers/{id}/assignTask'(id=${developer.id})}" >
+                    <span class="fa-stack">
+                        <i class="glyphicon glyphicon-plus"></i>
+                    </span>
+                </a>
+            </td>
+
+            <td title="already assigned tasks">
+                <a th:href="@{'/developers/{id}/showTasks'(id=${developer.id})}" >
+                    <span class="fa-stack">
+                        <i class="glyphicon glyphicon-tasks"></i>
+                    </span>
+
+                </a>
+            </td>
+
+            <td title="edit developer">
+                <a th:href="@{'/developers/{id}/edit'(id=${developer.id})}" class="edit" th:attr="name=${developer.name}" aria-label="edit">
+                    <span class="fa-stack">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </span>
+
+                </a>
+            </td>
+
+            <td title="remove developer">
+                <a th:href="@{'/developers/{id}/delete'(id=${developer.id})}" class="delete" th:attr="name=${developer.name}">
+                        <span class="fa-stack">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </span>
+                </a>
+            </td>
+
+
+
+        </tr>
+        </tbody>
+    </table>
+    <a class="btn btn-primary btn-lg btn-block" href="/developers/new">Add new dev</a>
+</div>
+</html>

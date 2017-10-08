@@ -1,11 +1,14 @@
 package com.shelest.booster.controllers;
 
 import com.shelest.booster.domain.Developer;
+import com.shelest.booster.domain.Project;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.services.DeveloperService;
 import com.shelest.booster.services.ManagementService;
+import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
 import com.shelest.booster.utilities.Rank;
+import com.shelest.booster.utilities.State;
 import com.shelest.booster.utilities.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,18 +23,17 @@ import org.springframework.web.servlet.ModelAndView;
 @RequestMapping("/developers")
 public class DeveloperController {
 
-    private final DeveloperService developerService;
-
-    private final TaskService taskService;
-
-    private final ManagementService managementService;
+    @Autowired
+    private DeveloperService developerService;
 
     @Autowired
-    public DeveloperController(DeveloperService developerService, TaskService taskService, ManagementService managementService) {
-        this.developerService = developerService;
-        this.taskService = taskService;
-        this.managementService = managementService;
-    }
+    private TaskService taskService;
+
+    @Autowired
+    private ManagementService managementService;
+
+    @Autowired
+    private ProjectService projectService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String listDevelopers(Model model) {
@@ -39,10 +41,17 @@ public class DeveloperController {
         return "developers/list";
     }
 
+    @RequestMapping(value = "/bench", method = RequestMethod.GET)
+    public String listBench(Model model) {
+        model.addAttribute("developers", developerService.getByState(State.ON_BENCH));
+        return "developers/bench";
+    }
+
+
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable long id) {
         developerService.removeDeveloper(id);
-        return new ModelAndView("redirect:/developers");
+        return new ModelAndView("redirect:/developers/bench");
     }
 
     @RequestMapping(value = "/new", method = RequestMethod.GET)
@@ -62,7 +71,7 @@ public class DeveloperController {
         developer.setQualification(qualification);
         developerService.addDeveloper(developer);
         model.addAttribute("rank", rank);
-        return new ModelAndView("redirect:/developers");
+        return new ModelAndView("redirect:/developers/bench");
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -77,7 +86,7 @@ public class DeveloperController {
         developer.setExperience(experience);
         developer.setQualification(qualification);
         developerService.updateDeveloper(developer);
-        return new ModelAndView("redirect:/developers");
+        return new ModelAndView("redirect:/developers/bench");
     }
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
@@ -99,17 +108,14 @@ public class DeveloperController {
         } else {
             return new ModelAndView("error/alreadyAssigned");
         }
-        return new ModelAndView("redirect:/developers");
+        return new ModelAndView("redirect:/developers/bench");
     }
 
-    @RequestMapping(value = "/{id}/assignTask/{taskId}", method = RequestMethod.GET)
-    public String assignTask(@PathVariable long id,
-                             @PathVariable long taskId, Model model) {
+    @RequestMapping(value = "/{id}/assignTask", method = RequestMethod.GET)
+    public String assignTask(@PathVariable long id, Model model) {
         Developer developer = developerService.getById(id);
-        Task task = taskService.getById(taskId);
         model.addAttribute("allTasks", taskService.showAllTasks());
         model.addAttribute("developer", developer);
-        model.addAttribute("task", task);
         return "developers/assignTask";
     }
 
@@ -135,6 +141,24 @@ public class DeveloperController {
         } else {
             return new ModelAndView("error/403");
         }
-        return new ModelAndView("redirect:/developers");
+        return new ModelAndView("redirect:/developers/bench");
+    }
+
+    @RequestMapping(value = "/assignToProject", method = RequestMethod.POST)
+    public ModelAndView assignToProject(@RequestParam("developer_id") long developerId,
+                               @RequestParam("project_id") long projectId) {
+        Developer developer = developerService.getById(developerId);
+        Project project = projectService.getById(projectId);
+        managementService.assignDeveloperToProject(developer, project);
+        projectService.updateProject(project);
+        return new ModelAndView("redirect:/developers/bench");
+    }
+
+    @RequestMapping(value = "/{id}/assignToProject", method = RequestMethod.GET)
+    public String assignProject(@PathVariable long id, Model model) {
+        Developer developer = developerService.getById(id);
+        model.addAttribute("developer", developer);
+        model.addAttribute("projects", projectService.showAllProjects());
+        return "developers/assignToProject";
     }
 }

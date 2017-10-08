@@ -2,12 +2,9 @@ package com.shelest.booster.services;
 
 import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Task;
+import com.shelest.booster.utilities.State;
 import org.springframework.stereotype.Service;
 
-/**
- * Created by Home on 26.09.2017.
- */
-@Service
 public interface DeveloperService {
 
     Iterable<Developer> showAllDevelopers();
@@ -21,6 +18,8 @@ public interface DeveloperService {
     void updateDeveloper(Developer developer);
 
     Iterable<Developer> getByExperienceGreaterThan(double experience);
+
+    Iterable<Developer> getByState(State state);
 
 
 

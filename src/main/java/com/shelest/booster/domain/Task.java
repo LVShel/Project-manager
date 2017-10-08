@@ -20,7 +20,7 @@ public class Task {
     private LocalDate endDate;
     private int storyPoints;
     @Enumerated(EnumType.STRING)
-    private Status status;
+    private Status status = Status.NOT_ASSIGNED;
     private long executorID;
 
     public Task() {

@@ -1,6 +1,7 @@
 package com.shelest.booster.domain;
 
 import com.shelest.booster.utilities.Rank;
+import com.shelest.booster.utilities.State;
 import com.shelest.booster.utilities.Status;
 
 import javax.persistence.*;
@@ -18,6 +19,9 @@ public class Developer {
     private Rank rank;
     private double experience;
     private int qualification;
+    @Enumerated(EnumType.STRING)
+    private State state = State.ON_BENCH;
+    private String nameOfCurrentProject = "========unknown========";
     @OneToMany
     private List<Task> assignedTasks;
     private int numberOfTasks;
@@ -45,9 +49,6 @@ public class Developer {
                 doRefactoring();
                 break;
         }
-        assignedTasks.add(task);
-        task.setStatus(Status.ASSIGNED);
-        task.setExecutorID(this.getId());
     }
 
     public void stopExecuting(Task task) {
@@ -63,9 +64,6 @@ public class Developer {
                 stopRefactoring();
                 break;
         }
-        assignedTasks.remove(task);
-        task.setStatus(Status.NOT_ASSIGNED);
-        task.setExecutorID(0);
     }
 
     private void doBugFixing() {
@@ -178,5 +176,21 @@ public class Developer {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public State getState() {
+        return state;
+    }
+
+    public void setState(State state) {
+        this.state = state;
+    }
+
+    public String getNameOfCurrentProject() {
+        return nameOfCurrentProject;
+    }
+
+    public void setNameOfCurrentProject(String nameOfCurrentProject) {
+        this.nameOfCurrentProject = nameOfCurrentProject;
     }
 }

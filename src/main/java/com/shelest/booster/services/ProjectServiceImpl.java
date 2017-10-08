@@ -3,10 +3,9 @@ package com.shelest.booster.services;
 import com.shelest.booster.domain.Project;
 import com.shelest.booster.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
-/**
- * Created by Home on 06.10.2017.
- */
+@Service
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired

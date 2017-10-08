@@ -3,7 +3,7 @@ package com.shelest.booster.services;
 import com.shelest.booster.domain.Project;
 import org.springframework.stereotype.Service;
 
-@Service
+
 public interface ProjectService {
 
     Iterable<Project> showAllProjects();

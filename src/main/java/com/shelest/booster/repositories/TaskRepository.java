@@ -5,4 +5,5 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.RepositoryDefinition;
 
 public interface TaskRepository extends CrudRepository<Task, Long> {
+
 }

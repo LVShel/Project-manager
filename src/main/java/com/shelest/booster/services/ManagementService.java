@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-@Service
+
 public interface ManagementService {
 
     void assignTask(Developer developer, Task task);

@@ -33,6 +33,14 @@
             </td>
 
             <td>
+                <a th:href="@{'/projects/{id}/showTeam'(id=${project.id})}">
+                        <span class="fa-stack">
+                            <i class="glyphicon glyphicon-tasks"></i>
+                        </span>
+                </a>
+            </td>
+
+            <td>
                 <a th:href="@{'/projects/{id}/editProject'(id=${project.id})}">
                     <span class="fa-stack">
                         <i class="glyphicon glyphicon-edit"></i>

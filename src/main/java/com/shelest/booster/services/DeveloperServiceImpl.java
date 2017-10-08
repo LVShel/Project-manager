@@ -3,8 +3,11 @@ package com.shelest.booster.services;
 import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.repositories.DeveloperRepository;
+import com.shelest.booster.utilities.State;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
+@Service
 public class DeveloperServiceImpl implements DeveloperService {
 
     @Autowired
@@ -38,26 +41,13 @@ public class DeveloperServiceImpl implements DeveloperService {
         repository.save(developer);
     }
 
-
-
-//    @Override
-//    public void assignTaskDirectly(Developer developer, Task task){
-//        task.execute(developer);
-//        developer.getAssignedTasks().add(task);
-//    }
-//
-//    public void cancelExecuting(Developer developer, Task task){
-//        task.cancelTask(developer);
-//        developer.getAssignedTasks().remove(task);
-//    }
-
     @Override
     public Iterable<Developer> getByExperienceGreaterThan(double experience) {
         return repository.findByExperienceGreaterThan(experience);
     }
 
-//    @Override
-//    public void executeAllTasks() {
-//
-//    }
+    @Override
+    public Iterable<Developer> getByState(State state) {
+        return repository.findByState(state);
+    }
 }

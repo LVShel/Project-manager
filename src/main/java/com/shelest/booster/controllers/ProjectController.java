@@ -1,7 +1,12 @@
 package com.shelest.booster.controllers;
 
+import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Project;
+import com.shelest.booster.domain.Task;
+import com.shelest.booster.services.DeveloperService;
+import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.ProjectService;
+import com.shelest.booster.utilities.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +22,12 @@ public class ProjectController {
 
     @Autowired
     private ProjectService projectService;
+
+    @Autowired
+    private DeveloperService developerService;
+
+    @Autowired
+    private ManagementService managementService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String listProjects(Model model) {
@@ -81,6 +92,25 @@ public class ProjectController {
         Project project = projectService.getById(id);
         model.addAttribute("project", project);
         return "projects/editProject";
+    }
+
+    @RequestMapping(value = "/{id}/showTeam", method = RequestMethod.GET)
+    public String listAssignedDevelopers(@PathVariable long id, Model model) {
+        model.addAttribute("developersOnProject", projectService.getById(id).getDevelopersOnProject());
+        model.addAttribute("project", projectService.getById(id));
+        return "projects/projectTeam";
+    }
+
+    @RequestMapping(value = "/{id}/showTeam/{devId}", method = RequestMethod.GET)
+    public ModelAndView cancelTask(@PathVariable(value = "id") long id,
+                                   @PathVariable(value = "devId") long devId, Model model) {
+        Project project = projectService.getById(id);
+        Developer developer = developerService.getById(devId);
+        model.addAttribute("team", projectService.getById(id).getDevelopersOnProject());
+        model.addAttribute("developer", developerService.getById(id));
+        managementService.removeDeveloperFromProject(developer, project);
+        projectService.updateProject(project);
+        return new ModelAndView("redirect:/projects");
     }
 
 }

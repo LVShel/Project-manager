@@ -1,6 +1,7 @@
 package com.shelest.booster.repositories;
 
 import com.shelest.booster.domain.Developer;
+import com.shelest.booster.utilities.State;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
@@ -10,4 +11,5 @@ import java.util.Collection;
  */
 public interface DeveloperRepository extends CrudRepository<Developer, Long> {
     Collection<Developer> findByExperienceGreaterThan(double experience);
+    Collection<Developer> findByState(State state);
 }

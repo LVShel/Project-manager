@@ -12,24 +12,24 @@ public class SpringBootMySqlApplication {
 		SpringApplication.run(SpringBootMySqlApplication.class, args);
 	}
 
-	@Bean
-	public DeveloperService getDeveloperService() {
-		return new DeveloperServiceImpl();
-	}
+//	@Bean
+//	public DeveloperService getDeveloperService() {
+//		return new DeveloperServiceImpl();
+//	}
 
-	@Bean
-	public TaskService getTaskService() {
-		return new TaskServiceIml();
-	}
-
-	@Bean
-	public ManagementService getManagementService() {
-		return new ManagementServiceImpl();
-	}
-
-	@Bean
-	public ProjectService getProjectService() {
-		return new ProjectServiceImpl();
-	}
+//	@Bean
+//	public TaskService getTaskService() {
+//		return new TaskServiceImpl();
+//	}
+//
+//	@Bean
+//	public ManagementService getManagementService() {
+//		return new ManagementServiceImpl();
+//	}
+//
+//	@Bean
+//	public ProjectService getProjectService() {
+//		return new ProjectServiceImpl();
+//	}
 
 }
