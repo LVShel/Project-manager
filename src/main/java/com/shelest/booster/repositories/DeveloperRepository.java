@@ -5,11 +5,11 @@ import com.shelest.booster.utilities.State;
 import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
+import java.util.List;
 
-/**
- * Created by Home on 25.09.2017.
- */
 public interface DeveloperRepository extends CrudRepository<Developer, Long> {
-    Collection<Developer> findByExperienceGreaterThan(double experience);
-    Collection<Developer> findByState(State state);
+
+    List<Developer> findByExperienceGreaterThan(double experience);
+
+    List<Developer> findByState(State state);
 }
