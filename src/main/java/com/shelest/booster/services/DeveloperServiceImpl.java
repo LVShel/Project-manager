@@ -8,7 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import java.util.List;
 
@@ -54,7 +56,23 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public Page<Developer> findAllPageable(Pageable pageable) {
+    public Page<Developer> getByState(Integer page, Integer size, String order, State state) {
+        if (StringUtils.isEmpty(order)) {
+            order = "id";
+        }
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, order));
+        Pageable pageable = new PageRequest(page, size, sort);
+        return repository.findByState(pageable, state);
+
+    }
+
+    @Override
+    public Page<Developer> findAllPageable(Integer page, Integer size, String order) {
+        if (StringUtils.isEmpty(order)) {
+            order = "id";
+        }
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, order));
+        Pageable pageable = new PageRequest(page, size, sort);
         return repository.findAll(pageable);
     }
 }

@@ -1,9 +1,13 @@
 package com.shelest.booster.controllers;
 
+import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.services.TaskService;
+import com.shelest.booster.utilities.Pager;
+import com.shelest.booster.utilities.State;
 import com.shelest.booster.utilities.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,10 +18,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
+import java.util.Optional;
 
-/**
- * Created by Home on 27.09.2017.
- */
 @Controller
 @RequestMapping("/tasks")
 public class TaskController {
@@ -25,10 +27,35 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    private static final int BUTTONS_TO_SHOW = 5;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 12;
+    private static final int[] PAGE_SIZES = { 5, 8, 12 };
+
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String listTasks(Model model) {
         model.addAttribute("tasks", taskService.showAllTasks());
         return "tasks/taskList";
+    }
+
+    @RequestMapping(value = "/allTasks", method = RequestMethod.GET)
+    public ModelAndView listBench(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
+                                  @RequestParam(value = "page", required = false) Optional<Integer> page,
+                                  @RequestParam(value = "order", required = false) String order) {
+        ModelAndView modelAndView = new ModelAndView("tasks/allTasks");
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+        Page<Task> tasks = taskService.showAllTasks(evalPage, evalPageSize, order);
+        Pager pager = new Pager(tasks.getTotalPages(), tasks.getNumber(), BUTTONS_TO_SHOW);
+
+        modelAndView.addObject("tasks", tasks);
+        modelAndView.addObject("selectedPageSize", evalPageSize);
+        modelAndView.addObject("order", order);
+        modelAndView.addObject("pageSizes", PAGE_SIZES);
+        modelAndView.addObject("pager", pager);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/{id}/deleteTask", method = RequestMethod.GET)

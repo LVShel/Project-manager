@@ -1,11 +1,17 @@
 package com.shelest.booster.services;
 
 import com.shelest.booster.domain.Task;
+import com.shelest.booster.utilities.Status;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 
 public interface TaskService {
-    Iterable<Task> showAllTasks();
+    List<Task> showAllTasks();
+
+    List<Task> getByStatus(Status status);
 
     Task getById(long id);
 
@@ -14,4 +20,6 @@ public interface TaskService {
     void addTask(Task task);
 
     void updateTask(Task task);
+
+    Page<Task> showAllTasks(int page, int size, String order);
 }

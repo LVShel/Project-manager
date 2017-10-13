@@ -39,20 +39,14 @@ public class DeveloperController {
 
     private static final int BUTTONS_TO_SHOW = 5;
     private static final int INITIAL_PAGE = 0;
-    private static final int INITIAL_PAGE_SIZE = 5;
+    private static final int INITIAL_PAGE_SIZE = 12;
     private static final int[] PAGE_SIZES = { 5, 8, 12 };
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String listDevelopers(Model model) {
-        model.addAttribute("developers", developerService.showAllDevelopers());
-        return "developers/list";
-    }
-
-    @GetMapping("/pages")
-    public ModelAndView showEmployeesPage(@RequestParam("pageSize") Optional<Integer> pageSize,
-                                        @RequestParam("page") Optional<Integer> page) {
-        ModelAndView modelAndView = new ModelAndView("developers/pages");
-
+    @GetMapping("/all")
+    public ModelAndView listDevelopers(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
+                                          @RequestParam(value = "page", required = false) Optional<Integer> page,
+                                          @RequestParam(value = "order", required = false) String order) {
+        ModelAndView modelAndView = new ModelAndView("developers/all");
         // Evaluate page size. If requested parameter is null, return initial
         // page size
         int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
@@ -61,22 +55,35 @@ public class DeveloperController {
         // param. decreased by 1.
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
-        Page<Developer> persons = developerService.findAllPageable(new PageRequest(evalPage, evalPageSize));
+        Page<Developer> persons = developerService.findAllPageable(evalPage, evalPageSize, order);
         Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), BUTTONS_TO_SHOW);
 
         modelAndView.addObject("persons", persons);
         modelAndView.addObject("selectedPageSize", evalPageSize);
+        modelAndView.addObject("order", order);
         modelAndView.addObject("pageSizes", PAGE_SIZES);
         modelAndView.addObject("pager", pager);
         return modelAndView;
     }
 
     @RequestMapping(value = "/bench", method = RequestMethod.GET)
-    public String listBench(Model model) {
-        model.addAttribute("developers", developerService.getByState(State.ON_BENCH));
-        return "developers/bench";
-    }
+    public ModelAndView listBench(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
+                                          @RequestParam(value = "page", required = false) Optional<Integer> page,
+                                          @RequestParam(value = "order", required = false) String order) {
+        ModelAndView modelAndView = new ModelAndView("developers/bench");
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
+        Page<Developer> persons = developerService.getByState(evalPage, evalPageSize, order, State.ON_BENCH);
+        Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), BUTTONS_TO_SHOW);
+
+        modelAndView.addObject("persons", persons);
+        modelAndView.addObject("selectedPageSize", evalPageSize);
+        modelAndView.addObject("order", order);
+        modelAndView.addObject("pageSizes", PAGE_SIZES);
+        modelAndView.addObject("pager", pager);
+        return modelAndView;
+    }
 
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable long id) {

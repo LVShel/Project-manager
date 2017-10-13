@@ -1,8 +1,27 @@
-<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <div layout:fragment="content">
 
-    <marquee behavior="scroll" direction="right"><p th:text="'Hello, ' + ${name} + '!'"></p></marquee>
+    <marquee behavior="scroll" direction="right">
+        <a >Hello,  <span  sec:authentication="name"></span>! Today is <span th:text="${dateTime}"></span></a>
+
+    </marquee>
+<div>
+    <ul class="list-group" style="width: 100%">
+        <li class="list-group-item list-group-item-info"><a href="/developers/all">Total developers <span class="badge" th:text="${totalStaffSize}"></span></a></li>
+        <li class="list-group-item list-group-item-info"><a href="/developers/bench">Developers on bench <span class="badge" th:text="${benchSize}"></span></a></li>
+        <li class="list-group-item list-group-item-info"><a href="/projects">Current projects <span class="badge" th:text="${allProjectsSize}"></span></a> </li>
+        <li class="list-group-item list-group-item-info"><a href="/tasks">Total tasks <span class="badge" th:text="${allTasksSize}"></span></a> </li>
+        <li class="list-group-item list-group-item-warning"><a href="/tasks">Unassigned Tasks <span class="badge" th:text="${unassignedTasksSize}"></span></a> </li>
+    </ul>
+
+</div>
+
+
+
+
+
 
 
 </div>

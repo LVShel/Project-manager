@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
@@ -17,7 +19,7 @@ public class ProjectServiceImpl implements ProjectService {
     private ManagementService managementService;
 
     @Override
-    public Iterable<Project> showAllProjects() {
+    public List<Project> showAllProjects() {
         return repository.findAll();
     }
 

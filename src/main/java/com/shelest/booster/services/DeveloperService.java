@@ -26,6 +26,7 @@ public interface DeveloperService {
 
     List<Developer> getByState(State state);
 
+    Page<Developer> getByState(Integer page, Integer size, String order, State state);
 
-    Page<Developer> findAllPageable(Pageable pageable);
+    Page<Developer> findAllPageable(Integer page, Integer size, String order);
 }

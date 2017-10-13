@@ -1,0 +1,84 @@
+<html layout:decorator="layout" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content">
+
+    <table class="table table-striped" id="tasks_list">
+        <thead>
+        <tr >
+            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=id)}">Id</a></th>
+            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=projectName)}">Name of project</a></th>
+            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=taskType)}">Type</a></th>
+            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=startDate)}">Start date</a></th>
+            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=endDate)}">Deadline</a></th>
+            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=storyPoints)}">Story points</a></th>
+            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=status)}">Status</a></th>
+            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=executorID)}">Executor</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="task : ${tasks}">
+            <td class="name" data-th-text="${task.id}"></td>
+            <td class="name" data-th-text="${task.projectName}"></td>
+            <td class="name" data-th-text="${task.taskType}"></td>
+            <td class="name" data-th-text="${task.startDate}"></td>
+            <td class="name" data-th-text="${task.endDate}"></td>
+            <td class="name" data-th-text="${task.storyPoints}"></td>
+            <td class="name" data-th-text="${task.status}"></td>
+            <td class="name" data-th-text="${task.executorID}"></td>
+
+            <td>
+                <a th:href="@{'/tasks/{id}/deleteTask'(id=${task.id})}" class="delete" th:attr="name=${task.projectName}">
+                        <span class="fa-stack">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </span>
+                </a>
+            </td>
+
+            <td>
+                <a th:href="@{'/tasks/{id}/editTask'(id=${task.id})}" class="edit" th:attr="name=${task.projectName}" aria-label="edit">
+                    <span class="fa-stack">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </span>
+
+                </a>
+            </td>
+
+        </tr>
+        </tbody>
+        <div class="btn-group" align="right">
+            <button type="button" class="btn-xs btn-primary">Items on page</button>
+            <button type="button" class="btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" style="background-color: gainsboro">
+                <li><a href="/tasks/allTasks?pageSize=12">12</a></li>
+                <li><a href="/tasks/allTasks?pageSize=8">8</a></li>
+                <li><a href="/tasks/allTasks?pageSize=5">5</a></li>
+            </ul>
+        </div>
+    </table>
+    <div class="row">
+        <div th:if="${tasks.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+            <ul class="pagination">
+                <li th:class="${tasks.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=${order}, page=1)}">&laquo;</a>
+                </li>
+                <li th:class="${tasks.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=${order}, page=${tasks.number})}">&larr;</a>
+                </li>
+                <li th:class="${tasks.number == (page - 1)} ? 'active pointer-disabled'"
+                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                    <a class="pageLink" th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=${order}, page=${page})}" th:text="${page}"></a>
+                </li>
+                <li th:class="${tasks.number + 1 == tasks.totalPages} ? disabled">
+                    <a class="pageLink" th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=${order}, page=${tasks.number + 2})}">&rarr;</a>
+                </li>
+                <li th:class="${tasks.number + 1 == tasks.totalPages} ? disabled">
+                    <a class="pageLink" th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=${order}, page=${tasks.totalPages})}">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+    <a class="btn btn-primary btn-lg btn-block" href="/tasks/newTask">Add new task</a>
+</div>
+</html>
