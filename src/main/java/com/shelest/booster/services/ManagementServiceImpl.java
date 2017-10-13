@@ -47,9 +47,19 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public void removeDeveloperFromProject(Developer developer, Project project) {
-        project.dismiss(developer);
         developer.setState(State.ON_BENCH);
         developer.setNameOfCurrentProject("Dismissed from project " + project.getName());
+        project.dismiss(developer);
+    }
+
+    @Override
+    public void removeAllDevelopersFromOneProject(Project project) {
+
+        for (Developer developer : project.getDevelopersOnProject()){
+            developer.setState(State.ON_BENCH);
+            developer.setNameOfCurrentProject("Dismissed from project " + project.getName());
+        }
+        project.dismissAll();
     }
 
     @Override

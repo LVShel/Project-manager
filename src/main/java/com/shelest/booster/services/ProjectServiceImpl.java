@@ -1,15 +1,20 @@
 package com.shelest.booster.services;
 
+import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Project;
 import com.shelest.booster.repositories.ProjectRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 public class ProjectServiceImpl implements ProjectService {
 
     @Autowired
     private ProjectRepository repository;
+
+    @Autowired
+    private ManagementService managementService;
 
     @Override
     public Iterable<Project> showAllProjects() {
@@ -23,7 +28,8 @@ public class ProjectServiceImpl implements ProjectService {
 
     @Override
     public void removeProject(long id) {
-        repository.delete(id);
+        managementService.removeAllDevelopersFromOneProject(repository.findOne(id));
+        repository.delete(id);//todo remove all developers before
     }
 
     @Override

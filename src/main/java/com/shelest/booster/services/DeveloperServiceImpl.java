@@ -5,7 +5,12 @@ import com.shelest.booster.domain.Task;
 import com.shelest.booster.repositories.DeveloperRepository;
 import com.shelest.booster.utilities.State;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class DeveloperServiceImpl implements DeveloperService {
@@ -13,11 +18,8 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Autowired
     private DeveloperRepository repository;
 
-    @Autowired
-    TaskService taskService;
-
     @Override
-    public Iterable<Developer> showAllDevelopers() {
+    public List<Developer> showAllDevelopers() {
         return repository.findAll();
     }
 
@@ -42,12 +44,17 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public Iterable<Developer> getByExperienceGreaterThan(double experience) {
+    public List<Developer> getByExperienceGreaterThan(double experience) {
         return repository.findByExperienceGreaterThan(experience);
     }
 
     @Override
-    public Iterable<Developer> getByState(State state) {
+    public List<Developer> getByState(State state) {
         return repository.findByState(state);
+    }
+
+    @Override
+    public Page<Developer> findAllPageable(Pageable pageable) {
+        return repository.findAll(pageable);
     }
 }

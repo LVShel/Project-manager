@@ -1,5 +1,7 @@
 package com.shelest.booster.domain;
 
+import org.springframework.transaction.annotation.Transactional;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -78,5 +80,9 @@ public class Project {
 
     public void dismiss(Developer developer) {
         this.developersOnProject.remove(developer);
+    }
+
+    public void dismissAll() {
+        developersOnProject.clear();
     }
 }

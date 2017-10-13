@@ -7,17 +7,19 @@ import com.shelest.booster.services.DeveloperService;
 import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
+import com.shelest.booster.utilities.Pager;
 import com.shelest.booster.utilities.Rank;
 import com.shelest.booster.utilities.State;
 import com.shelest.booster.utilities.Status;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
+
+import java.util.Optional;
 
 @Controller
 @RequestMapping("/developers")
@@ -35,10 +37,38 @@ public class DeveloperController {
     @Autowired
     private ProjectService projectService;
 
+    private static final int BUTTONS_TO_SHOW = 5;
+    private static final int INITIAL_PAGE = 0;
+    private static final int INITIAL_PAGE_SIZE = 5;
+    private static final int[] PAGE_SIZES = { 5, 8, 12 };
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public String listDevelopers(Model model) {
         model.addAttribute("developers", developerService.showAllDevelopers());
         return "developers/list";
+    }
+
+    @GetMapping("/pages")
+    public ModelAndView showEmployeesPage(@RequestParam("pageSize") Optional<Integer> pageSize,
+                                        @RequestParam("page") Optional<Integer> page) {
+        ModelAndView modelAndView = new ModelAndView("developers/pages");
+
+        // Evaluate page size. If requested parameter is null, return initial
+        // page size
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        // Evaluate page. If requested parameter is null or less than 0 (to
+        // prevent exception), return initial size. Otherwise, return value of
+        // param. decreased by 1.
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+        Page<Developer> persons = developerService.findAllPageable(new PageRequest(evalPage, evalPageSize));
+        Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), BUTTONS_TO_SHOW);
+
+        modelAndView.addObject("persons", persons);
+        modelAndView.addObject("selectedPageSize", evalPageSize);
+        modelAndView.addObject("pageSizes", PAGE_SIZES);
+        modelAndView.addObject("pager", pager);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/bench", method = RequestMethod.GET)

@@ -2,19 +2,14 @@ package com.shelest.booster.repositories;
 
 import com.shelest.booster.domain.Developer;
 import com.shelest.booster.utilities.State;
-import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import org.springframework.boot.test.autoconfigure.orm.jpa.TestEntityManager;
-import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.junit4.SpringRunner;
 
-import java.math.BigDecimal;
-import java.util.Collection;
 import java.util.List;
 
 import static org.assertj.core.api.Java6Assertions.assertThat;

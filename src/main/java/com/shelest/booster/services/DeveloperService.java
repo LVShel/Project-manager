@@ -3,11 +3,16 @@ package com.shelest.booster.services;
 import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.utilities.State;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 public interface DeveloperService {
 
-    Iterable<Developer> showAllDevelopers();
+    List<Developer> showAllDevelopers();
 
     Developer getById(long id);
 
@@ -17,10 +22,10 @@ public interface DeveloperService {
 
     void updateDeveloper(Developer developer);
 
-    Iterable<Developer> getByExperienceGreaterThan(double experience);
+    List<Developer> getByExperienceGreaterThan(double experience);
 
-    Iterable<Developer> getByState(State state);
+    List<Developer> getByState(State state);
 
 
-
+    Page<Developer> findAllPageable(Pageable pageable);
 }

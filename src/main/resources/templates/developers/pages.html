@@ -1,0 +1,74 @@
+<html layout:decorator="layout" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content">
+
+
+    <table class="table table-striped" id="posts_list">
+        <thead>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Rank</th>
+            <th>Experience</th>
+            <th>Qualification</th>
+            <th>State</th>
+            <th>Project</th>
+            <th>Tasks</th>
+            <th>BFX</th>
+            <th>DEV</th>
+            <th>REF</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="developer : ${persons}">
+            <td class="name" data-th-text="${developer.id}"></td>
+            <td class="name" data-th-text="${developer.name}"></td>
+            <td class="name" data-th-text="${developer.rank}"></td>
+            <td class="name" data-th-text="${developer.experience}"></td>
+            <td class="name" data-th-text="${developer.qualification}"></td>
+            <td class="name" data-th-text="${developer.state}"></td>
+            <td class="name" data-th-text="${developer.nameOfCurrentProject}"></td>
+            <td class="name" data-th-text="${developer.numberOfTasks}"></td>
+            <td class="name" data-th-text="${developer.numberOfBugfixingTasks}"></td>
+            <td class="name" data-th-text="${developer.numberOfDevelopmentTasks}"></td>
+            <td class="name" data-th-text="${developer.numberOfRefactoringTasks}"></td>
+        </tr>
+        </tbody>
+        <div class="btn-group" align="right">
+            <button type="button" class="btn-xs btn-primary">Items on page</button>
+            <button type="button" class="btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" style="background-color: gainsboro">
+                <li><a href="/developers/pages?pageSize=12">12</a></li>
+                <li><a href="/developers/pages?pageSize=8">8</a></li>
+                <li><a href="/developers/pages?pageSize=5">5</a></li>
+            </ul>
+        </div>
+    </table>
+
+    <div class="row">
+        <div th:if="${persons.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+            <ul class="pagination">
+                <li th:class="${persons.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/developers/pages(pageSize=${selectedPageSize}, page=1)}">&laquo;</a>
+                </li>
+                <li th:class="${persons.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/developers/pages(pageSize=${selectedPageSize}, page=${persons.number})}">&larr;</a>
+                </li>
+                <li th:class="${persons.number == (page - 1)} ? 'active pointer-disabled'"
+                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                    <a class="pageLink" th:href="@{/developers/pages(pageSize=${selectedPageSize}, page=${page})}" th:text="${page}"></a>
+                </li>
+                <li th:class="${persons.number + 1 == persons.totalPages} ? disabled">
+                    <a class="pageLink" th:href="@{/developers/pages(pageSize=${selectedPageSize}, page=${persons.number + 2})}">&rarr;</a>
+                </li>
+                <li th:class="${persons.number + 1 == persons.totalPages} ? disabled">
+                    <a class="pageLink" th:href="@{/developers/pages(pageSize=${selectedPageSize}, page=${persons.totalPages})}">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</html>

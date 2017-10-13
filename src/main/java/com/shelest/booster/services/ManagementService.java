@@ -22,6 +22,8 @@ public interface ManagementService {
 
     void removeDeveloperFromProject(Developer developer, Project project);
 
+    void removeAllDevelopersFromOneProject(Project project);
+
     void assignAllDevelopersToProjects(List<Developer> developers, List<Project> projects);
 
     void removeAllDevelopersFromProjects(List<Developer> developers, List<Project> projects);
