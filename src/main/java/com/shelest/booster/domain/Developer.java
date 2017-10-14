@@ -3,8 +3,10 @@ package com.shelest.booster.domain;
 import com.shelest.booster.utilities.Rank;
 import com.shelest.booster.utilities.State;
 import com.shelest.booster.utilities.Status;
+import com.shelest.booster.utilities.TaskType;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -23,7 +25,7 @@ public class Developer {
     private State state = State.ON_BENCH;
     private String nameOfCurrentProject = "========unknown========";
     @OneToMany
-    private List<Task> assignedTasks;
+    private List<Task> assignedTasks = new ArrayList<>();
     private int numberOfTasks;
     private int numberOfBugfixingTasks;
     private int numberOfRefactoringTasks;
@@ -49,6 +51,9 @@ public class Developer {
                 doRefactoring();
                 break;
         }
+        this.getAssignedTasks().add(task);
+        task.setStatus(Status.ASSIGNED);
+        task.setExecutorID(this.getId());
     }
 
     public void stopExecuting(Task task) {
@@ -64,37 +69,63 @@ public class Developer {
                 stopRefactoring();
                 break;
         }
+        this.getAssignedTasks().remove(task);
+        task.setStatus(Status.NOT_ASSIGNED);
+        task.setExecutorID(0);
+    }
+
+    public void stopExecutingAllTasks(){
+        this.getAssignedTasks().clear();
     }
 
     private void doBugFixing() {
         numberOfTasks++;
         numberOfBugfixingTasks++;
+        System.out.println("I, " + getName() + ", " + getRank() + "am doing bug Fixing");
     }
 
     private void doDevelopment() {
         numberOfTasks++;
         numberOfDevelopmentTasks++;
+        System.out.println("I, " + getName() + ", " + getRank() + "am doing Development");
     }
 
     private void doRefactoring() {
         numberOfTasks++;
         numberOfRefactoringTasks++;
+        System.out.println("I, " + getName() + ", " + getRank() + "am doing Refactoring");
     }
 
 
     private void stopBugFixing() {
-        numberOfTasks--;
-        numberOfBugfixingTasks--;
+        if (numberOfTasks > 0) {
+            numberOfTasks--;
+        }
+        if (numberOfBugfixingTasks > 0) {
+            numberOfBugfixingTasks--;
+        }
+
+        System.out.println("I, " + getName() + ", " + getRank() + "have STOPPED doing bug Fixing");
     }
 
     private void stopDeveloping() {
-        numberOfTasks--;
-        numberOfDevelopmentTasks--;
+        if (numberOfTasks > 0) {
+            numberOfTasks--;
+        }
+        if (numberOfDevelopmentTasks > 0) {
+            numberOfDevelopmentTasks--;
+        }
+        System.out.println("I, " + getName() + ", " + getRank() + "have STOPPED doing Development");
     }
 
     private void stopRefactoring() {
-        numberOfTasks--;
-        numberOfRefactoringTasks--;
+        if (numberOfTasks > 0) {
+            numberOfTasks--;
+        }
+        if (numberOfRefactoringTasks > 0) {
+            numberOfRefactoringTasks--;
+        }
+        System.out.println("I, " + getName() + ", " + getRank() + "have STOPPED doing Refactoring");
     }
 
     public String getName() {

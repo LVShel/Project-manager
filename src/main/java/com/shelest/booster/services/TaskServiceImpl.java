@@ -50,6 +50,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    public void updateAllTasks() {
+        List<Task> tasks = repository.findAll();
+        repository.save(tasks);
+    }
+
+    @Override
     public Page<Task> showAllTasks(int page, int size, String order) {
         if (StringUtils.isEmpty(order)) {
             order = "id";

@@ -19,6 +19,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.List;
 import java.util.Optional;
 
 @Controller
@@ -197,5 +198,29 @@ public class DeveloperController {
         model.addAttribute("developer", developer);
         model.addAttribute("projects", projectService.showAllProjects());
         return "developers/assignToProject";
+    }
+
+    @RequestMapping(value = "/assignAllTasks", method = RequestMethod.GET)
+    public ModelAndView assignAllTasks() {
+        List<Task> notAssignedTasks = taskService.getByStatus(Status.NOT_ASSIGNED);
+        List<Project> projects = projectService.showAllProjects();
+
+        managementService.assignAllTasks(projects, notAssignedTasks);
+        developerService.updateAllDevelopers();
+        taskService.updateAllTasks();
+        projectService.updateAllProjects();
+        return new ModelAndView("redirect:/developers/bench");
+    }
+
+    @RequestMapping(value = "/cancelAllTasks", method = RequestMethod.GET)
+    public ModelAndView cancelAllTasks() {
+        List<Task> assignedTasks = taskService.getByStatus(Status.ASSIGNED);
+        List<Project> projects = projectService.showAllProjects();
+
+        managementService.cancelAllTasks(projects, assignedTasks);
+        developerService.updateAllDevelopers();
+        taskService.updateAllTasks();
+        projectService.updateAllProjects();
+        return new ModelAndView("redirect:/developers/bench");
     }
 }

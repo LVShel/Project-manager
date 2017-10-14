@@ -46,6 +46,12 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
+    public void updateAllDevelopers() {
+        List<Developer> developers = repository.findAll();
+        repository.save(developers);
+    }
+
+    @Override
     public List<Developer> getByExperienceGreaterThan(double experience) {
         return repository.findByExperienceGreaterThan(experience);
     }

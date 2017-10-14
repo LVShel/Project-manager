@@ -29,6 +29,11 @@ public class ProjectServiceImpl implements ProjectService {
     }
 
     @Override
+    public Project getByName(String name) {
+        return repository.findByNameEquals(name);
+    }
+
+    @Override
     public void removeProject(long id) {
         managementService.removeAllDevelopersFromOneProject(repository.findOne(id));
         repository.delete(id);//todo remove all developers before
@@ -42,5 +47,11 @@ public class ProjectServiceImpl implements ProjectService {
     @Override
     public void updateProject(Project project) {
         repository.save(project);
+    }
+
+    @Override
+    public void updateAllProjects() {
+        List<Project> projects = repository.findAll();
+        repository.save(projects);
     }
 }

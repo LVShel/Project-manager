@@ -22,6 +22,8 @@ public interface DeveloperService {
 
     void updateDeveloper(Developer developer);
 
+    void updateAllDevelopers();
+
     List<Developer> getByExperienceGreaterThan(double experience);
 
     List<Developer> getByState(State state);

@@ -27,4 +27,5 @@ public interface ManagementService {
     void assignAllDevelopersToProjects(List<Developer> developers, List<Project> projects);
 
     void removeAllDevelopersFromProjects(List<Developer> developers, List<Project> projects);
+
 }

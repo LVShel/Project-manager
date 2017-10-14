@@ -12,9 +12,13 @@ public interface ProjectService {
 
     Project getById(long id);
 
+    Project getByName(String name);
+
     void removeProject(long id);
 
     void addProject(Project project);
 
     void updateProject(Project project);
+
+    void updateAllProjects();
 }

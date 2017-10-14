@@ -6,4 +6,5 @@ import org.springframework.data.repository.CrudRepository;
 
 
 public interface ProjectRepository extends JpaRepository<Project, Long> {
+    Project findByNameEquals(String name);
 }

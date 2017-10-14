@@ -98,7 +98,7 @@
                     <a class="pageLink" th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=${order}, page=${persons.number})}">&larr;</a>
                 </li>
                 <li th:class="${persons.number == (page - 1)} ? 'active pointer-disabled'"
-                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                    th:each="page : ${#numbers.sequence(pager.endPage, pager.startPage)}">
                     <a class="pageLink" th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=${order}, page=${page})}" th:text="${page}"></a>
                 </li>
                 <li th:class="${persons.number + 1 == persons.totalPages} ? disabled">
@@ -111,5 +111,7 @@
         </div>
     </div>
     <a class="btn btn-primary btn-lg btn-block" href="/developers/new">Add new developer</a>
+    <a class="btn btn-primary " href="/developers/assignAllTasks">Run smart task distributor</a>
+    <a class="btn btn-primary " href="/developers/cancelAllTasks">Cancel all tasks execution</a>
 </div>
 </html>

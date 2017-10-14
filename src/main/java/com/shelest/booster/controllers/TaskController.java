@@ -1,10 +1,8 @@
 package com.shelest.booster.controllers;
 
-import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.services.TaskService;
 import com.shelest.booster.utilities.Pager;
-import com.shelest.booster.utilities.State;
 import com.shelest.booster.utilities.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -30,7 +28,7 @@ public class TaskController {
     private static final int BUTTONS_TO_SHOW = 5;
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 12;
-    private static final int[] PAGE_SIZES = { 5, 8, 12 };
+    private static final int[] PAGE_SIZES = {5, 8, 12};
 
 
     @RequestMapping(value = "", method = RequestMethod.GET)

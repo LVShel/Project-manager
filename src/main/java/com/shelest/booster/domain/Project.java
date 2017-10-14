@@ -3,6 +3,7 @@ package com.shelest.booster.domain;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -17,7 +18,7 @@ public class Project {
     private int juniorsNeed;
     private int maxTasksForOneDev;
     @OneToMany
-    private List<Developer> developersOnProject;
+    private List<Developer> developersOnProject = new ArrayList<>();
 
     public Project() {
     }

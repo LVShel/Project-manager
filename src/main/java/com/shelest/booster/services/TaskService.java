@@ -21,5 +21,7 @@ public interface TaskService {
 
     void updateTask(Task task);
 
+    void updateAllTasks();
+
     Page<Task> showAllTasks(int page, int size, String order);
 }
