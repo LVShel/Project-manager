@@ -40,6 +40,7 @@ public class HomeController {
         modelAndView.addObject("allTasksSize", taskService.showAllTasks().size());
         modelAndView.addObject("unassignedTasksSize", taskService.getByStatus(Status.NOT_ASSIGNED).size());
         modelAndView.addObject("dateTime", now);
+        modelAndView.addObject("free_developers", developerService.getByNumberOfTasks(0).size());
         return modelAndView;
     }
 }

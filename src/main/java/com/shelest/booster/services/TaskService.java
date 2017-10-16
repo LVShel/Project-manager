@@ -24,4 +24,8 @@ public interface TaskService {
     void updateAllTasks();
 
     Page<Task> showAllTasks(int page, int size, String order);
+
+    Page<Task> showAllTasksByStatus(int page, int size, String order, Status status);
+
+
 }

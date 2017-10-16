@@ -1,13 +1,7 @@
-<!DOCTYPE HTML>
-<html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <div th:replace="fragments/header :: header-css"/>
-</head>
-<body>
 
-<div th:replace="fragments/header :: header"/>
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
 
-<div class="container">
+<div layout:fragment="content">
 
     <div class="starter-template">
         <h1>403 - Access is denied</h1>
@@ -16,9 +10,7 @@
     </div>
 
 </div>
-<!-- /.container -->
 
-<div th:replace="fragments/footer :: footer"/>
 
-</body>
 </html>
+

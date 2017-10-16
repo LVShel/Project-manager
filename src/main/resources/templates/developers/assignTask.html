@@ -1,52 +1,18 @@
 <html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content">
-    hello
+
     <form method="post" name="developer_form" id="developer_form" action="/developers/assign" role="form">
 
-        <input type="hidden" id="developer_id" rows="5" class="form-control" name="developer_id" th:value="${developer.id}"/>
-        <h2>Input Id of task you want to assign:</h2>
-        <input type="number" id="task_id"  name="task_id" value="${task.id}"/>
-
-        <table class="table table-striped" id="tasks_list">
-            <thead>
-            <tr >
-                <th>Id</th>
-                <th>Name of project</th>
-                <th>Type</th>
-                <th>Start date</th>
-                <th>Deadline</th>
-                <th>Story points</th>
-                <th>Status</th>
-                <th>Executor</th>
-
-            </tr>
-            </thead>
-            <tbody>
-            <tr data-th-each="task : ${allTasks}">
-                <td class="name" data-th-text="${task.id}"></td>
-                <td class="name" data-th-text="${task.projectName}"></td>
-                <td class="name" data-th-text="${task.taskType}"></td>
-                <td class="name" data-th-text="${task.startDate}"></td>
-                <td class="name" data-th-text="${task.endDate}"></td>
-                <td class="name" data-th-text="${task.storyPoints}"></td>
-                <td class="name" data-th-text="${task.status}"></td>
-                <td class="name" data-th-text="${task.executorID}"></td>
-
-                <!--<td>-->
-                    <!--<a th:href="@{'assignTask/{taskId}'(taskId=${task.id})}" class="delete" >-->
-                        <!--<span class="fa-stack">-->
-                            <!--<i class="glyphicon glyphicon-remove"></i>-->
-                        <!--</span>-->
-                    <!--</a>-->
-                <!--</td>-->
+        <input type="hidden" id="developer_id" class="form-control" name="developer_id" th:value="${developer.id}"/>
+        <div class="form-group">
+            <label for="projectNameSelect"><h2>Select task</h2></label>
+            <select class="form-control " id="projectNameSelect" name="task_id">
+                <option th:each="task : *{allTasks}" th:text="'| ID: '+${task.id}+' | '+${task.projectName}+' | '+${task.taskType}+'|'+${{task.startDate}}+' -> '+${{task.endDate}}+' | Story points: '+${task.storyPoints}" th:value="${task.id}"></option>
+            </select>
+            <input type="submit" value="Assign" class="btn btn-primary btn-lg" />
+        </div>
 
 
-
-            </tr>
-            </tbody>
-        </table>
-
-        <input type="submit" value="Assign" />
 
     </form>
 </div>

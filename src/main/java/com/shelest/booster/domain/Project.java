@@ -1,5 +1,6 @@
 package com.shelest.booster.domain;
 
+import com.shelest.booster.utilities.State;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -16,11 +17,63 @@ public class Project {
     private int seniorsNeed;
     private int middlesNeed;
     private int juniorsNeed;
+    private int seniorsOnProject;
+    private int middlesOnProject;
+    private int juniorsOnProject;
     private int maxTasksForOneDev;
     @OneToMany
     private List<Developer> developersOnProject = new ArrayList<>();
 
     public Project() {
+    }
+
+    public void addDeveloper(Developer developer){
+        switch (developer.getRank()) {
+
+            case JUNIOR:
+                juniorsOnProject++;
+                break;
+            case MIDDLE:
+                middlesOnProject++;
+                break;
+            case SENIOR:
+                seniorsOnProject++;
+                break;
+        }
+        developer.setState(State.ON_PROJECT);
+        developer.setNameOfCurrentProject(this.getName());
+        this.getDevelopersOnProject().add(developer);
+    }
+
+    public void kickDeveloperToBench(Developer developer){
+        this.kick(developer);
+        developer.setState(State.ON_BENCH);
+        developer.setNameOfCurrentProject("Dismissed from project " + this.getName());
+        this.dismiss(developer);
+    }
+
+    public void kickAllFromProject(){
+        for (Developer developer : this.getDevelopersOnProject()){
+            this.kick(developer);
+            developer.setState(State.ON_BENCH);
+            developer.setNameOfCurrentProject("Dismissed from project " + this.getName());
+        }
+        this.dismissAll();
+    }
+
+    private void kick(Developer developer){
+        switch (developer.getRank()) {
+
+            case JUNIOR:
+                juniorsOnProject--;
+                break;
+            case MIDDLE:
+                middlesOnProject--;
+                break;
+            case SENIOR:
+                seniorsOnProject--;
+                break;
+        }
     }
 
     public long getId() {
@@ -79,11 +132,35 @@ public class Project {
         this.id = id;
     }
 
-    public void dismiss(Developer developer) {
+    private void dismiss(Developer developer) {
         this.developersOnProject.remove(developer);
     }
 
     public void dismissAll() {
         developersOnProject.clear();
+    }
+
+    public int getSeniorsOnProject() {
+        return seniorsOnProject;
+    }
+
+    public void setSeniorsOnProject(int seniorsOnProject) {
+        this.seniorsOnProject = seniorsOnProject;
+    }
+
+    public int getMiddlesOnProject() {
+        return middlesOnProject;
+    }
+
+    public void setMiddlesOnProject(int middlesOnProject) {
+        this.middlesOnProject = middlesOnProject;
+    }
+
+    public int getJuniorsOnProject() {
+        return juniorsOnProject;
+    }
+
+    public void setJuniorsOnProject(int juniorsOnProject) {
+        this.juniorsOnProject = juniorsOnProject;
     }
 }

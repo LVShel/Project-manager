@@ -6,12 +6,12 @@ import com.shelest.booster.domain.Task;
 
 import java.util.List;
 
-public class SmartHelper {
+public class SmartTaskDistributor {
 
     private Project project;
     private List<Task> tasks;
 
-    public SmartHelper(Project project, List<Task> tasks) {
+    public SmartTaskDistributor(Project project, List<Task> tasks) {
         this.project = project;
         this.tasks = tasks;
     }
@@ -19,7 +19,7 @@ public class SmartHelper {
 
     public void autoAssignAllTasks() {
         for(Task task : tasks){
-            if (task.getProjectName().equalsIgnoreCase(project.getName())) {
+            if (task.getProjectName().equalsIgnoreCase(project.getName()) & task.getStatus().equals(Status.NOT_ASSIGNED)) {
                 switch (task.getTaskType()) {
 
                     case BUGFIXING:
@@ -56,13 +56,13 @@ public class SmartHelper {
         if(findJunior() != null){
             findJunior().execute(task);
         }
-        if(findJunior() == null & findMiddle() != null){
+        else if(findJunior() == null & findMiddle() != null){
             findMiddle().execute(task);
         }
-        if(findJunior() == null & findMiddle() == null & findSenior() != null){
+        else if(findJunior() == null & findMiddle() == null & findSenior() != null){
             findSenior().execute(task);
         }
-        if(findJunior() == null & findMiddle() == null & findSenior() == null){
+        else if(findJunior() == null & findMiddle() == null & findSenior() == null){
             System.out.println("NOT ENOUGH ROWERS FOR BUG FIXING!");//todo more logic (errorPage)
         }
     }

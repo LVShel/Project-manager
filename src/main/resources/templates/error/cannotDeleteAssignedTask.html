@@ -3,11 +3,10 @@
 <div layout:fragment="content">
 
     <div class="starter-template">
-        <h1>ERROR!</h1>
+        <h1>OOPS!</h1>
         <div th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]',
-            this task is already assigned to another developer!</div>
-        <a href="/tasks/allTasks">Go to tasks</a>
-        <a href="/">Go to homepage</a>
+            You cannot delete task assigned to someone! You must cancel its execution first!</div>
+        <a href="/tasks/allTasks">Back</a>
     </div>
 
 

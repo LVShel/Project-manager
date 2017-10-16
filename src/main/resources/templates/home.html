@@ -4,25 +4,33 @@
 <div layout:fragment="content">
 
     <marquee behavior="scroll" direction="right">
-        <a >Hello,  <span  sec:authentication="name"></span>! Today is <span th:text="${dateTime}"></span></a>
+        <a >Hello,  <span  sec:authentication="name"></span>! Today is <span th:text="${dateTime}+ ' You have '+ ${unassignedTasksSize}+ ' urgent tasks!!!' "></span></a>
 
     </marquee>
-<div>
-    <ul class="list-group" style="width: 100%">
-        <li class="list-group-item list-group-item-info"><a href="/developers/all">Total developers <span class="badge" th:text="${totalStaffSize}"></span></a></li>
-        <li class="list-group-item list-group-item-info"><a href="/developers/bench">Developers on bench <span class="badge" th:text="${benchSize}"></span></a></li>
-        <li class="list-group-item list-group-item-info"><a href="/projects">Current projects <span class="badge" th:text="${allProjectsSize}"></span></a> </li>
-        <li class="list-group-item list-group-item-info"><a href="/tasks">Total tasks <span class="badge" th:text="${allTasksSize}"></span></a> </li>
-        <li class="list-group-item list-group-item-warning"><a href="/tasks">Unassigned Tasks <span class="badge" th:text="${unassignedTasksSize}"></span></a> </li>
-    </ul>
-
-</div>
-
-
-
-
-
-
+    <div>
+        <ul class="list-group" style="width: 100%">
+            <li class="list-group-item list-group-item-info"><a href="/developers/all">Total developers <span class="badge" th:text="${totalStaffSize}"></span></a></li>
+            <li class="list-group-item list-group-item-info"><a href="/developers/bench">Developers on bench <span class="badge" th:text="${benchSize}"></span></a></li>
+            <li class="list-group-item list-group-item-info"><a href="/projects">Current projects <span class="badge" th:text="${allProjectsSize}"></span></a> </li>
+            <li class="list-group-item list-group-item-info"><a href="/tasks/allTasks">Total tasks <span class="badge" th:text="${allTasksSize}"></span></a> </li>
+            <li class="list-group-item (${unassignedTasksSize == 0} ? list-group-item-info : list-group-item-warning)"><a href="/tasks/notAssignedTasks">Unassigned Tasks <span class="badge" th:text="${unassignedTasksSize}"></span></a> </li>
+            <li class="list-group-item (${free_developers} > 0)? list-group-item-warning : list-group-item-info"><a href="/projects">Developers without tasks <span class="badge" th:text="${free_developers}"></span></a> </li>
+        </ul>
+    </div>
+    <div class="btn-group">
+        <!--<button type="button" class="btn btn-primary">Apple</button>-->
+        <!--<button type="button" class="btn btn-primary">Samsung</button>-->
+        <div class="btn-group">
+            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
+                Smart aid <span class="caret"></span></button>
+            <ul class="dropdown-menu" role="menu">
+                <li><a href="/developers/assignAllTasks">Run smart task distributor</a></li>
+                <li><a href="/developers/cancelAllTasks">Cancel all tasks on all projects (except bench)</a></li>
+                <li><a href="#">Run smart developers allocator</a></li>
+                <li><a href="#">Move all developers to bench</a></li>
+            </ul>
+        </div>
+    </div>
 
 </div>
 

@@ -2,6 +2,7 @@ package com.shelest.booster.domain;
 
 import com.shelest.booster.utilities.Status;
 import com.shelest.booster.utilities.TaskType;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
@@ -16,7 +17,9 @@ public class Task {
     private String projectName;
     @Enumerated(EnumType.STRING)
     private TaskType taskType;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate startDate;
+    @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate endDate;
     private int storyPoints;
     @Enumerated(EnumType.STRING)

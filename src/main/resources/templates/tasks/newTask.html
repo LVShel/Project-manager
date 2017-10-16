@@ -1,23 +1,37 @@
 <html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content">
-    <form method="post" name="task_form" id="task_form" action="/tasks/createTask" role="form">
+    <form class="form-inline" method="post" name="task_form" id="task_form" action="/tasks/createTask" role="form">
 
-            Name of project: <input title="name" type="text" name="projectName" align="left" />
+        <div class="input-group col-xs-2">
+            <label for="projectNameSelect">Select project</label>
+            <select class="form-control " id="projectNameSelect" name="projectName">
+                <option th:each="projectName : *{projectNames}" th:text="${projectName}" th:value="${projectName}"></option>
+            </select>
+        </div>
+        <div class="input-group col-xs-2">
+            <label for="taskType">Select type of task</label>
+            <select id="taskType" name="taskType" class="form-control"  >
+                <option th:each="taskType : ${T(com.shelest.booster.utilities.TaskType).values()}" th:value="${taskType}" th:text="${taskType}"></option>
+            </select>
+        </div>
+        <div class="input-group col-xs-2">
+            <label for="storyPoints">Input story points</label>
+            <input id="storyPoints" class="form-control" title="storyPoints" type="number" name="storyPoints" />
+        </div>
+        <div class="input-group col-xs-2">
+            <label for="start">Select start date</label>
+            <input id="start" type="text" class="form-control" name="startDate" />
+        </div>
+        <div class="input-group col-xs-2">
+            <label for="end">Select end date</label>
+            <input id="end" type="text" class="form-control" name="endDate" />
+        </div>
 
-            Type: <select id="taskType" name="taskType" class="form-group"  >
-                    <option th:each="taskType : ${T(com.shelest.booster.utilities.TaskType).values()}"
-                            th:value="${{taskType}}"
-                            th:text="${taskType}"></option>
-                  </select>
-
-            Start date:  <input title="startDate" type="datetime" name="startDate" />
-
-            Deadline:  <input title="endDate" type="datetime" name="endDate" />
-
-            Story points:  <input title="storyPoints" type="number" name="storyPoints" />
-
-            <input type="submit" value="Save" />
+        <div class="input-group col-xs-1" align="middle">
+            <label for="submit"> Press to save </label>
+            <!--<button id="submit" type="submit" class="btn btn-default">Save</button>-->
+            <input id="submit" type="submit" class="form-control" value="Save" />
+        </div>
         </form>
-
 </div>
 </html>

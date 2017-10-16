@@ -39,24 +39,43 @@ public class Developer {
     }
 
     public void execute(Task task) {
-        switch (task.getTaskType()) {
+        if (task.getStatus().equals(Status.NOT_ASSIGNED)) {
+            switch (task.getTaskType()) {
 
-            case BUGFIXING:
-                doBugFixing();
-                break;
-            case DEVELOPMENT:
-                doDevelopment();
-                break;
-            case REFACTORING:
-                doRefactoring();
-                break;
+                case BUGFIXING:
+                    doBugFixing();
+                    break;
+                case DEVELOPMENT:
+                    doDevelopment();
+                    break;
+                case REFACTORING:
+                    doRefactoring();
+                    break;
+            }
+            task.setStatus(Status.ASSIGNED);
+            task.setExecutorID(this.getId());
+            this.getAssignedTasks().add(task);
         }
-        this.getAssignedTasks().add(task);
-        task.setStatus(Status.ASSIGNED);
-        task.setExecutorID(this.getId());
+
     }
 
     public void stopExecuting(Task task) {
+        cancel(task);
+        this.getAssignedTasks().remove(task);
+        task.setStatus(Status.NOT_ASSIGNED);
+        task.setExecutorID(0);
+    }
+
+    public void stopExecutingAllTasks(){
+        for(Task task : this.getAssignedTasks()){
+           cancel(task);
+           task.setExecutorID(0);
+           task.setStatus(Status.NOT_ASSIGNED);
+        }
+        this.getAssignedTasks().clear();
+    }
+
+    private void cancel(Task task){
         switch (task.getTaskType()) {
 
             case BUGFIXING:
@@ -69,13 +88,6 @@ public class Developer {
                 stopRefactoring();
                 break;
         }
-        this.getAssignedTasks().remove(task);
-        task.setStatus(Status.NOT_ASSIGNED);
-        task.setExecutorID(0);
-    }
-
-    public void stopExecutingAllTasks(){
-        this.getAssignedTasks().clear();
     }
 
     private void doBugFixing() {

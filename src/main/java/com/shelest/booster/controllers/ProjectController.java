@@ -2,11 +2,9 @@ package com.shelest.booster.controllers;
 
 import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Project;
-import com.shelest.booster.domain.Task;
 import com.shelest.booster.services.DeveloperService;
 import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.ProjectService;
-import com.shelest.booster.utilities.Status;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -30,9 +28,10 @@ public class ProjectController {
     private ManagementService managementService;
 
     @RequestMapping(value = "", method = RequestMethod.GET)
-    public String listProjects(Model model) {
-        model.addAttribute("projects", projectService.showAllProjects());
-        return "projects/projectList";
+    public ModelAndView listProjects() {
+        ModelAndView modelAndView = new ModelAndView("projects/projectList");
+        modelAndView.addObject("projects", projectService.showAllProjects());
+        return modelAndView;
     }
 
     @RequestMapping(value = "/{id}/deleteProject", method = RequestMethod.GET)
@@ -42,17 +41,11 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/newProject", method = RequestMethod.GET)
-    public String newProject() {
-        return "projects/newProject";
+    public ModelAndView newProject() {
+        return new ModelAndView("projects/newProject");
     }
 
     @RequestMapping(value = "/createProject", method = RequestMethod.POST)
-//    private long id;
-//    private String name;
-//    private int seniorsNeed;
-//    private int middlesNeed;
-//    private int juniorsNeed;
-//    private int maxTasksForOneDev;
     public ModelAndView create(@RequestParam("project_name") String name,
                                @RequestParam("seniorsNeed") int seniorsNeed,
                                @RequestParam("middlesNeed") int middlesNeed,
@@ -87,18 +80,19 @@ public class ProjectController {
     }
 
     @RequestMapping(value = "/{id}/editProject", method = RequestMethod.GET)
-    public String edit(@PathVariable long id,
-                       Model model) {
+    public ModelAndView edit(@PathVariable long id) {
+        ModelAndView modelAndView = new ModelAndView("projects/editProject");
         Project project = projectService.getById(id);
-        model.addAttribute("project", project);
-        return "projects/editProject";
+        modelAndView.addObject("project", project);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/{id}/showTeam", method = RequestMethod.GET)
-    public String listAssignedDevelopers(@PathVariable long id, Model model) {
-        model.addAttribute("developersOnProject", projectService.getById(id).getDevelopersOnProject());
-        model.addAttribute("project", projectService.getById(id));
-        return "projects/projectTeam";
+    public ModelAndView listAssignedDevelopers(@PathVariable long id) {
+        ModelAndView modelAndView = new ModelAndView("projects/projectTeam");
+        modelAndView.addObject("developersOnProject", projectService.getById(id).getDevelopersOnProject());
+        modelAndView.addObject("project", projectService.getById(id));
+        return modelAndView;
     }
 
     @RequestMapping(value = "/{id}/showTeam/{devId}", method = RequestMethod.GET)

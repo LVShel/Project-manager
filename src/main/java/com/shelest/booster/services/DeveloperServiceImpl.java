@@ -32,6 +32,7 @@ public class DeveloperServiceImpl implements DeveloperService {
 
     @Override
     public void removeDeveloper(long id) {
+        repository.findOne(id).stopExecutingAllTasks();
         repository.delete(id);
     }
 
@@ -54,6 +55,11 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Override
     public List<Developer> getByExperienceGreaterThan(double experience) {
         return repository.findByExperienceGreaterThan(experience);
+    }
+
+    @Override
+    public List<Developer> getByNumberOfTasks(int numberOfTasks) {
+        return repository.findByNumberOfTasksEquals(numberOfTasks);
     }
 
     @Override

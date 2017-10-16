@@ -6,31 +6,34 @@
         <thead>
         <tr >
             <th>Id</th>
-            <th>Name of project</th>
-            <th>Developers on project</th>
-            <th>Seniors:</th>
-            <th>Middles:</th>
-            <th>Juniors:</th>
-            <th>Tasks limit</th>
+            <th>Name</th>
+            <th>Developers required</th>
+            <th>Developers present:</th>
+            <th>Seniors</th>
+            <th>Middles</th>
+            <th>Juniors</th>
+            <th> | </th>
+            <th>Deficit:</th>
+            <th>Sen</th>
+            <th>Mid</th>
+            <th>Jun</th>
+
         </tr>
         </thead>
         <tbody>
         <tr data-th-each="project : ${projects}">
             <td class="name" data-th-text="${project.id}"></td>
             <td class="name" data-th-text="${project.name}"></td>
+            <td class="name" data-th-text="${project.seniorsNeed+project.middlesNeed+project.juniorsNeed}"></td>
             <td class="name" data-th-text="${project.developersOnProject.size()}"></td>
-            <td class="name" data-th-text="${project.seniorsNeed}"></td>
-            <td class="name" data-th-text="${project.middlesNeed}"></td>
-            <td class="name" data-th-text="${project.juniorsNeed}"></td>
-            <td class="name" data-th-text="${project.maxTasksForOneDev}"></td>
-
-            <td>
-                <a th:href="@{'/projects/{id}/deleteProject'(id=${project.id})}">
-                        <span class="fa-stack">
-                            <i class="glyphicon glyphicon-trash"></i>
-                        </span>
-                </a>
-            </td>
+            <td class="name" data-th-text="${project.seniorsOnProject}"></td>
+            <td class="name" data-th-text="${project.middlesOnProject}"></td>
+            <td class="name" data-th-text="${project.juniorsOnProject}"></td>
+            <td class="name" data-th-text="' | '"></td>
+            <td class="name" data-th-text="${(project.seniorsNeed+project.middlesNeed+project.juniorsNeed)-project.developersOnProject.size()}"></td>
+            <td class="name" data-th-text="${project.seniorsNeed-project.seniorsOnProject}"></td>
+            <td class="name" data-th-text="${project.middlesNeed-project.middlesOnProject}"></td>
+            <td class="name" data-th-text="${project.juniorsNeed-project.juniorsOnProject}"></td>
 
             <td>
                 <a th:href="@{'/projects/{id}/showTeam'(id=${project.id})}">
@@ -46,6 +49,14 @@
                         <i class="glyphicon glyphicon-edit"></i>
                     </span>
 
+                </a>
+            </td>
+
+            <td>
+                <a th:href="@{'/projects/{id}/deleteProject'(id=${project.id})}">
+                        <span class="fa-stack">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </span>
                 </a>
             </td>
 

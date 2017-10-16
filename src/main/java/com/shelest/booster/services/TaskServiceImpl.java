@@ -64,4 +64,14 @@ public class TaskServiceImpl implements TaskService {
         Pageable pageable = new PageRequest(page, size, sort);
         return repository.findAll(pageable);
     }
+
+    @Override
+    public Page<Task> showAllTasksByStatus(int page, int size, String order, Status status) {
+        if (StringUtils.isEmpty(order)) {
+            order = "id";
+        }
+        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, order));
+        Pageable pageable = new PageRequest(page, size, sort);
+        return repository.findByStatus(pageable, status);
+    }
 }

@@ -26,6 +26,8 @@ public interface DeveloperService {
 
     List<Developer> getByExperienceGreaterThan(double experience);
 
+    List<Developer> getByNumberOfTasks(int numberOfTasks);
+
     List<Developer> getByState(State state);
 
     Page<Developer> getByState(Integer page, Integer size, String order, State state);

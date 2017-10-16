@@ -1,8 +1,11 @@
 package com.shelest.booster.controllers;
 
+import com.shelest.booster.domain.Project;
 import com.shelest.booster.domain.Task;
+import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
 import com.shelest.booster.utilities.Pager;
+import com.shelest.booster.utilities.Status;
 import com.shelest.booster.utilities.TaskType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -16,7 +19,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Controller
 @RequestMapping("/tasks")
@@ -25,20 +30,17 @@ public class TaskController {
     @Autowired
     private TaskService taskService;
 
+    @Autowired
+    private ProjectService projectService;
+
     private static final int BUTTONS_TO_SHOW = 5;
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 12;
     private static final int[] PAGE_SIZES = {5, 8, 12};
 
 
-    @RequestMapping(value = "", method = RequestMethod.GET)
-    public String listTasks(Model model) {
-        model.addAttribute("tasks", taskService.showAllTasks());
-        return "tasks/taskList";
-    }
-
     @RequestMapping(value = "/allTasks", method = RequestMethod.GET)
-    public ModelAndView listBench(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
+    public ModelAndView listAllTasks(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
                                   @RequestParam(value = "page", required = false) Optional<Integer> page,
                                   @RequestParam(value = "order", required = false) String order) {
         ModelAndView modelAndView = new ModelAndView("tasks/allTasks");
@@ -56,22 +58,50 @@ public class TaskController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/notAssignedTasks", method = RequestMethod.GET)
+    public ModelAndView listNotAssignedTasks(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
+                                  @RequestParam(value = "page", required = false) Optional<Integer> page,
+                                  @RequestParam(value = "order", required = false) String order) {
+        ModelAndView modelAndView = new ModelAndView("tasks/notAssignedTasks");
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+        Page<Task> tasks = taskService.showAllTasksByStatus(evalPage, evalPageSize, order, Status.NOT_ASSIGNED);
+        Pager pager = new Pager(tasks.getTotalPages(), tasks.getNumber(), BUTTONS_TO_SHOW);
+
+        modelAndView.addObject("tasks", tasks);
+        modelAndView.addObject("selectedPageSize", evalPageSize);
+        modelAndView.addObject("order", order);
+        modelAndView.addObject("pageSizes", PAGE_SIZES);
+        modelAndView.addObject("pager", pager);
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/{id}/deleteTask", method = RequestMethod.GET)
     public ModelAndView deleteTask(@PathVariable long id) {
-        taskService.removeTask(id);
-        return new ModelAndView("redirect:/tasks");
+        Task task = taskService.getById(id);
+        if (task.getStatus().equals(Status.NOT_ASSIGNED)) {
+            taskService.removeTask(id);
+        }
+        else return new ModelAndView("error/cannotDeleteAssignedTask");
+
+        return new ModelAndView("redirect:/tasks/allTasks");
     }
 
     @RequestMapping(value = "/newTask", method = RequestMethod.GET)
-    public String newTask() {
-        return "tasks/newTask";
+    public ModelAndView newTask() {
+        ModelAndView modelAndView = new ModelAndView("tasks/newTask");
+        List<String> projectNames = projectService.showAllProjects()
+                .stream().map(Project::getName).collect(Collectors.toList());
+        modelAndView.addObject("projectNames", projectNames);
+        return modelAndView;
     }
 
     @RequestMapping(value = "/createTask", method = RequestMethod.POST)
     public ModelAndView create(@RequestParam("projectName") String projectName,
                                @RequestParam("taskType") TaskType taskType,
-                               @RequestParam("startDate") LocalDate startDate,
-                               @RequestParam("endDate") LocalDate endDate,
+                               @RequestParam("startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate,
+                               @RequestParam("endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate,
                                @RequestParam("storyPoints") int storyPoints, Model model) {
         Task task = new Task();
         task.setProjectName(projectName);
@@ -81,15 +111,15 @@ public class TaskController {
         task.setStoryPoints(storyPoints);
         taskService.addTask(task);
         model.addAttribute("taskType", taskType);
-        return new ModelAndView("redirect:/tasks");
+        return new ModelAndView("redirect:/tasks/allTasks");
     }
 
     @RequestMapping(value = "/updateTask", method = RequestMethod.POST)
     public ModelAndView update(@RequestParam("task_id") long id,
                                @RequestParam("projectName") String projectName,
                                @RequestParam("taskType") TaskType taskType,
-                               @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate startDate,
-                               @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") LocalDate endDate,
+                               @RequestParam("startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate,
+                               @RequestParam("endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate,
                                @RequestParam("storyPoints") int storyPoints, Model model) {
         Task task = taskService.getById(id);
         task.setProjectName(projectName);
@@ -98,14 +128,17 @@ public class TaskController {
         task.setEndDate(endDate);
         task.setStoryPoints(storyPoints);
         taskService.updateTask(task);
-        return new ModelAndView("redirect:/tasks");
+        return new ModelAndView("redirect:/tasks/allTasks");
     }
 
     @RequestMapping(value = "/{id}/editTask", method = RequestMethod.GET)
-    public String edit(@PathVariable long id,
-                       Model model) {
+    public ModelAndView edit(@PathVariable long id) {
+        ModelAndView modelAndView = new ModelAndView("tasks/editTask");
         Task task = taskService.getById(id);
-        model.addAttribute("task", task);
-        return "tasks/editTask";
+        List<String> projectNames = projectService.showAllProjects()
+                .stream().map(Project::getName).collect(Collectors.toList());
+        modelAndView.addObject("projectNames", projectNames);
+        modelAndView.addObject("task", task);
+        return modelAndView;
     }
 }

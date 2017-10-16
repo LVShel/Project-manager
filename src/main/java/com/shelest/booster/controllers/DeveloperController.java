@@ -152,7 +152,7 @@ public class DeveloperController {
     @RequestMapping(value = "/{id}/assignTask", method = RequestMethod.GET)
     public String assignTask(@PathVariable long id, Model model) {
         Developer developer = developerService.getById(id);
-        model.addAttribute("allTasks", taskService.showAllTasks());
+        model.addAttribute("allTasks", taskService.getByStatus(Status.NOT_ASSIGNED));
         model.addAttribute("developer", developer);
         return "developers/assignTask";
     }
@@ -200,6 +200,20 @@ public class DeveloperController {
         return "developers/assignToProject";
     }
 
+//    @RequestMapping(value = "/{id}/assignToProject/{projectId}", method = RequestMethod.GET)
+//    public ModelAndView allocateToProject(@PathVariable("id") long id,
+//                                      @PathVariable("projectId") long projectId) {
+//        ModelAndView modelAndView = new ModelAndView("developers/assignToProject");
+//        Developer developer = developerService.getById(id);
+//        Project project = projectService.getById(projectId);
+//        managementService.assignDeveloperToProject(developer, project);
+//        projectService.updateProject(project);
+//        modelAndView.addObject("developer", developer);
+//        modelAndView.addObject("projects", projectService.showAllProjects());
+//        return  modelAndView;
+//    }
+
+
     @RequestMapping(value = "/assignAllTasks", method = RequestMethod.GET)
     public ModelAndView assignAllTasks() {
         List<Task> notAssignedTasks = taskService.getByStatus(Status.NOT_ASSIGNED);
@@ -209,7 +223,7 @@ public class DeveloperController {
         developerService.updateAllDevelopers();
         taskService.updateAllTasks();
         projectService.updateAllProjects();
-        return new ModelAndView("redirect:/developers/bench");
+        return new ModelAndView("redirect:/");
     }
 
     @RequestMapping(value = "/cancelAllTasks", method = RequestMethod.GET)
@@ -221,6 +235,6 @@ public class DeveloperController {
         developerService.updateAllDevelopers();
         taskService.updateAllTasks();
         projectService.updateAllProjects();
-        return new ModelAndView("redirect:/developers/bench");
+        return new ModelAndView("redirect:/");
     }
 }

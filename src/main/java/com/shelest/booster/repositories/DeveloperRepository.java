@@ -14,6 +14,8 @@ public interface DeveloperRepository extends JpaRepository<Developer, Long> {
 
     List<Developer> findByExperienceGreaterThan(double experience);
 
+    List<Developer> findByNumberOfTasksEquals(int numberOfTasks);
+
     List<Developer> findByState(State state);
 
     Page<Developer> findByState(Pageable pageable, State state);

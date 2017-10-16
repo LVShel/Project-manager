@@ -58,7 +58,7 @@
                     <a class="pageLink" th:href="@{/developers/all(pageSize=${selectedPageSize}, order=${order}, page=${persons.number})}">&larr;</a>
                 </li>
                 <li th:class="${persons.number == (page - 1)} ? 'active pointer-disabled'"
-                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage)}">
+                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage, (pager.startPage > pager.endPage)? -1 : 1)}">
                     <a class="pageLink" th:href="@{/developers/all(pageSize=${selectedPageSize}, order=${order}, page=${page})}" th:text="${page}"></a>
                 </li>
                 <li th:class="${persons.number + 1 == persons.totalPages} ? disabled">

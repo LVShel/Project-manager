@@ -1,16 +1,42 @@
 <html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content">
-    <form method="post" name="projectEdit_form" id="projectEdit_form" action="/projects/updateProject" role="form">
-
+    <form class="form-inline" method="post" name="project_form" id="project_form" action="/projects/updateProject" role="form">
         <input type="hidden" id="project_id"  class="form-control" name="project_id" th:value="${project.id}"/>
-        Project name: <input title="projectName" type="text" name="project_name" th:value="${project.name}" />
-        Seniors need: <input title="seniors need" type="text" name="seniorsNeed" th:value="${project.seniorsNeed}" />
-        Middles need: <input title="middles need" type="text" name="middlesNeed" th:value="${project.middlesNeed}" />
-        Juniors need: <input title="juniors need" type="text" name="juniorsNeed" th:value="${project.juniorsNeed}" />
-        Max tasks for one developer:  <input title="juniors need" type="number" name="maxTasks" th:value="${project.maxTasksForOneDev}"/>
-        <input type="submit" value="Save" />
-
+        <div class="input-group col-xs-2">
+            <label for="p_name">Insert project name</label>
+            <input id="p_name" class="form-control" title="name" type="text" name="project_name" th:value="${project.name}" />
+        </div>
+        <div class="input-group col-xs-2">
+            <label for="seniors">Insert seniors need</label>
+            <input id="seniors" class="form-control" title="seniors need" type="number" name="seniorsNeed" th:value="${project.seniorsNeed}" />
+        </div>
+        <div class="input-group col-xs-2">
+            <label for="middles">Insert middles need</label>
+            <input id="middles" class="form-control" title="middles need" type="number" name="middlesNeed" th:value="${project.middlesNeed}" />
+        </div>
+        <div class="input-group col-xs-2">
+            <label for="juniors">Insert juniors need</label>
+            <input id="juniors" class="form-control" title="juniors need" type="number" name="juniorsNeed" th:value="${project.juniorsNeed}" />
+        </div>
+        <div class="input-group col-xs-2">
+            <label for="maxTask">Insert tasks limit</label>
+            <input id="maxTask" class="form-control" title="juniors need" type="number" name="maxTasks" th:value="${project.maxTasksForOneDev}" />
+        </div>
+        <div class="input-group col-xs-1">
+            <label for="submit">Press to save</label>
+            <input id="submit" class="form-control" type="submit" value="Save" />
+        </div>
     </form>
+
+
+        <!--Project name: <input title="projectName" type="text" name="project_name" th:value="${project.name}" />-->
+        <!--Seniors need: <input title="seniors need" type="text" name="seniorsNeed" th:value="${project.seniorsNeed}" />-->
+        <!--Middles need: <input title="middles need" type="text" name="middlesNeed" th:value="${project.middlesNeed}" />-->
+        <!--Juniors need: <input title="juniors need" type="text" name="juniorsNeed" th:value="${project.juniorsNeed}" />-->
+        <!--Max tasks for one developer:  <input title="juniors need" type="number" name="maxTasks" th:value="${project.maxTasksForOneDev}"/>-->
+        <!--<input type="submit" value="Save" />-->
+
+    <!--</form>-->
 
 </div>
 </html>
