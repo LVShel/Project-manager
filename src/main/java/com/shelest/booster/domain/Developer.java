@@ -3,7 +3,8 @@ package com.shelest.booster.domain;
 import com.shelest.booster.utilities.Rank;
 import com.shelest.booster.utilities.State;
 import com.shelest.booster.utilities.Status;
-import com.shelest.booster.utilities.TaskType;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -30,6 +31,9 @@ public class Developer {
     private int numberOfBugfixingTasks;
     private int numberOfRefactoringTasks;
     private int numberOfDevelopmentTasks;
+
+    private static Logger logger = LoggerFactory.getLogger(Developer.class);
+
 
     public Developer(String name) {
         this.name = name;
@@ -66,16 +70,16 @@ public class Developer {
         task.setExecutorID(0);
     }
 
-    public void stopExecutingAllTasks(){
-        for(Task task : this.getAssignedTasks()){
-           cancel(task);
-           task.setExecutorID(0);
-           task.setStatus(Status.NOT_ASSIGNED);
+    public void stopExecutingAllTasks() {
+        for (Task task : this.getAssignedTasks()) {
+            cancel(task);
+            task.setExecutorID(0);
+            task.setStatus(Status.NOT_ASSIGNED);
         }
         this.getAssignedTasks().clear();
     }
 
-    private void cancel(Task task){
+    private void cancel(Task task) {
         switch (task.getTaskType()) {
 
             case BUGFIXING:
@@ -93,19 +97,16 @@ public class Developer {
     private void doBugFixing() {
         numberOfTasks++;
         numberOfBugfixingTasks++;
-        System.out.println("I, " + getName() + ", " + getRank() + "am doing bug Fixing");
     }
 
     private void doDevelopment() {
         numberOfTasks++;
         numberOfDevelopmentTasks++;
-        System.out.println("I, " + getName() + ", " + getRank() + "am doing Development");
     }
 
     private void doRefactoring() {
         numberOfTasks++;
         numberOfRefactoringTasks++;
-        System.out.println("I, " + getName() + ", " + getRank() + "am doing Refactoring");
     }
 
 
@@ -116,8 +117,6 @@ public class Developer {
         if (numberOfBugfixingTasks > 0) {
             numberOfBugfixingTasks--;
         }
-
-        System.out.println("I, " + getName() + ", " + getRank() + "have STOPPED doing bug Fixing");
     }
 
     private void stopDeveloping() {
@@ -127,7 +126,6 @@ public class Developer {
         if (numberOfDevelopmentTasks > 0) {
             numberOfDevelopmentTasks--;
         }
-        System.out.println("I, " + getName() + ", " + getRank() + "have STOPPED doing Development");
     }
 
     private void stopRefactoring() {
@@ -137,7 +135,6 @@ public class Developer {
         if (numberOfRefactoringTasks > 0) {
             numberOfRefactoringTasks--;
         }
-        System.out.println("I, " + getName() + ", " + getRank() + "have STOPPED doing Refactoring");
     }
 
     public String getName() {
