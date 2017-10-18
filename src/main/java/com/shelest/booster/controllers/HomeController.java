@@ -43,7 +43,7 @@ public class HomeController {
         modelAndView.addObject("unassignedTasksSize", taskService.getByStatus(Status.NOT_ASSIGNED).size());
         modelAndView.addObject("dateTime", now);
         modelAndView.addObject("free_developers", developerService.getByNumberOfTasks(0).size());
-        logger.debug("HomeController in method greeting: home page called");
+        logger.debug(" in method greeting: home page called");
         return modelAndView;
     }
 

@@ -35,14 +35,14 @@ public class ProjectController {
     public ModelAndView listProjects() {
         ModelAndView modelAndView = new ModelAndView("projects/projectList");
         modelAndView.addObject("projects", projectService.showAllProjects());
-        logger.debug("ProjectController in GET method listProjects(): when called, found {}:" + projectService.showAllProjects().size() + " projects");
+        logger.debug("ProjectController in GET method listProjects(): when called, found : {}", projectService.showAllProjects().size() + " projects");
         return modelAndView;
     }
 
     @RequestMapping(value = "/{id}/deleteProject", method = RequestMethod.GET)
     public ModelAndView deleteProject(@PathVariable long id) {
         projectService.removeProject(id);
-        logger.debug("ProjectController in GET method deleteProject(): when called, deleted project with ID {}:" + id);
+        logger.debug("ProjectController in GET method deleteProject(): when called, deleted project with ID : {}", id);
         return new ModelAndView("redirect:/projects");
     }
 
@@ -64,7 +64,7 @@ public class ProjectController {
         project.setJuniorsNeed(juniorsNeed);
         project.setMaxTasksForOneDev(maxTasksForOne);
         projectService.addProject(project);
-        logger.debug("ProjectController in POST method create(): Created and added new project with name {}:" + name);
+        logger.debug(" in POST method create(): Created and added new project with name : {}", name);
         return new ModelAndView("redirect:/projects");
     }
 
@@ -82,7 +82,7 @@ public class ProjectController {
         project.setJuniorsNeed(juniorsNeed);
         project.setMaxTasksForOneDev(maxTasksForOne);
         projectService.updateProject(project);
-        logger.debug("ProjectController in POST method update(): updated project with ID {}:" + id);
+        logger.debug(" in POST method update(): updated project with ID : {}", id);
         return new ModelAndView("redirect:/projects");
     }
 
@@ -99,8 +99,8 @@ public class ProjectController {
         ModelAndView modelAndView = new ModelAndView("projects/projectTeam");
         modelAndView.addObject("developersOnProject", projectService.getById(id).getDevelopersOnProject());
         modelAndView.addObject("project", projectService.getById(id));
-        logger.debug("ProjectController in GET method listAssignedDevelopers(): found {}:" +
-                projectService.getById(id).getDevelopersOnProject().size()+" developers on project with ID {}: "+id);
+        logger.debug(" in GET method listAssignedDevelopers(): found : {}" ,
+                projectService.getById(id).getDevelopersOnProject().size()+ " developers on project with ID {}: ", id);
         return modelAndView;
     }
 
@@ -113,7 +113,7 @@ public class ProjectController {
         modelAndView.addObject("team", projectService.getById(id).getDevelopersOnProject());
         modelAndView.addObject("developer", developerService.getById(id));
         managementService.removeDeveloperFromProject(developer, project);
-        logger.debug("ProjectController in GET method removeDeveloper(): Removed developer with ID:{}"+devId+ "from project with ID: {}" + id);
+        logger.debug(" in GET method removeDeveloper(): Removed developer with ID: {}", devId+ "from project with ID: {}", id);
         projectService.updateProject(project);
         return modelAndView;
     }

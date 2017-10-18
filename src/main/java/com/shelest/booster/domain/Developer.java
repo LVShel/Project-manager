@@ -59,6 +59,7 @@ public class Developer {
             task.setStatus(Status.ASSIGNED);
             task.setExecutorID(this.getId());
             this.getAssignedTasks().add(task);
+            logger.debug("Developer with id: {}", this.getId() + " received task with id: {}", task.getId());
         }
 
     }
@@ -68,6 +69,8 @@ public class Developer {
         this.getAssignedTasks().remove(task);
         task.setStatus(Status.NOT_ASSIGNED);
         task.setExecutorID(0);
+        logger.debug("Developer with id: {}", this.getId() +" stopped executing task with id: {}", task.getId());
+
     }
 
     public void stopExecutingAllTasks() {
@@ -77,6 +80,7 @@ public class Developer {
             task.setStatus(Status.NOT_ASSIGNED);
         }
         this.getAssignedTasks().clear();
+        logger.debug("Developer with id: {}", this.getId() + "stopped executing all tasks");
     }
 
     private void cancel(Task task) {

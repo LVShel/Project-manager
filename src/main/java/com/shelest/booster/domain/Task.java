@@ -38,7 +38,7 @@ public class Task {
     }
 
     public TaskType getTaskType() {
-        return taskType;//todo when delete already assigned tasks show errorPage
+        return taskType;
     }
 
     public void setTaskType(TaskType taskType) {

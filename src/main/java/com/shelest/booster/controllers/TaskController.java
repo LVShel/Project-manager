@@ -52,7 +52,7 @@ public class TaskController {
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
         Page<Task> tasks = taskService.showAllTasks(evalPage, evalPageSize, order);
-        logger.debug("TaskController in GET method listAllTasks(): showAllTasks(Pageable) is called and found:{}" + tasks.getSize() + "tasks");
+        logger.debug(" in GET method listAllTasks(): showAllTasks(Pageable) is called and found:{}", tasks.getSize() + "tasks");
         Pager pager = new Pager(tasks.getTotalPages(), tasks.getNumber(), BUTTONS_TO_SHOW);
         modelAndView.addObject("tasks", tasks);
         modelAndView.addObject("selectedPageSize", evalPageSize);
@@ -71,7 +71,7 @@ public class TaskController {
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
         Page<Task> tasks = taskService.showAllTasksByStatus(evalPage, evalPageSize, order, Status.NOT_ASSIGNED);
-        logger.debug("TaskController in GET method listNotAssignedTasks(): showAllTasksByStatus(Pageable) is called and found:{}" + tasks.getSize() + "tasks");
+        logger.debug(" in GET method listNotAssignedTasks(): showAllTasksByStatus(Pageable) is called and found:{}", tasks.getSize() + "tasks");
         Pager pager = new Pager(tasks.getTotalPages(), tasks.getNumber(), BUTTONS_TO_SHOW);
 
         modelAndView.addObject("tasks", tasks);
@@ -87,9 +87,9 @@ public class TaskController {
         Task task = taskService.getById(id);
         if (task.getStatus().equals(Status.NOT_ASSIGNED)) {
             taskService.removeTask(id);
-            logger.debug("TaskController in GET method deleteTask(): Removed task with ID:{}" + id);
+            logger.debug(" in GET method deleteTask(): Removed task with ID:{}", id);
         } else {
-            logger.error("TaskController in GET method deleteTask(): Attempted to delete already assigned task");
+            logger.error(" in GET method deleteTask(): Attempted to delete already assigned task");
             return new ModelAndView("error/cannotDeleteAssignedTask");
         }
         return new ModelAndView("redirect:/tasks/allTasks");
@@ -117,7 +117,7 @@ public class TaskController {
         task.setEndDate(endDate);
         task.setStoryPoints(storyPoints);
         taskService.addTask(task);
-        logger.debug("TaskController in POST method newDeveloper(): Created and dded new task of type:{}" + taskType);
+        logger.debug(" in POST method newDeveloper(): Created and dded new task of type:{}", taskType);
         return new ModelAndView("redirect:/tasks/allTasks");
     }
 
@@ -146,7 +146,7 @@ public class TaskController {
         task.setEndDate(endDate);
         task.setStoryPoints(storyPoints);
         taskService.updateTask(task);
-        logger.debug("TaskController in POST method update(): Updated task with ID:{}" + id);
+        logger.debug(" in POST method update(): Updated task with ID:{}", id);
         return new ModelAndView("redirect:/tasks/allTasks");
     }
 }

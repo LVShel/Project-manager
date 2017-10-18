@@ -1,6 +1,8 @@
 package com.shelest.booster.domain;
 
 import com.shelest.booster.utilities.State;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.*;
@@ -24,6 +26,9 @@ public class Project {
     @OneToMany
     private List<Developer> developersOnProject = new ArrayList<>();
 
+    private static Logger logger = LoggerFactory.getLogger(Project.class);
+
+
     public Project() {
     }
 
@@ -43,6 +48,7 @@ public class Project {
         developer.setState(State.ON_PROJECT);
         developer.setNameOfCurrentProject(this.getName());
         this.getDevelopersOnProject().add(developer);
+        logger.debug("Project with id: {}", this.getId() + " received developer with id: {}", developer.getId());
     }
 
     public void kickDeveloperToBench(Developer developer){
@@ -50,6 +56,7 @@ public class Project {
         developer.setState(State.ON_BENCH);
         developer.setNameOfCurrentProject("Dismissed from project " + this.getName());
         this.dismiss(developer);
+        logger.debug("Project with id: {}", this.getId() +" removed to bench developer with id: {}", developer.getId());
     }
 
     public void kickAllFromProject(){
@@ -59,6 +66,7 @@ public class Project {
             developer.setNameOfCurrentProject("Dismissed from project " + this.getName());
         }
         this.dismissAll();
+        logger.debug("Project with id: {}", this.getId() +" dismissed all developers");
     }
 
     private void kick(Developer developer){
@@ -136,7 +144,7 @@ public class Project {
         this.developersOnProject.remove(developer);
     }
 
-    public void dismissAll() {
+    private void dismissAll() {
         developersOnProject.clear();
     }
 
