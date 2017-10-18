@@ -5,6 +5,8 @@ import com.shelest.booster.domain.Project;
 import com.shelest.booster.services.DeveloperService;
 import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.ProjectService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -27,16 +29,20 @@ public class ProjectController {
     @Autowired
     private ManagementService managementService;
 
+    private static Logger logger = LoggerFactory.getLogger(ProjectController.class);
+
     @RequestMapping(value = "", method = RequestMethod.GET)
     public ModelAndView listProjects() {
         ModelAndView modelAndView = new ModelAndView("projects/projectList");
         modelAndView.addObject("projects", projectService.showAllProjects());
+        logger.debug("ProjectController in GET method listProjects(): when called, found {}:" + projectService.showAllProjects().size() + " projects");
         return modelAndView;
     }
 
     @RequestMapping(value = "/{id}/deleteProject", method = RequestMethod.GET)
     public ModelAndView deleteProject(@PathVariable long id) {
         projectService.removeProject(id);
+        logger.debug("ProjectController in GET method deleteProject(): when called, deleted project with ID {}:" + id);
         return new ModelAndView("redirect:/projects");
     }
 
@@ -50,7 +56,7 @@ public class ProjectController {
                                @RequestParam("seniorsNeed") int seniorsNeed,
                                @RequestParam("middlesNeed") int middlesNeed,
                                @RequestParam("juniorsNeed") int juniorsNeed,
-                               @RequestParam("maxTasks") int maxTasksForOne, Model model) {
+                               @RequestParam("maxTasks") int maxTasksForOne) {
         Project project = new Project();
         project.setName(name);
         project.setSeniorsNeed(seniorsNeed);
@@ -58,7 +64,7 @@ public class ProjectController {
         project.setJuniorsNeed(juniorsNeed);
         project.setMaxTasksForOneDev(maxTasksForOne);
         projectService.addProject(project);
-
+        logger.debug("ProjectController in POST method create(): Created and added new project with name {}:" + name);
         return new ModelAndView("redirect:/projects");
     }
 
@@ -76,6 +82,7 @@ public class ProjectController {
         project.setJuniorsNeed(juniorsNeed);
         project.setMaxTasksForOneDev(maxTasksForOne);
         projectService.updateProject(project);
+        logger.debug("ProjectController in POST method update(): updated project with ID {}:" + id);
         return new ModelAndView("redirect:/projects");
     }
 
@@ -92,19 +99,23 @@ public class ProjectController {
         ModelAndView modelAndView = new ModelAndView("projects/projectTeam");
         modelAndView.addObject("developersOnProject", projectService.getById(id).getDevelopersOnProject());
         modelAndView.addObject("project", projectService.getById(id));
+        logger.debug("ProjectController in GET method listAssignedDevelopers(): found {}:" +
+                projectService.getById(id).getDevelopersOnProject().size()+" developers on project with ID {}: "+id);
         return modelAndView;
     }
 
     @RequestMapping(value = "/{id}/showTeam/{devId}", method = RequestMethod.GET)
-    public ModelAndView cancelTask(@PathVariable(value = "id") long id,
-                                   @PathVariable(value = "devId") long devId, Model model) {
+    public ModelAndView removeDeveloper(@PathVariable(value = "id") long id,
+                                        @PathVariable(value = "devId") long devId) {
+        ModelAndView modelAndView = new ModelAndView("redirect:/projects");
         Project project = projectService.getById(id);
         Developer developer = developerService.getById(devId);
-        model.addAttribute("team", projectService.getById(id).getDevelopersOnProject());
-        model.addAttribute("developer", developerService.getById(id));
+        modelAndView.addObject("team", projectService.getById(id).getDevelopersOnProject());
+        modelAndView.addObject("developer", developerService.getById(id));
         managementService.removeDeveloperFromProject(developer, project);
+        logger.debug("ProjectController in GET method removeDeveloper(): Removed developer with ID:{}"+devId+ "from project with ID: {}" + id);
         projectService.updateProject(project);
-        return new ModelAndView("redirect:/projects");
+        return modelAndView;
     }
 
 }

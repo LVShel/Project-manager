@@ -1,17 +1,16 @@
 package com.shelest.booster.controllers;
 
 import com.shelest.booster.services.DeveloperService;
-import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
 import com.shelest.booster.utilities.State;
 import com.shelest.booster.utilities.Status;
-import org.aspectj.lang.annotation.AdviceName;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.time.LocalDateTime;
@@ -29,6 +28,9 @@ public class HomeController {
     @Autowired
     ProjectService projectService;
 
+    private static Logger logger = LoggerFactory.getLogger(HomeController.class);
+
+
     @RequestMapping("/")
     public ModelAndView greeting() {
         ModelAndView modelAndView = new ModelAndView("home");
@@ -41,6 +43,12 @@ public class HomeController {
         modelAndView.addObject("unassignedTasksSize", taskService.getByStatus(Status.NOT_ASSIGNED).size());
         modelAndView.addObject("dateTime", now);
         modelAndView.addObject("free_developers", developerService.getByNumberOfTasks(0).size());
+        logger.debug("HomeController in method greeting: home page called");
         return modelAndView;
+    }
+
+    @GetMapping("/login")
+    public String login() {
+        return "/login";
     }
 }

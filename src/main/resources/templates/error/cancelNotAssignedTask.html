@@ -1,0 +1,16 @@
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content">
+
+    <div class="starter-template">
+        <h1>OOPS!</h1>
+        <div th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]',
+            You cannot cancel task assigned to nobody! You must first assign It, you nasty Project Manager!!</div>
+        <a href="/tasks/allTasks">Back</a>
+    </div>
+
+
+</div>
+
+
+</html>

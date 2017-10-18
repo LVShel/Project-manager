@@ -7,10 +7,9 @@ import com.shelest.booster.services.DeveloperService;
 import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
-import com.shelest.booster.utilities.Pager;
-import com.shelest.booster.utilities.Rank;
-import com.shelest.booster.utilities.State;
-import com.shelest.booster.utilities.Status;
+import com.shelest.booster.utilities.*;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -38,6 +37,8 @@ public class DeveloperController {
     @Autowired
     private ProjectService projectService;
 
+    private static Logger logger = LoggerFactory.getLogger(DeveloperController.class);
+
     private static final int BUTTONS_TO_SHOW = 5;
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 12;
@@ -57,8 +58,8 @@ public class DeveloperController {
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
         Page<Developer> persons = developerService.findAllPageable(evalPage, evalPageSize, order);
+        logger.debug("DeveloperController in GET method listDevelopers(): getByState(Pageable) is called and found:{}" + persons.getSize() + "developers");
         Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), BUTTONS_TO_SHOW);
-
         modelAndView.addObject("persons", persons);
         modelAndView.addObject("selectedPageSize", evalPageSize);
         modelAndView.addObject("order", order);
@@ -76,8 +77,9 @@ public class DeveloperController {
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
         Page<Developer> persons = developerService.getByState(evalPage, evalPageSize, order, State.ON_BENCH);
+        logger.debug("DeveloperController in GET method listBench(): getByState(Pageable) is called and found:{}" + persons.getSize() + "developers");
         Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), BUTTONS_TO_SHOW);
-
+        logger.debug("DeveloperController in GET method listBench(): new pager object created");
         modelAndView.addObject("persons", persons);
         modelAndView.addObject("selectedPageSize", evalPageSize);
         modelAndView.addObject("order", order);
@@ -89,6 +91,7 @@ public class DeveloperController {
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable long id) {
         developerService.removeDeveloper(id);
+        logger.debug("DeveloperController in GET method delete(): Removed developer with ID:{}" + id);
         return new ModelAndView("redirect:/developers/bench");
     }
 
@@ -108,8 +111,17 @@ public class DeveloperController {
         developer.setExperience(experience);
         developer.setQualification(qualification);
         developerService.addDeveloper(developer);
+        logger.debug("DeveloperController in POST method newDeveloper(): Created and dded new developer with name:{}" + name);
         model.addAttribute("rank", rank);
         return new ModelAndView("redirect:/developers/bench");
+    }
+
+    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
+    public String edit(@PathVariable long id,
+                       Model model) {
+        Developer developer = developerService.getById(id);
+        model.addAttribute("developer", developer);
+        return "developers/edit";
     }
 
     @RequestMapping(value = "/update", method = RequestMethod.POST)
@@ -124,28 +136,7 @@ public class DeveloperController {
         developer.setExperience(experience);
         developer.setQualification(qualification);
         developerService.updateDeveloper(developer);
-        return new ModelAndView("redirect:/developers/bench");
-    }
-
-    @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)
-    public String edit(@PathVariable long id,
-                       Model model) {
-        Developer developer = developerService.getById(id);
-        model.addAttribute("developer", developer);
-        return "developers/edit";
-    }
-
-    @RequestMapping(value = "/assign", method = RequestMethod.POST)
-    public ModelAndView assign(@RequestParam("developer_id") long developerId,
-                               @RequestParam("task_id") long taskId) {
-        Developer developer = developerService.getById(developerId);
-        Task task = taskService.getById(taskId);
-        if (task.getStatus() != Status.ASSIGNED) {
-            managementService.assignTask(developer, task);
-            developerService.updateDeveloper(developer);
-        } else {
-            return new ModelAndView("error/alreadyAssigned");
-        }
+        logger.debug("DeveloperController in POST method update(): Updated developer with ID:{}" + id);
         return new ModelAndView("redirect:/developers/bench");
     }
 
@@ -157,10 +148,28 @@ public class DeveloperController {
         return "developers/assignTask";
     }
 
+    @RequestMapping(value = "/assign", method = RequestMethod.POST)
+    public ModelAndView assign(@RequestParam("developer_id") long developerId,
+                               @RequestParam("task_id") long taskId) {
+        Developer developer = developerService.getById(developerId);
+        Task task = taskService.getById(taskId);
+        if (task.getStatus() != Status.ASSIGNED) {
+            managementService.assignTask(developer, task);
+            logger.debug("DeveloperController in POST method assign(): Assigned task with ID:{}"+taskId+ "to developer with ID: {}" + developerId);
+            developerService.updateDeveloper(developer);
+            logger.debug("DeveloperController in POST method assign(): Updated developer with ID:{}" + developerId);
+        } else {
+            logger.error("DeveloperController in POST method assign(): Attempted to assign already assigned task");
+            return new ModelAndView("error/alreadyAssigned");
+        }
+        return new ModelAndView("redirect:/developers/bench");
+    }
+
     @RequestMapping(value = "/{id}/showTasks", method = RequestMethod.GET)
     public String listAssignedTasks(@PathVariable long id, Model model) {
         model.addAttribute("assignedTasks", developerService.getById(id).getAssignedTasks());
         model.addAttribute("developer", developerService.getById(id));
+        logger.debug("DeveloperController in method showTasks():found assigned to developer with ID: "+ id + " " + developerService.getById(id).getAssignedTasks().size() + " tasks");
         return "developers/assignedTasks";
     }
 
@@ -174,21 +183,15 @@ public class DeveloperController {
         model.addAttribute("cancelled_task", taskService.getById(taskId));
         if (task.getStatus() == Status.ASSIGNED) {
             managementService.cancelExecuting(developer, task);
+            logger.debug("DeveloperController in GET method cancelTask(): Cancelled task with ID:{}"+taskId+ "for developer with ID: {}" + id);
             developerService.updateDeveloper(developer);
+            logger.debug("DeveloperController in GET method cancelTask(): Updated developer with ID:{}" + id);
             taskService.updateTask(task);
+            logger.debug("DeveloperController in GET method cancelTask(): Updated task with ID:{}" + taskId);
         } else {
-            return new ModelAndView("error/403");
+            logger.error("DeveloperController in GET method cancelTask(): Attempted to cancel not assigned task");
+            return new ModelAndView("error/cancelNotAssignedTask");
         }
-        return new ModelAndView("redirect:/developers/bench");
-    }
-
-    @RequestMapping(value = "/assignToProject", method = RequestMethod.POST)
-    public ModelAndView assignToProject(@RequestParam("developer_id") long developerId,
-                               @RequestParam("project_id") long projectId) {
-        Developer developer = developerService.getById(developerId);
-        Project project = projectService.getById(projectId);
-        managementService.assignDeveloperToProject(developer, project);
-        projectService.updateProject(project);
         return new ModelAndView("redirect:/developers/bench");
     }
 
@@ -200,19 +203,17 @@ public class DeveloperController {
         return "developers/assignToProject";
     }
 
-//    @RequestMapping(value = "/{id}/assignToProject/{projectId}", method = RequestMethod.GET)
-//    public ModelAndView allocateToProject(@PathVariable("id") long id,
-//                                      @PathVariable("projectId") long projectId) {
-//        ModelAndView modelAndView = new ModelAndView("developers/assignToProject");
-//        Developer developer = developerService.getById(id);
-//        Project project = projectService.getById(projectId);
-//        managementService.assignDeveloperToProject(developer, project);
-//        projectService.updateProject(project);
-//        modelAndView.addObject("developer", developer);
-//        modelAndView.addObject("projects", projectService.showAllProjects());
-//        return  modelAndView;
-//    }
-
+    @RequestMapping(value = "/assignToProject", method = RequestMethod.POST)
+    public ModelAndView assignToProject(@RequestParam("developer_id") long developerId,
+                               @RequestParam("project_id") long projectId) {
+        Developer developer = developerService.getById(developerId);
+        Project project = projectService.getById(projectId);
+        managementService.assignDeveloperToProject(developer, project);
+        logger.debug("DeveloperController in POST method assignToProject(): Assigned developer with ID:{}"+developerId+ "to project with ID: {}" + projectId);
+        projectService.updateProject(project);
+        logger.debug("DeveloperController in POST method assignToProject(): Updated project with ID:{}" + projectId);
+        return new ModelAndView("redirect:/developers/bench");
+    }
 
     @RequestMapping(value = "/assignAllTasks", method = RequestMethod.GET)
     public ModelAndView assignAllTasks() {
@@ -220,9 +221,13 @@ public class DeveloperController {
         List<Project> projects = projectService.showAllProjects();
 
         managementService.assignAllTasks(projects, notAssignedTasks);
+        logger.debug("DeveloperController in GET method assignAllTasks(): assigned: {}" + notAssignedTasks.size()+" tasks among: " + projects.size()+ " projects");
         developerService.updateAllDevelopers();
+        logger.debug("DeveloperController in GET method assignAllTasks(): updated all developers");
         taskService.updateAllTasks();
+        logger.debug("DeveloperController in GET method assignAllTasks(): updated all tasks");
         projectService.updateAllProjects();
+        logger.debug("DeveloperController in GET method assignAllTasks(): updated all projects");
         return new ModelAndView("redirect:/");
     }
 
@@ -232,9 +237,13 @@ public class DeveloperController {
         List<Project> projects = projectService.showAllProjects();
 
         managementService.cancelAllTasks(projects, assignedTasks);
+        logger.debug("DeveloperController in GET method cancelAllTasks(): cancelled: {}" + assignedTasks.size()+" tasks among: " + projects.size()+ " projects");
         developerService.updateAllDevelopers();
+        logger.debug("DeveloperController in GET method cancelAllTasks(): updated all developers");
         taskService.updateAllTasks();
+        logger.debug("DeveloperController in GET method cancelAllTasks(): updated all tasks");
         projectService.updateAllProjects();
+        logger.debug("DeveloperController in GET method cancelAllTasks(): updated all projects");
         return new ModelAndView("redirect:/");
     }
 }
