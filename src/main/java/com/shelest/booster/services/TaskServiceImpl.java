@@ -3,6 +3,8 @@ package com.shelest.booster.services;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.repositories.TaskRepository;
 import com.shelest.booster.utilities.Status;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -18,6 +20,9 @@ public class TaskServiceImpl implements TaskService {
 
     @Autowired
     private TaskRepository repository;
+
+    private static Logger logger = LoggerFactory.getLogger(TaskServiceImpl.class);
+
 
     @Override
     public List<Task> showAllTasks() {
@@ -37,22 +42,26 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public void removeTask(long id) {
         repository.delete(id);
+        logger.debug("Task with id: {}", id + "stopped executing and has been deleted");
     }
 
     @Override
     public void addTask(Task task) {
         repository.save(task);
+        logger.debug("New task created, its ID is: {}", task.getId());
     }
 
     @Override
     public void updateTask(Task task) {
         repository.save(task);
+        logger.debug("Task with id: {}", task.getId() + "has been updated");
     }
 
     @Override
     public void updateAllTasks() {
         List<Task> tasks = repository.findAll();
         repository.save(tasks);
+        logger.debug("All tasks have been updated");
     }
 
     @Override
@@ -62,7 +71,9 @@ public class TaskServiceImpl implements TaskService {
         }
         Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, order));
         Pageable pageable = new PageRequest(page, size, sort);
-        return repository.findAll(pageable);
+        Page<Task> taskPage = repository.findAll(pageable);
+        logger.debug("Method showAllTasks(Pageable) returned tasks: {}", taskPage.getTotalElements());
+        return taskPage;
     }
 
     @Override
@@ -72,6 +83,8 @@ public class TaskServiceImpl implements TaskService {
         }
         Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, order));
         Pageable pageable = new PageRequest(page, size, sort);
-        return repository.findByStatus(pageable, status);
+        Page<Task> taskPage = repository.findByStatus(pageable, status);
+        logger.debug("Method showAllTasksByStatus(Pageable, Status) returned tasks: {}", taskPage.getTotalElements());
+        return taskPage;
     }
 }
