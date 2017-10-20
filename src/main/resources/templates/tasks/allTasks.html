@@ -1,4 +1,5 @@
-<html layout:decorator="layout" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+<html layout:decorator="layout" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <div layout:fragment="content">
 
@@ -12,6 +13,7 @@
             <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=endDate)}">Deadline</a></th>
             <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=storyPoints)}">Story points</a></th>
             <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=status)}">Status</a></th>
+            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=estimationStatus)}">Estimation</a></th>
             <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=executorID)}">Executor</a></th>
         </tr>
         </thead>
@@ -24,10 +26,32 @@
             <td class="name" data-th-text="${{task.endDate}}"></td>
             <td class="name" data-th-text="${task.storyPoints}"></td>
             <td class="name" data-th-text="${task.status}"></td>
+            <td class="name" data-th-text="${task.estimationStatus}"></td>
             <td class="name" data-th-text="${task.executorID}"></td>
 
+
             <td>
-                <a th:href="@{'/tasks/{id}/deleteTask'(id=${task.id})}" class="delete" th:attr="name=${task.projectName}">
+                <button th:href="'#'+${task.id}" type="button" class="btn-xs btn-primary" data-toggle="modal" >description</button>
+                <div th:id="${task.id}" tabindex="-1" id="myModal" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Task description</h4>
+                            </div>
+                            <div class="modal-body" data-th-text="${{task.description}}">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+            <td>
+                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/tasks/{id}/deleteTask'(id=${task.id})}">
                         <span class="fa-stack">
                             <i class="glyphicon glyphicon-trash"></i>
                         </span>
@@ -35,7 +59,7 @@
             </td>
 
             <td>
-                <a th:href="@{'/tasks/{id}/editTask'(id=${task.id})}" class="edit" th:attr="name=${task.projectName}" aria-label="edit">
+                <a sec:authorize="hasRole('ROLE_ADMIN')" th:href="@{'/tasks/{id}/editTask'(id=${task.id})}" class="edit" th:attr="name=${task.projectName}" aria-label="edit">
                     <span class="fa-stack">
                         <i class="glyphicon glyphicon-edit"></i>
                     </span>
@@ -79,6 +103,6 @@
             </ul>
         </div>
     </div>
-    <a class="btn btn-primary btn-block" href="/tasks/newTask">Add new task</a>
+    <a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-primary btn-block" href="/tasks/newTask">Add new task</a>
 </div>
 </html>

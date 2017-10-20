@@ -1,0 +1,102 @@
+<html layout:decorator="layout" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content">
+
+    <table class="table table-striped" id="newComers_list">
+        <thead>
+        <tr>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=id)}">Id</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=name)}">Name</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=rank)}">Rank</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=experience)}">Experience</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=qualification)}">Qualification</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=state)}">State</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=nameOfCurrentProject)}">Project</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=numberOfTasks)}">Tasks</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=numberOfBugfixingTasks)}">BFX</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=numberOfDevelopmentTasks)}">DEV</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=numberOfRefactoringTasks)}">REF</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=active)}">Active</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="developer : ${persons}">
+            <td class="name" data-th-text="${developer.id}"></td>
+            <td class="name" data-th-text="${developer.name}"></td>
+            <td class="name" data-th-text="${developer.rank}"></td>
+            <td class="name" data-th-text="${developer.experience}"></td>
+            <td class="name" data-th-text="${developer.qualification}"></td>
+            <td class="name" data-th-text="${developer.state}"></td>
+            <td class="name" data-th-text="${developer.nameOfCurrentProject}"></td>
+            <td class="name" data-th-text="${developer.numberOfTasks}"></td>
+            <td class="name" data-th-text="${developer.numberOfBugfixingTasks}"></td>
+            <td class="name" data-th-text="${developer.numberOfDevelopmentTasks}"></td>
+            <td class="name" data-th-text="${developer.numberOfRefactoringTasks}"></td>
+            <td class="name" data-th-text="${developer.active}"></td>
+
+            <td title="ACTIVATE AND MOVE TO BENCH">
+                <a th:href="@{'/developers/{id}/activateAccount'(id=${developer.id})}">
+                        <span class="fa-stack">
+                            <i class="glyphicon glyphicon-ok-sign"></i>
+                        </span>
+                </a>
+            </td>
+
+
+            <td title="edit developer">
+                <a th:href="@{'/developers/{id}/edit'(id=${developer.id})}" class="edit" th:attr="name=${developer.name}" aria-label="edit">
+                    <span class="fa-stack">
+                        <i class="glyphicon glyphicon-edit"></i>
+                    </span>
+
+                </a>
+            </td>
+
+            <td title="remove developer">
+                <a th:href="@{'/developers/{id}/delete'(id=${developer.id})}" class="delete" th:attr="name=${developer.name}">
+                        <span class="fa-stack">
+                            <i class="glyphicon glyphicon-trash"></i>
+                        </span>
+                </a>
+            </td>
+
+        </tr>
+        </tbody>
+        <div class="btn-group" align="right">
+            <button type="button" class="btn-xs btn-primary">Items on page</button>
+            <button type="button" class="btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" style="background-color: gainsboro">
+                <li><a href="/developers/newComers?pageSize=12">12</a></li>
+                <li><a href="/developers/newComers?pageSize=8">8</a></li>
+                <li><a href="/developers/newComers?pageSize=5">5</a></li>
+            </ul>
+        </div>
+    </table>
+    <div class="row">
+        <div th:if="${persons.totalPages != 1}" class="form-group col-md-11 pagination-centered">
+            <ul class="pagination">
+                <li th:class="${persons.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=${order}, page=1)}">&laquo;</a>
+                </li>
+                <li th:class="${persons.number == 0} ? disabled">
+                    <a class="pageLink" th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=${order}, page=${persons.number})}">&larr;</a>
+                </li>
+                <li th:class="${persons.number == (page - 1)} ? 'active pointer-disabled'"
+                    th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage, (pager.startPage > pager.endPage)? -1 : 1)}">
+
+                    <a class="pageLink" th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=${order}, page=${page})}" th:text="${page}"></a>
+                </li>
+                <li th:class="${persons.number + 1 == persons.totalPages} ? disabled">
+                    <a class="pageLink" th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=${order}, page=${persons.number + 2})}">&rarr;</a>
+                </li>
+                <li th:class="${persons.number + 1 == persons.totalPages} ? disabled">
+                    <a class="pageLink" th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=${order}, page=${persons.totalPages})}">&raquo;</a>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+</div>
+</html>

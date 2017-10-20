@@ -3,7 +3,10 @@ package com.shelest.booster.services;
 import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.repositories.DeveloperRepository;
+import com.shelest.booster.utilities.CustomUserDetails;
+import com.shelest.booster.utilities.DeveloperExistsException;
 import com.shelest.booster.utilities.State;
+import com.shelest.booster.utilities.dto.DeveloperDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,10 +14,14 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class DeveloperServiceImpl implements DeveloperService {
@@ -32,6 +39,11 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Override
     public Developer getById(long id) {
         return repository.findOne(id);
+    }
+
+    @Override
+    public Optional<Developer> getByName(String name) {
+        return repository.findByName(name);
     }
 
     @Override
@@ -103,5 +115,41 @@ public class DeveloperServiceImpl implements DeveloperService {
         Page<Developer> developerPage = repository.findAll(pageable);
         logger.debug("Method findAllPageable(Pageable) returned developers: {}", developerPage.getTotalElements());
         return developerPage;
+    }
+
+    @Transactional
+    @Override
+    public Developer registerNewDeveloperAccount(DeveloperDTO accountDto) throws DeveloperExistsException {
+        if (nameExist(accountDto.getName())) {
+            throw new DeveloperExistsException(
+                    "There is an account with that userName: "
+                            +  accountDto.getName());
+        }
+        Developer developer = new Developer();
+        developer.setName(accountDto.getName());
+        developer.setRank(accountDto.getRank());
+        developer.setExperience(accountDto.getExperience());
+        developer.setQualification(accountDto.getQualification());
+        developer.setPassword(accountDto.getPassword());
+        repository.save(developer);
+        return developer;
+    }
+
+    private boolean nameExist(String name) {
+        Developer developer = repository.findByNameEquals(name);
+        if (developer != null) {
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Developer> optionalUsers = repository.findByName(username);
+
+        optionalUsers
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        return optionalUsers
+                .map(CustomUserDetails::new).get();
     }
 }

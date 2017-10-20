@@ -4,10 +4,10 @@
 <div layout:fragment="content">
 
     <marquee behavior="scroll" direction="right">
-        <a >Hello,  <span  sec:authentication="name"></span>! Today is <span th:text="${dateTime}+ ' You have '+ ${unassignedTasksSize}+ ' urgent tasks!!!' "></span></a>
+        <a >Hello,  <span  sec:authentication="name"></span>! Today is <span th:text="${dateTime}+ ' There are '+ ${unassignedTasksSize}+ ' urgent tasks!!!' "></span></a>
 
     </marquee>
-    <div>
+    <div sec:authorize="hasRole('ROLE_ADMIN')">
         <ul class="list-group" style="width: 100%">
             <li class="list-group-item list-group-item-info"><a href="/developers/all">Total developers <span class="badge" th:text="${totalStaffSize}"></span></a></li>
             <li class="list-group-item list-group-item-info"><a href="/developers/bench">Developers on bench <span class="badge" th:text="${benchSize}"></span></a></li>
@@ -17,7 +17,7 @@
             <li class="list-group-item (${free_developers} > 0)? list-group-item-warning : list-group-item-info"><a href="/projects">Developers without tasks <span class="badge" th:text="${free_developers}"></span></a> </li>
         </ul>
     </div>
-    <div class="btn-group">
+    <div class="btn-group" sec:authorize="hasRole('ROLE_ADMIN')">
         <!--<button type="button" class="btn btn-primary">Apple</button>-->
         <!--<button type="button" class="btn btn-primary">Samsung</button>-->
         <div class="btn-group">

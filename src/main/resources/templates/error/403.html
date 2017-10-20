@@ -1,11 +1,11 @@
-
-<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
 
 <div layout:fragment="content">
 
     <div class="starter-template">
         <h1>403 - Access is denied</h1>
-        <div th:inline="text">Hello '[[${#httpServletRequest.remoteUser}]]',
+        <div th:inline="text">Hello, <span  sec:authentication="name"></span>
             you do not have permission to access this page.</div>
     </div>
 

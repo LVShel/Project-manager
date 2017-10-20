@@ -9,6 +9,7 @@ import org.springframework.data.repository.CrudRepository;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.Optional;
 
 public interface DeveloperRepository extends JpaRepository<Developer, Long> {
 
@@ -19,4 +20,8 @@ public interface DeveloperRepository extends JpaRepository<Developer, Long> {
     List<Developer> findByState(State state);
 
     Page<Developer> findByState(Pageable pageable, State state);
+
+    Optional<Developer> findByName(String username);
+
+    Developer findByNameEquals(String username);
 }

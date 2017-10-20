@@ -1,6 +1,6 @@
 <html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content">
-    <form class="form-inline" method="post" name="task_form" id="task_form" action="/tasks/updateTask" role="form">
+    <form  method="post" name="task_form" id="task_form" action="/tasks/updateTask" role="form">
         <input type="hidden" id="task_id" class="form-control" name="task_id" th:value="${task.id}"/>
 
         <div class="input-group col-xs-2">
@@ -26,6 +26,11 @@
         <div class="input-group col-xs-2">
             <label for="end">Select end date</label>
             <input id="end" type="text" class="form-control" name="endDate" th:value="${{task.endDate}}" />
+        </div>
+
+        <div class="input-group">
+            <label for="task_description"> Describe task briefly </label>
+            <input id="task_description" rows="5" class="form-control" name="task_descr" th:value="${{task.description}}"/>
         </div>
 
         <div class="input-group col-xs-1" align="middle">

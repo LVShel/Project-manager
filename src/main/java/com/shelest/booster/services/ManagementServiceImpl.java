@@ -1,17 +1,29 @@
 package com.shelest.booster.services;
 
 import com.shelest.booster.domain.Developer;
+import com.shelest.booster.domain.Manager;
 import com.shelest.booster.domain.Project;
 import com.shelest.booster.domain.Task;
+import com.shelest.booster.repositories.ManagerRepository;
+import com.shelest.booster.utilities.CustomManagerDetails;
+import com.shelest.booster.utilities.CustomUserDetails;
 import com.shelest.booster.utilities.SmartTaskDistributor;
 import com.shelest.booster.utilities.State;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
+
 @Service
 public class ManagementServiceImpl implements ManagementService {
+
+    @Autowired
+    ManagerRepository repository;
 
     private static Logger logger = LoggerFactory.getLogger(ManagementServiceImpl.class);
 
@@ -71,5 +83,15 @@ public class ManagementServiceImpl implements ManagementService {
     @Override
     public void removeAllDevelopersFromProjects(List<Developer> developers, List<Project> projects) {
 
+    }
+
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        Optional<Manager> optionalUsers = repository.findByName(username);
+
+        optionalUsers
+                .orElseThrow(() -> new UsernameNotFoundException("Username not found"));
+        return optionalUsers
+                .map(CustomManagerDetails::new).get();
     }
 }

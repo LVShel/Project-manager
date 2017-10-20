@@ -13,6 +13,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -22,6 +25,8 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
+//@PreAuthorize("hasAnyRole('ADMIN')")
+@Secured("ROLE_ADMIN")
 @RequestMapping("/developers")
 public class DeveloperController {
 
@@ -88,6 +93,26 @@ public class DeveloperController {
         return modelAndView;
     }
 
+    @RequestMapping(value = "/newComers", method = RequestMethod.GET)
+    public ModelAndView listNewcomers(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
+                                  @RequestParam(value = "page", required = false) Optional<Integer> page,
+                                  @RequestParam(value = "order", required = false) String order) {
+        ModelAndView modelAndView = new ModelAndView("developers/newComers");
+        int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
+        int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
+
+        Page<Developer> persons = developerService.getByState(evalPage, evalPageSize, order, State.NEW_COMER);
+        logger.debug(" in GET method listNewcomers(): getByState(Pageable) is called and found:{}", persons.getSize() + "developers");
+        Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), BUTTONS_TO_SHOW);
+        logger.debug(" in GET method listNewcomers(): new pager object created");
+        modelAndView.addObject("persons", persons);
+        modelAndView.addObject("selectedPageSize", evalPageSize);
+        modelAndView.addObject("order", order);
+        modelAndView.addObject("pageSizes", PAGE_SIZES);
+        modelAndView.addObject("pager", pager);
+        return modelAndView;
+    }
+
     @RequestMapping(value = "/{id}/delete", method = RequestMethod.GET)
     public ModelAndView delete(@PathVariable long id) {
         developerService.removeDeveloper(id);
@@ -95,25 +120,14 @@ public class DeveloperController {
         return new ModelAndView("redirect:/developers/bench");
     }
 
-    @RequestMapping(value = "/new", method = RequestMethod.GET)
-    public String newDeveloper() {
-        return "developers/new";
-    }
-
-    @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public ModelAndView create(@RequestParam("name") String name,
-                               @RequestParam("rank") Rank rank,
-                               @RequestParam("experience") double experience,
-                               @RequestParam("qualification") int qualification, Model model) {
-        Developer developer = new Developer();
-        developer.setName(name);
-        developer.setRank(rank);
-        developer.setExperience(experience);
-        developer.setQualification(qualification);
-        developerService.addDeveloper(developer);
-        logger.debug(" in POST method newDeveloper(): Created and dded new developer with name:{}", name);
-        model.addAttribute("rank", rank);
-        return new ModelAndView("redirect:/developers/bench");
+    @RequestMapping(value = "/{id}/activateAccount", method = RequestMethod.GET)
+    public ModelAndView activateAccount(@PathVariable long id) {
+        Developer developer = developerService.getById(id);
+        developer.setActive(true);
+        developer.setState(State.ON_BENCH);
+        developerService.updateDeveloper(developer);
+        logger.debug(" in GET method activateAccount(): Activated account for developer with ID:{}", id);
+        return new ModelAndView("redirect:/developers/newComers");
     }
 
     @RequestMapping(value = "/{id}/edit", method = RequestMethod.GET)

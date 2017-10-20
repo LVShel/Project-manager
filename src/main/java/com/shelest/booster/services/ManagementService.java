@@ -3,12 +3,13 @@ package com.shelest.booster.services;
 import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Project;
 import com.shelest.booster.domain.Task;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 
-public interface ManagementService {
+public interface ManagementService extends UserDetailsService {
 
     void assignTask(Developer developer, Task task);
 

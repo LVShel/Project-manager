@@ -1,6 +1,6 @@
 <html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
 <div layout:fragment="content">
-    <form class="form-inline" method="post" name="task_form" id="task_form" action="/tasks/createTask" role="form">
+    <form method="post" name="task_form" id="task_form" action="/tasks/createTask" role="form">
 
         <div class="input-group col-xs-2">
             <label for="projectNameSelect">Select project</label>
@@ -15,10 +15,6 @@
             </select>
         </div>
         <div class="input-group col-xs-2">
-            <label for="storyPoints">Input story points</label>
-            <input id="storyPoints" class="form-control" title="storyPoints" type="number" name="storyPoints" />
-        </div>
-        <div class="input-group col-xs-2">
             <label for="start">Select start date</label>
             <input id="start" type="text" class="form-control" name="startDate" />
         </div>
@@ -27,9 +23,13 @@
             <input id="end" type="text" class="form-control" name="endDate" />
         </div>
 
+        <div class="input-group">
+            <label for="task_description"> Describe task briefly </label>
+            <input id="task_description" rows="5" class="form-control" name="task_descr"/>
+        </div>
+
         <div class="input-group col-xs-1" align="middle">
             <label for="submit"> Press to save </label>
-            <!--<button id="submit" type="submit" class="btn btn-default">Save</button>-->
             <input id="submit" type="submit" class="form-control" value="Save" />
         </div>
         </form>

@@ -4,6 +4,7 @@ import com.shelest.booster.domain.Project;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
+import com.shelest.booster.utilities.EstimationStatus;
 import com.shelest.booster.utilities.Pager;
 import com.shelest.booster.utilities.Status;
 import com.shelest.booster.utilities.TaskType;
@@ -12,6 +13,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
+import org.springframework.security.access.annotation.Secured;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -24,6 +26,8 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
+import java.util.stream.IntStream;
+import java.util.stream.Stream;
 
 @Controller
 @RequestMapping("/tasks")
@@ -43,6 +47,7 @@ public class TaskController {
     private static final int[] PAGE_SIZES = {5, 8, 12};
 
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/allTasks", method = RequestMethod.GET)
     public ModelAndView listAllTasks(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
                                      @RequestParam(value = "page", required = false) Optional<Integer> page,
@@ -62,6 +67,7 @@ public class TaskController {
         return modelAndView;
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/notAssignedTasks", method = RequestMethod.GET)
     public ModelAndView listNotAssignedTasks(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
                                              @RequestParam(value = "page", required = false) Optional<Integer> page,
@@ -82,6 +88,7 @@ public class TaskController {
         return modelAndView;
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/{id}/deleteTask", method = RequestMethod.GET)
     public ModelAndView deleteTask(@PathVariable long id) {
         Task task = taskService.getById(id);
@@ -95,6 +102,8 @@ public class TaskController {
         return new ModelAndView("redirect:/tasks/allTasks");
     }
 
+
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/newTask", method = RequestMethod.GET)
     public ModelAndView newTask() {
         ModelAndView modelAndView = new ModelAndView("tasks/newTask");
@@ -104,23 +113,25 @@ public class TaskController {
         return modelAndView;
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/createTask", method = RequestMethod.POST)
     public ModelAndView create(@RequestParam("projectName") String projectName,
+                               @RequestParam("task_descr") String taskDescr,
                                @RequestParam("taskType") TaskType taskType,
                                @RequestParam("startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate,
-                               @RequestParam("endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate,
-                               @RequestParam("storyPoints") int storyPoints, Model model) {
+                               @RequestParam("endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate) {
         Task task = new Task();
         task.setProjectName(projectName);
         task.setTaskType(taskType);
         task.setStartDate(startDate);
         task.setEndDate(endDate);
-        task.setStoryPoints(storyPoints);
+        task.setDescription(taskDescr);
         taskService.addTask(task);
         logger.debug(" in POST method newDeveloper(): Created and dded new task of type:{}", taskType);
         return new ModelAndView("redirect:/tasks/allTasks");
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/{id}/editTask", method = RequestMethod.GET)
     public ModelAndView edit(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView("tasks/editTask");
@@ -132,21 +143,48 @@ public class TaskController {
         return modelAndView;
     }
 
+    @Secured("ROLE_ADMIN")
     @RequestMapping(value = "/updateTask", method = RequestMethod.POST)
     public ModelAndView update(@RequestParam("task_id") long id,
                                @RequestParam("projectName") String projectName,
+                               @RequestParam("task_descr") String taskDescr,
                                @RequestParam("taskType") TaskType taskType,
                                @RequestParam("startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate,
-                               @RequestParam("endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate,
-                               @RequestParam("storyPoints") int storyPoints, Model model) {
+                               @RequestParam("endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate) {
         Task task = taskService.getById(id);
         task.setProjectName(projectName);
         task.setTaskType(taskType);
         task.setStartDate(startDate);
         task.setEndDate(endDate);
-        task.setStoryPoints(storyPoints);
+        task.setDescription(taskDescr);
         taskService.updateTask(task);
         logger.debug(" in POST method update(): Updated task with ID:{}", id);
         return new ModelAndView("redirect:/tasks/allTasks");
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/{id}/estimate", method = RequestMethod.GET)
+    public ModelAndView estimateTask(@PathVariable long id) {
+        ModelAndView modelAndView = new ModelAndView("tasks/estimate");
+        Task task = taskService.getById(id);
+        modelAndView.addObject("task", task);//todo create whitelabel error page handler
+        return modelAndView;
+    }
+
+    @Secured("ROLE_USER")
+    @RequestMapping(value = "/estimate", method = RequestMethod.POST)
+    public ModelAndView estimate(@RequestParam("task_id") long id,
+                                 @RequestParam("estimation") int estimation) {
+        Task task = taskService.getById(id);
+        task.getEstimations().add(estimation);
+        task.setEstimationStatus(EstimationStatus.ESTIMATED);
+        logger.debug(" in POST method estimate(): estimated task with ID:{}", id);
+        taskService.updateTask(task);
+        List<Integer> estimations = task.getEstimations();
+        int storyPointsAvg = (int) estimations.stream().mapToInt((x) -> x).summaryStatistics().getAverage();
+        task.setStoryPoints(storyPointsAvg);
+        taskService.updateTask(task);
+        logger.debug(" in POST method estimate(): updated story points for  task with ID:{}", id);
+        return new ModelAndView("redirect:/tasks/notAssignedTasks");
     }
 }

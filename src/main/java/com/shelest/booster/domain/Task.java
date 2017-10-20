@@ -1,11 +1,14 @@
 package com.shelest.booster.domain;
 
+import com.shelest.booster.utilities.EstimationStatus;
 import com.shelest.booster.utilities.Status;
 import com.shelest.booster.utilities.TaskType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "tasks")
@@ -23,8 +26,14 @@ public class Task {
     private LocalDate endDate;
     private int storyPoints;
     @Enumerated(EnumType.STRING)
+    private EstimationStatus estimationStatus = EstimationStatus.NOT_ESTIMATED;
+    @Enumerated(EnumType.STRING)
     private Status status = Status.NOT_ASSIGNED;
     private long executorID;
+    @ElementCollection
+    private List<Integer> estimations;
+    @Column(length = 300)
+    private String description;
 
     public Task() {
     }
@@ -91,5 +100,29 @@ public class Task {
 
     public void setId(long id) {
         this.id = id;
+    }
+
+    public List<Integer> getEstimations() {
+        return estimations;
+    }
+
+    public void setEstimations(List<Integer> estimations) {
+        this.estimations = estimations;
+    }
+
+    public EstimationStatus getEstimationStatus() {
+        return estimationStatus;
+    }
+
+    public void setEstimationStatus(EstimationStatus estimationStatus) {
+        this.estimationStatus = estimationStatus;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

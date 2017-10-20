@@ -23,7 +23,7 @@ public class Project {
     private int middlesOnProject;
     private int juniorsOnProject;
     private int maxTasksForOneDev;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Developer> developersOnProject = new ArrayList<>();
 
     private static Logger logger = LoggerFactory.getLogger(Project.class);

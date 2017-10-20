@@ -1,0 +1,59 @@
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content">
+
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <h1>Registration form</h1>
+        <form action="/register"  th:object="${user}" method="POST" enctype="utf8">
+            <fieldset>
+            <div class="input-group">
+                <!--<label for="d_name">Insert username</label>-->
+                <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                <input id="d_name" class="form-control" title="name" type="text" th:field="*{name}" placeholder="Enter your full name" />
+                <p th:each="error : ${#fields.errors('name')}"
+                   th:text="${error}">Validation error</p>
+            </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input id="password" type="password" th:field="*{password}" class="form-control input" placeholder="Enter your password"/>
+                    <p th:each="error : ${#fields.errors('password')}"
+                       th:text="${error}">Validation error</p>
+                </div>
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    <input id="confirm" type="password" th:field="*{matchingPassword}" class="form-control input" placeholder="Confirm your password"/>
+                </div>
+
+
+            <div class="form-group">
+                <label for="rank">Select your rank</label>
+                <select id="rank" th:field="*{rank}" class="form-control input" >
+                    <option th:each="rank : ${T(com.shelest.booster.utilities.Rank).values()}" th:value="${{rank}}" th:text="${rank}"></option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="exp">Insert your experience</label>
+                <input id="exp" class="form-control input" title="name" type="number" step="any" th:field="*{experience}" />
+            </div>
+
+            <div class="form-group">
+                <label for="qua">Insert your qualification</label>
+                <input id="qua" class="form-control input" title="name" type="number" th:field="*{qualification}" />
+            </div>
+
+
+
+            <div class="form-group" >
+                <!--<label for="submit"> </label>-->
+                <input id="submit" class="btn btn-primary btn-xs btn-block" type="submit" value="Submit" />
+            </div>
+            </fieldset>
+        </form>
+    </div>
+
+</div>
+
+
+</html>

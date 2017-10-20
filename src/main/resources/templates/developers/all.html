@@ -17,6 +17,8 @@
             <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=numberOfBugfixingTasks)}">BFX</a></th>
             <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=numberOfDevelopmentTasks)}">DEV</a></th>
             <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=numberOfRefactoringTasks)}">REF</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=active)}">Active</a></th>
+
 
         </tr>
         </thead>
@@ -33,6 +35,8 @@
             <td class="name" data-th-text="${developer.numberOfBugfixingTasks}"></td>
             <td class="name" data-th-text="${developer.numberOfDevelopmentTasks}"></td>
             <td class="name" data-th-text="${developer.numberOfRefactoringTasks}"></td>
+            <td class="name" data-th-text="${developer.active}"></td>
+
         </tr>
         </tbody>
         <div class="btn-group" align="right">

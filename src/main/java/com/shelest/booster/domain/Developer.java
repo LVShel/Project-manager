@@ -1,6 +1,7 @@
 package com.shelest.booster.domain;
 
 import com.shelest.booster.utilities.Rank;
+import com.shelest.booster.utilities.Role;
 import com.shelest.booster.utilities.State;
 import com.shelest.booster.utilities.Status;
 import org.slf4j.Logger;
@@ -9,6 +10,7 @@ import org.slf4j.LoggerFactory;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 @Entity
 @Table(name = "developers")
@@ -16,17 +18,25 @@ public class Developer {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
+    @Column(name = "developer_id")
     private long id;
     private String name;
+    @Column(name = "password")
+    private String password;
     @Enumerated(EnumType.STRING)
     private Rank rank;
     private double experience;
     private int qualification;
     @Enumerated(EnumType.STRING)
-    private State state = State.ON_BENCH;
+    private State state = State.NEW_COMER;
     private String nameOfCurrentProject = "========unknown========";
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<Task> assignedTasks = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
+    private Role role = Role.USER;
+    @Column(name = "active")
+    private boolean active = false;
+    @Column(nullable = true)
     private int numberOfTasks;
     private int numberOfBugfixingTasks;
     private int numberOfRefactoringTasks;
@@ -34,12 +44,22 @@ public class Developer {
 
     private static Logger logger = LoggerFactory.getLogger(Developer.class);
 
+    public Developer() {
+    }
+
+    public Developer(Developer developer) {
+        this.id = developer.getId();
+        this.name = developer.getName();
+        this.password = developer.getPassword();
+        this.rank = developer.getRank();
+        this.experience = developer.getExperience();
+        this.qualification = developer.getQualification();
+        this.role = developer.getRole();
+        this.active = developer.isActive();
+    }
 
     public Developer(String name) {
         this.name = name;
-    }
-
-    public Developer() {
     }
 
     public void execute(Task task) {
@@ -236,5 +256,30 @@ public class Developer {
 
     public void setNameOfCurrentProject(String nameOfCurrentProject) {
         this.nameOfCurrentProject = nameOfCurrentProject;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

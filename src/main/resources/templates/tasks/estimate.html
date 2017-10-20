@@ -1,0 +1,19 @@
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml">
+<div layout:fragment="content">
+    <form class="form-inline" method="post" name="task_form" id="task_form" action="/tasks/estimate" role="form">
+        <input type="hidden" id="task_id" class="form-control" name="task_id" th:value="${task.id}"/>
+        <h1>Please, estimate this task with story points</h1>
+
+        <div class="input-group col-xs-2">
+            <label for="storyPoints">Input story points</label>
+            <input id="storyPoints" class="form-control" title="storyPoints" type="number" name="estimation" th:value="${task.storyPoints}" />
+        </div>
+
+        <div class="input-group col-xs-1" align="middle">
+            <label for="submit"> Press to save </label>
+            <input id="submit" type="submit" class="form-control" value="Save" />
+        </div>
+    </form>
+
+</div>
+</html>
