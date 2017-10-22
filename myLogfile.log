@@ -18817,3 +18817,296 @@ Using default security password: 15ef5ba0-ca19-420d-bed5-8d336cdfb023
 2017-10-22 20:44:25.595  INFO 1940 --- [http-nio-8080-exec-2] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
 2017-10-22 20:44:27.595 DEBUG 1940 --- [http-nio-8080-exec-9] c.s.booster.controllers.TaskController   : in Get method listMyTasks(Authentication) found developer with ID: 22
 2017-10-22 20:44:30.601  WARN 1940 --- [http-nio-8080-exec-3] c.s.b.utilities.MyAccessDeniedHandler    : User 'Khal Drogo' attempted to access the protected URL: /tasks/allTasks
+2017-10-22 20:51:06.843  INFO 4904 --- [restartedMain] c.s.booster.SpringBootMySqlApplication   : Starting SpringBootMySqlApplication on Home-ПК with PID 4904 (C:\Users\Home\IdeaProjects\spring-boot-mysql-PM_BOOSTER\target\classes started by Home in C:\Users\Home\IdeaProjects\spring-boot-mysql-PM_BOOSTER)
+2017-10-22 20:51:06.845  INFO 4904 --- [restartedMain] c.s.booster.SpringBootMySqlApplication   : No active profile set, falling back to default profiles: default
+2017-10-22 20:51:07.709  INFO 4904 --- [restartedMain] ationConfigEmbeddedWebApplicationContext : Refreshing org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d214f42: startup date [Sun Oct 22 20:51:07 EEST 2017]; root of context hierarchy
+2017-10-22 20:51:12.939  INFO 4904 --- [restartedMain] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat initialized with port(s): 8080 (http)
+2017-10-22 20:51:12.965  INFO 4904 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2017-10-22 20:51:12.968  INFO 4904 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/8.5.15
+2017-10-22 20:51:13.234  INFO 4904 --- [localhost-startStop-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2017-10-22 20:51:13.235  INFO 4904 --- [localhost-startStop-1] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 5531 ms
+2017-10-22 20:51:13.801  INFO 4904 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2017-10-22 20:51:13.803  INFO 4904 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2017-10-22 20:51:13.803  INFO 4904 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpPutFormContentFilter' to: [/*]
+2017-10-22 20:51:13.803  INFO 4904 --- [localhost-startStop-1] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2017-10-22 20:51:13.815  INFO 4904 --- [localhost-startStop-1] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2017-10-22 20:51:13.820  INFO 4904 --- [localhost-startStop-1] o.s.b.w.servlet.ServletRegistrationBean  : Mapping servlet: 'dispatcherServlet' to [/]
+2017-10-22 20:51:15.632  INFO 4904 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Building JPA container EntityManagerFactory for persistence unit 'default'
+2017-10-22 20:51:15.666  INFO 4904 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2017-10-22 20:51:15.955  INFO 4904 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.0.12.Final}
+2017-10-22 20:51:15.957  INFO 4904 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2017-10-22 20:51:15.961  INFO 4904 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000021: Bytecode provider name : javassist
+2017-10-22 20:51:16.051  INFO 4904 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.1.Final}
+2017-10-22 20:51:16.879  INFO 4904 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2017-10-22 20:51:18.293  INFO 4904 --- [restartedMain] org.hibernate.tool.hbm2ddl.SchemaUpdate  : HHH000228: Running hbm2ddl schema update
+2017-10-22 20:51:18.854  INFO 4904 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2017-10-22 20:51:21.592  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerAdapter : Looking for @ControllerAdvice: org.springframework.boot.context.embedded.AnnotationConfigEmbeddedWebApplicationContext@7d214f42: startup date [Sun Oct 22 20:51:07 EEST 2017]; root of context hierarchy
+2017-10-22 20:51:21.806  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/update],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.DeveloperController.update(long,java.lang.String,com.shelest.booster.utilities.enums.Rank,double,int)
+2017-10-22 20:51:21.808  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/{id}/delete],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.DeveloperController.delete(long)
+2017-10-22 20:51:21.809  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/{id}/showTasks],methods=[GET]}" onto public java.lang.String com.shelest.booster.controllers.DeveloperController.listAssignedTasks(long,org.springframework.ui.Model)
+2017-10-22 20:51:21.810  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/assign],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.DeveloperController.assign(long,long)
+2017-10-22 20:51:21.811  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/all],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.DeveloperController.listDevelopers(java.util.Optional<java.lang.Integer>,java.util.Optional<java.lang.Integer>,java.lang.String,java.lang.Integer)
+2017-10-22 20:51:21.812  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/bench],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.DeveloperController.listBench(java.util.Optional<java.lang.Integer>,java.util.Optional<java.lang.Integer>,java.lang.String)
+2017-10-22 20:51:21.813  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/newComers],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.DeveloperController.listNewcomers(java.util.Optional<java.lang.Integer>,java.util.Optional<java.lang.Integer>,java.lang.String)
+2017-10-22 20:51:21.814  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/{id}/activateAccount],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.DeveloperController.activateAccount(long)
+2017-10-22 20:51:21.815  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/{id}/edit],methods=[GET]}" onto public java.lang.String com.shelest.booster.controllers.DeveloperController.edit(long,org.springframework.ui.Model)
+2017-10-22 20:51:21.815  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/{id}/assignTask],methods=[GET]}" onto public java.lang.String com.shelest.booster.controllers.DeveloperController.assignTask(long,org.springframework.ui.Model)
+2017-10-22 20:51:21.816  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/{id}/showTasks/{taskId}],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.DeveloperController.cancelTask(long,long,org.springframework.ui.Model)
+2017-10-22 20:51:21.817  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/{id}/assignToProject],methods=[GET]}" onto public java.lang.String com.shelest.booster.controllers.DeveloperController.assignProject(long,org.springframework.ui.Model)
+2017-10-22 20:51:21.817  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/assignToProject],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.DeveloperController.assignToProject(long,long)
+2017-10-22 20:51:21.818  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/assignAllTasks],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.DeveloperController.assignAllTasks()
+2017-10-22 20:51:21.818  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/developers/cancelAllTasks],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.DeveloperController.cancelAllTasks()
+2017-10-22 20:51:21.820  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/403],methods=[GET]}" onto public java.lang.String com.shelest.booster.controllers.ExceptionHandlerController.databaseError()
+2017-10-22 20:51:21.826  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/register],methods=[GET]}" onto public java.lang.String com.shelest.booster.controllers.HomeController.showRegistrationForm(org.springframework.ui.Model)
+2017-10-22 20:51:21.827  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/register],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.HomeController.registerUserAccount(com.shelest.booster.utilities.dto.DeveloperDTO,org.springframework.validation.BindingResult)
+2017-10-22 20:51:21.828  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/home]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.HomeController.showWorkBench(org.springframework.security.core.Authentication)
+2017-10-22 20:51:21.828  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/login],methods=[GET]}" onto public java.lang.String com.shelest.booster.controllers.HomeController.login()
+2017-10-22 20:51:21.829  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/],methods=[GET]}" onto public java.lang.String com.shelest.booster.controllers.HomeController.greeting()
+2017-10-22 20:51:21.830  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasksHistory],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.PortfolioController.listTasksHistory(org.springframework.security.core.Authentication)
+2017-10-22 20:51:21.833  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/projects/updateProject],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.ProjectController.update(long,java.lang.String,int,int,int,int,org.springframework.ui.Model)
+2017-10-22 20:51:21.833  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/projects/createProject],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.ProjectController.create(java.lang.String,int,int,int,int)
+2017-10-22 20:51:21.834  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/projects/{id}/showTeam],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.ProjectController.listAssignedDevelopers(long)
+2017-10-22 20:51:21.835  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/projects/{id}/showTeam/{devId}],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.ProjectController.removeDeveloper(long,long)
+2017-10-22 20:51:21.835  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/projects/{id}/editProject],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.ProjectController.edit(long)
+2017-10-22 20:51:21.835  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/projects],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.ProjectController.listProjects()
+2017-10-22 20:51:21.836  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/projects/newProject],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.ProjectController.newProject()
+2017-10-22 20:51:21.836  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/projects/{id}/deleteProject],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.ProjectController.deleteProject(long)
+2017-10-22 20:51:21.841  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/updateTask],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.update(long,java.lang.String,java.lang.String,com.shelest.booster.utilities.enums.TaskType,java.time.LocalDate,java.time.LocalDate)
+2017-10-22 20:51:21.842  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/createTask],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.create(java.lang.String,java.lang.String,com.shelest.booster.utilities.enums.TaskType,java.time.LocalDate,java.time.LocalDate)
+2017-10-22 20:51:21.844  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/notAssignedTasks],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.listNotAssignedTasks(java.util.Optional<java.lang.Integer>,java.util.Optional<java.lang.Integer>,java.lang.String)
+2017-10-22 20:51:21.844  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/{id}/editTask],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.edit(long)
+2017-10-22 20:51:21.845  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/allTasks],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.listAllTasks(java.util.Optional<java.lang.Integer>,java.util.Optional<java.lang.Integer>,java.lang.String)
+2017-10-22 20:51:21.846  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/doneTasks],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.listDoneTasks(java.util.Optional<java.lang.Integer>,java.util.Optional<java.lang.Integer>,java.lang.String)
+2017-10-22 20:51:21.846  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/{id}/deleteTask],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.deleteTask(long)
+2017-10-22 20:51:21.847  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/newTask],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.newTask()
+2017-10-22 20:51:21.847  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/{id}/estimate],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.estimateTask(long)
+2017-10-22 20:51:21.848  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/estimate],methods=[POST]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.estimate(long,int)
+2017-10-22 20:51:21.849  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/myTasks],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.listMyTasks(org.springframework.security.core.Authentication)
+2017-10-22 20:51:21.850  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/{id}/markAsDone],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.markAsDone(long)
+2017-10-22 20:51:21.850  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/tasks/{id}/closeTask],methods=[GET]}" onto public org.springframework.web.servlet.ModelAndView com.shelest.booster.controllers.TaskController.closeTask(long,org.springframework.security.core.Authentication)
+2017-10-22 20:51:21.854  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error]}" onto public org.springframework.http.ResponseEntity<java.util.Map<java.lang.String, java.lang.Object>> org.springframework.boot.autoconfigure.web.BasicErrorController.error(javax.servlet.http.HttpServletRequest)
+2017-10-22 20:51:21.855  INFO 4904 --- [restartedMain] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped "{[/error],produces=[text/html]}" onto public org.springframework.web.servlet.ModelAndView org.springframework.boot.autoconfigure.web.BasicErrorController.errorHtml(javax.servlet.http.HttpServletRequest,javax.servlet.http.HttpServletResponse)
+2017-10-22 20:51:21.988  INFO 4904 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/webjars/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-10-22 20:51:21.988  INFO 4904 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-10-22 20:51:22.118  INFO 4904 --- [restartedMain] o.s.w.s.handler.SimpleUrlHandlerMapping  : Mapped URL path [/**/favicon.ico] onto handler of type [class org.springframework.web.servlet.resource.ResourceHttpRequestHandler]
+2017-10-22 20:51:23.607  INFO 4904 --- [restartedMain] b.a.s.AuthenticationManagerConfiguration : 
+
+Using default security password: 657e9907-67c5-4ab3-9f3d-97038e2166d8
+
+2017-10-22 20:51:23.625  INFO 4904 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: OrRequestMatcher [requestMatchers=[Ant [pattern='/css/**'], Ant [pattern='/js/**'], Ant [pattern='/images/**'], Ant [pattern='/webjars/**'], Ant [pattern='/**/favicon.ico'], Ant [pattern='/error']]], []
+2017-10-22 20:51:23.808  INFO 4904 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: org.springframework.security.web.util.matcher.AnyRequestMatcher@1, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@77d98869, org.springframework.security.web.context.SecurityContextPersistenceFilter@342c1a53, org.springframework.security.web.header.HeaderWriterFilter@1d8addc6, org.springframework.security.web.authentication.logout.LogoutFilter@419019d4, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter@444d2540, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@7677164d, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@9dea041, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3ac1a2d6, org.springframework.security.web.session.SessionManagementFilter@182c6109, org.springframework.security.web.access.ExceptionTranslationFilter@273f45cb, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@e93d69]
+2017-10-22 20:51:23.860  INFO 4904 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: OrRequestMatcher [requestMatchers=[Ant [pattern='/**']]], [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@6bd47dda, org.springframework.security.web.context.SecurityContextPersistenceFilter@370a43f3, org.springframework.security.web.header.HeaderWriterFilter@4c14c70d, org.springframework.security.web.authentication.logout.LogoutFilter@55f8cef, org.springframework.security.web.authentication.www.BasicAuthenticationFilter@4c008c07, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@2a2bdb3, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@68642e45, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@1f206229, org.springframework.security.web.session.SessionManagementFilter@3495633d, org.springframework.security.web.access.ExceptionTranslationFilter@b37c544, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6859fd30]
+2017-10-22 20:51:24.273  INFO 4904 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : LiveReload server is running on port 35729
+2017-10-22 20:51:24.439  INFO 4904 --- [restartedMain] o.s.j.e.a.AnnotationMBeanExporter        : Registering beans for JMX exposure on startup
+2017-10-22 20:51:24.571  INFO 4904 --- [restartedMain] s.b.c.e.t.TomcatEmbeddedServletContainer : Tomcat started on port(s): 8080 (http)
+2017-10-22 20:51:24.584  INFO 4904 --- [restartedMain] c.s.booster.SpringBootMySqlApplication   : Started SpringBootMySqlApplication in 19.87 seconds (JVM running for 21.589)
+2017-10-22 20:52:16.527  INFO 4904 --- [http-nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring FrameworkServlet 'dispatcherServlet'
+2017-10-22 20:52:16.527  INFO 4904 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization started
+2017-10-22 20:52:16.560  INFO 4904 --- [http-nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : FrameworkServlet 'dispatcherServlet': initialization completed in 33 ms
+2017-10-22 20:52:58.133  INFO 4904 --- [http-nio-8080-exec-3] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2017-10-22 20:53:09.917 DEBUG 4904 --- [http-nio-8080-exec-8] c.s.booster.controllers.TaskController   : in Get method listMyTasks(Authentication) found developer with ID: 22
+2017-10-22 20:53:12.663 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.booster.services.TaskServiceImpl     : Method showAllTasksByStatus(Pageable, Status) returned tasks: 35
+2017-10-22 20:53:12.664 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.booster.controllers.TaskController   :  in GET method listNotAssignedTasks(): showAllTasksByStatus(Pageable) is called and found:8tasks
+2017-10-22 20:53:32.744 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.booster.controllers.TaskController   : in Get method listMyTasks(Authentication) found developer with ID: 22
+2017-10-22 20:53:46.799 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 1
+2017-10-22 20:53:46.803 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 5
+2017-10-22 20:53:46.938 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.services.DeveloperServiceImpl      : Method getByNumberOfTasks(int) returned developers: 25
+2017-10-22 20:53:46.958 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.booster.controllers.HomeController   :  in method greeting: home page called
+2017-10-22 20:53:55.622 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 22 received task with id: {}
+2017-10-22 20:53:55.627 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 26 received task with id: {}
+2017-10-22 20:53:55.630 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 23 received task with id: {}
+2017-10-22 20:53:55.631 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 22 received task with id: {}
+2017-10-22 20:53:55.634 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 26 received task with id: {}
+2017-10-22 20:53:55.634 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 23 received task with id: {}
+2017-10-22 20:53:55.634 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 26 received task with id: {}
+2017-10-22 20:53:55.634 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 23 received task with id: {}
+2017-10-22 20:53:55.638 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 22 received task with id: {}
+2017-10-22 20:53:55.639 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 27 received task with id: {}
+2017-10-22 20:53:55.641 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 25 received task with id: {}
+2017-10-22 20:53:55.642 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 24 received task with id: {}
+2017-10-22 20:53:55.644 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.b.services.ManagementServiceImpl     : All not assigned tasks are forced to assign automatically
+2017-10-22 20:53:55.645 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 12 received task with id: {}
+2017-10-22 20:53:55.645 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 16 received task with id: {}
+2017-10-22 20:53:55.645 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 20 received task with id: {}
+2017-10-22 20:53:55.645 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 12 received task with id: {}
+2017-10-22 20:53:55.646 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 20 received task with id: {}
+2017-10-22 20:53:55.647 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 12 received task with id: {}
+2017-10-22 20:53:55.648 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 16 received task with id: {}
+2017-10-22 20:53:55.651 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 20 received task with id: {}
+2017-10-22 20:53:55.651 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 15 received task with id: {}
+2017-10-22 20:53:55.651 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 16 received task with id: {}
+2017-10-22 20:53:55.651 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 15 received task with id: {}
+2017-10-22 20:53:55.652 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.b.services.ManagementServiceImpl     : All not assigned tasks are forced to assign automatically
+2017-10-22 20:53:55.652 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 2 received task with id: {}
+2017-10-22 20:53:55.652 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 13 received task with id: {}
+2017-10-22 20:53:55.653 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 14 received task with id: {}
+2017-10-22 20:53:55.655 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 2 received task with id: {}
+2017-10-22 20:53:55.655 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 13 received task with id: {}
+2017-10-22 20:53:55.656 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 14 received task with id: {}
+2017-10-22 20:53:55.656 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 2 received task with id: {}
+2017-10-22 20:53:55.666 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 13 received task with id: {}
+2017-10-22 20:53:55.667 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 9 received task with id: {}
+2017-10-22 20:53:55.668 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 14 received task with id: {}
+2017-10-22 20:53:55.668 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 9 received task with id: {}
+2017-10-22 20:53:55.670 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 18 received task with id: {}
+2017-10-22 20:53:55.670 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.b.services.ManagementServiceImpl     : All not assigned tasks are forced to assign automatically
+2017-10-22 20:53:55.670 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.b.controllers.DeveloperController    :  in GET method assignAllTasks(): assigned: 35 tasks among: {}
+2017-10-22 20:53:56.264 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.b.services.DeveloperServiceImpl      : All developers have been updated!
+2017-10-22 20:53:56.264 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.b.controllers.DeveloperController    :  in GET method assignAllTasks(): updated all developers
+2017-10-22 20:53:56.326 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.booster.services.TaskServiceImpl     : All tasks have been updated
+2017-10-22 20:53:56.326 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.b.controllers.DeveloperController    :  in GET method assignAllTasks(): updated all tasks
+2017-10-22 20:53:56.370 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.booster.services.ProjectServiceImpl  : All projects have been updated
+2017-10-22 20:53:56.370 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.b.controllers.DeveloperController    :  in GET method assignAllTasks(): updated all projects
+2017-10-22 20:54:05.058 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 1
+2017-10-22 20:54:05.063 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 5
+2017-10-22 20:54:05.099 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.b.services.DeveloperServiceImpl      : Method getByNumberOfTasks(int) returned developers: 10
+2017-10-22 20:54:05.110 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.booster.controllers.HomeController   :  in method greeting: home page called
+2017-10-22 20:55:35.836 DEBUG 4904 --- [http-nio-8080-exec-5] c.s.booster.controllers.TaskController   : in Get method listMyTasks(Authentication) found developer with ID: 22
+2017-10-22 20:55:44.616 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.booster.services.TaskServiceImpl     : Task with id: 1has been updated
+2017-10-22 20:55:44.620 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.booster.controllers.TaskController   :  in GET method markAsDone(): Updated task with ID:1
+2017-10-22 20:55:44.665 DEBUG 4904 --- [http-nio-8080-exec-10] c.s.booster.controllers.TaskController   : in Get method listMyTasks(Authentication) found developer with ID: 22
+2017-10-22 20:55:50.748 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.booster.services.TaskServiceImpl     : Task with id: 4has been updated
+2017-10-22 20:55:50.749 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.booster.controllers.TaskController   :  in GET method markAsDone(): Updated task with ID:4
+2017-10-22 20:55:50.781 DEBUG 4904 --- [http-nio-8080-exec-5] c.s.booster.controllers.TaskController   : in Get method listMyTasks(Authentication) found developer with ID: 22
+2017-10-22 20:55:52.430 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.booster.services.TaskServiceImpl     : Task with id: 10has been updated
+2017-10-22 20:55:52.434 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.booster.controllers.TaskController   :  in GET method markAsDone(): Updated task with ID:10
+2017-10-22 20:55:52.477 DEBUG 4904 --- [http-nio-8080-exec-10] c.s.booster.controllers.TaskController   : in Get method listMyTasks(Authentication) found developer with ID: 22
+2017-10-22 20:56:13.752 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 1
+2017-10-22 20:56:13.756 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 5
+2017-10-22 20:56:13.784 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.services.DeveloperServiceImpl      : Method getByNumberOfTasks(int) returned developers: 10
+2017-10-22 20:56:13.793 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.booster.controllers.HomeController   :  in method greeting: home page called
+2017-10-22 20:56:15.964 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.booster.services.TaskServiceImpl     : Method showAllTasksByStatus(Pageable, Status) returned tasks: 3
+2017-10-22 20:56:15.966 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.booster.controllers.TaskController   :  in GET method listDoneTasks(): showAllTasksByExecutionStatus(Pageable) is called and found:3tasks
+2017-10-22 20:56:20.913 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 22 stopped executing task with id: {}
+2017-10-22 20:56:20.914 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.b.services.ManagementServiceImpl     : Developer ID: 22is ordered to cancel task ID: {}
+2017-10-22 20:56:20.916 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.booster.controllers.TaskController   :  in GET method closeTask(): closed and moved to portfolio task with ID: 10
+2017-10-22 20:56:20.982 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.booster.services.TaskServiceImpl     : Task with id: 10has been updated
+2017-10-22 20:56:20.989 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.b.services.DeveloperServiceImpl      : Developer with id: 22has been updated
+2017-10-22 20:56:21.147 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.booster.controllers.TaskController   :  in GET method closeTask(): Updated manager
+2017-10-22 20:56:21.265 DEBUG 4904 --- [http-nio-8080-exec-10] c.s.booster.services.TaskServiceImpl     : Method showAllTasksByStatus(Pageable, Status) returned tasks: 2
+2017-10-22 20:56:21.267 DEBUG 4904 --- [http-nio-8080-exec-10] c.s.booster.controllers.TaskController   :  in GET method listDoneTasks(): showAllTasksByExecutionStatus(Pageable) is called and found:2tasks
+2017-10-22 20:56:22.199 DEBUG 4904 --- [http-nio-8080-exec-3] com.shelest.booster.domain.Developer     : Developer with id: 22 stopped executing task with id: {}
+2017-10-22 20:56:22.201 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.services.ManagementServiceImpl     : Developer ID: 22is ordered to cancel task ID: {}
+2017-10-22 20:56:22.202 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.booster.controllers.TaskController   :  in GET method closeTask(): closed and moved to portfolio task with ID: 4
+2017-10-22 20:56:22.316 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.booster.services.TaskServiceImpl     : Task with id: 4has been updated
+2017-10-22 20:56:22.329 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.services.DeveloperServiceImpl      : Developer with id: 22has been updated
+2017-10-22 20:56:22.394 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.booster.controllers.TaskController   :  in GET method closeTask(): Updated manager
+2017-10-22 20:56:22.415 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.booster.services.TaskServiceImpl     : Method showAllTasksByStatus(Pageable, Status) returned tasks: 1
+2017-10-22 20:56:22.416 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.booster.controllers.TaskController   :  in GET method listDoneTasks(): showAllTasksByExecutionStatus(Pageable) is called and found:1tasks
+2017-10-22 20:56:23.094 DEBUG 4904 --- [http-nio-8080-exec-7] com.shelest.booster.domain.Developer     : Developer with id: 22 stopped executing task with id: {}
+2017-10-22 20:56:23.094 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.b.services.ManagementServiceImpl     : Developer ID: 22is ordered to cancel task ID: {}
+2017-10-22 20:56:23.094 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.booster.controllers.TaskController   :  in GET method closeTask(): closed and moved to portfolio task with ID: 1
+2017-10-22 20:56:23.192 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.booster.services.TaskServiceImpl     : Task with id: 1has been updated
+2017-10-22 20:56:23.195 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.b.services.DeveloperServiceImpl      : Developer with id: 22has been updated
+2017-10-22 20:56:23.249 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.booster.controllers.TaskController   :  in GET method closeTask(): Updated manager
+2017-10-22 20:56:23.268 DEBUG 4904 --- [http-nio-8080-exec-8] c.s.booster.services.TaskServiceImpl     : Method showAllTasksByStatus(Pageable, Status) returned tasks: 0
+2017-10-22 20:56:23.270 DEBUG 4904 --- [http-nio-8080-exec-8] c.s.booster.controllers.TaskController   :  in GET method listDoneTasks(): showAllTasksByExecutionStatus(Pageable) is called and found:0tasks
+2017-10-22 20:56:25.449 DEBUG 4904 --- [http-nio-8080-exec-1] c.s.booster.controllers.HomeController   : in GET method listTasksHistory(): when called, found : 4 tasks
+2017-10-22 20:56:45.376 DEBUG 4904 --- [http-nio-8080-exec-5] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 1
+2017-10-22 20:56:45.380 DEBUG 4904 --- [http-nio-8080-exec-5] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 5
+2017-10-22 20:56:45.413 DEBUG 4904 --- [http-nio-8080-exec-5] c.s.b.services.DeveloperServiceImpl      : Method getByNumberOfTasks(int) returned developers: 11
+2017-10-22 20:56:45.421 DEBUG 4904 --- [http-nio-8080-exec-5] c.s.booster.controllers.HomeController   :  in method greeting: home page called
+2017-10-22 20:56:53.353 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 22stopped executing all tasks
+2017-10-22 20:56:53.355 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 23stopped executing all tasks
+2017-10-22 20:56:53.356 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 24stopped executing all tasks
+2017-10-22 20:56:53.356 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 25stopped executing all tasks
+2017-10-22 20:56:53.358 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 26stopped executing all tasks
+2017-10-22 20:56:53.360 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 27stopped executing all tasks
+2017-10-22 20:56:53.361 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.b.services.ManagementServiceImpl     : All tasks on all projects is forced to cancel automatically
+2017-10-22 20:56:53.361 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 12stopped executing all tasks
+2017-10-22 20:56:53.361 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 15stopped executing all tasks
+2017-10-22 20:56:53.361 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 16stopped executing all tasks
+2017-10-22 20:56:53.362 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 17stopped executing all tasks
+2017-10-22 20:56:53.362 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 19stopped executing all tasks
+2017-10-22 20:56:53.362 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 20stopped executing all tasks
+2017-10-22 20:56:53.362 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 21stopped executing all tasks
+2017-10-22 20:56:53.362 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.b.services.ManagementServiceImpl     : All tasks on all projects is forced to cancel automatically
+2017-10-22 20:56:53.362 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 2stopped executing all tasks
+2017-10-22 20:56:53.362 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 9stopped executing all tasks
+2017-10-22 20:56:53.363 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 11stopped executing all tasks
+2017-10-22 20:56:53.363 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 13stopped executing all tasks
+2017-10-22 20:56:53.363 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 14stopped executing all tasks
+2017-10-22 20:56:53.363 DEBUG 4904 --- [http-nio-8080-exec-9] com.shelest.booster.domain.Developer     : Developer with id: 18stopped executing all tasks
+2017-10-22 20:56:53.364 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.b.services.ManagementServiceImpl     : All tasks on all projects is forced to cancel automatically
+2017-10-22 20:56:53.371 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.b.controllers.DeveloperController    :  in GET method cancelAllTasks(): cancelled: 32 tasks among: {}
+2017-10-22 20:56:53.625 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.b.services.DeveloperServiceImpl      : All developers have been updated!
+2017-10-22 20:56:53.625 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.b.controllers.DeveloperController    :  in GET method cancelAllTasks(): updated all developers
+2017-10-22 20:56:53.727 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.booster.services.TaskServiceImpl     : All tasks have been updated
+2017-10-22 20:56:53.727 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.b.controllers.DeveloperController    :  in GET method cancelAllTasks(): updated all tasks
+2017-10-22 20:56:53.744 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.booster.services.ProjectServiceImpl  : All projects have been updated
+2017-10-22 20:56:53.745 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.b.controllers.DeveloperController    :  in GET method cancelAllTasks(): updated all projects
+2017-10-22 20:56:56.754 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 1
+2017-10-22 20:56:56.759 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 5
+2017-10-22 20:56:56.804 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.b.services.DeveloperServiceImpl      : Method getByNumberOfTasks(int) returned developers: 25
+2017-10-22 20:56:56.811 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.booster.controllers.HomeController   :  in method greeting: home page called
+2017-10-22 20:57:02.375 DEBUG 4904 --- [http-nio-8080-exec-8] c.s.booster.services.TaskServiceImpl     : Method showAllTasksByStatus(Pageable, Status) returned tasks: 32
+2017-10-22 20:57:02.377 DEBUG 4904 --- [http-nio-8080-exec-8] c.s.booster.controllers.TaskController   :  in GET method listNotAssignedTasks(): showAllTasksByStatus(Pageable) is called and found:8tasks
+2017-10-22 20:57:18.148 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.booster.services.TaskServiceImpl     : Method showAllTasksByStatus(Pageable, Status) returned tasks: 32
+2017-10-22 20:57:18.149 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.booster.controllers.TaskController   :  in GET method listNotAssignedTasks(): showAllTasksByStatus(Pageable) is called and found:8tasks
+2017-10-22 20:57:18.920 DEBUG 4904 --- [http-nio-8080-exec-5] c.s.booster.services.TaskServiceImpl     : Method showAllTasksByStatus(Pageable, Status) returned tasks: 32
+2017-10-22 20:57:18.922 DEBUG 4904 --- [http-nio-8080-exec-5] c.s.booster.controllers.TaskController   :  in GET method listNotAssignedTasks(): showAllTasksByStatus(Pageable) is called and found:8tasks
+2017-10-22 20:57:19.669 DEBUG 4904 --- [http-nio-8080-exec-8] c.s.booster.services.TaskServiceImpl     : Method showAllTasksByStatus(Pageable, Status) returned tasks: 32
+2017-10-22 20:57:19.670 DEBUG 4904 --- [http-nio-8080-exec-8] c.s.booster.controllers.TaskController   :  in GET method listNotAssignedTasks(): showAllTasksByStatus(Pageable) is called and found:8tasks
+2017-10-22 20:57:43.548 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 1
+2017-10-22 20:57:43.551 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.b.services.DeveloperServiceImpl      : Method getByState(State) returned developers: 5
+2017-10-22 20:57:43.583 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.b.services.DeveloperServiceImpl      : Method getByNumberOfTasks(int) returned developers: 25
+2017-10-22 20:57:43.592 DEBUG 4904 --- [http-nio-8080-exec-2] c.s.booster.controllers.HomeController   :  in method greeting: home page called
+2017-10-22 20:57:46.527 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 26 received task with id: {}
+2017-10-22 20:57:46.531 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 23 received task with id: {}
+2017-10-22 20:57:46.532 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 26 received task with id: {}
+2017-10-22 20:57:46.533 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 23 received task with id: {}
+2017-10-22 20:57:46.534 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 26 received task with id: {}
+2017-10-22 20:57:46.535 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 23 received task with id: {}
+2017-10-22 20:57:46.536 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 27 received task with id: {}
+2017-10-22 20:57:46.536 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 22 received task with id: {}
+2017-10-22 20:57:46.536 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 24 received task with id: {}
+2017-10-22 20:57:46.537 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.b.services.ManagementServiceImpl     : All not assigned tasks are forced to assign automatically
+2017-10-22 20:57:46.538 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 12 received task with id: {}
+2017-10-22 20:57:46.538 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 16 received task with id: {}
+2017-10-22 20:57:46.538 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 20 received task with id: {}
+2017-10-22 20:57:46.538 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 12 received task with id: {}
+2017-10-22 20:57:46.538 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 20 received task with id: {}
+2017-10-22 20:57:46.539 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 12 received task with id: {}
+2017-10-22 20:57:46.539 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 16 received task with id: {}
+2017-10-22 20:57:46.539 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 20 received task with id: {}
+2017-10-22 20:57:46.539 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 15 received task with id: {}
+2017-10-22 20:57:46.540 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 16 received task with id: {}
+2017-10-22 20:57:46.541 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 15 received task with id: {}
+2017-10-22 20:57:46.541 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.b.services.ManagementServiceImpl     : All not assigned tasks are forced to assign automatically
+2017-10-22 20:57:46.541 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 2 received task with id: {}
+2017-10-22 20:57:46.541 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 13 received task with id: {}
+2017-10-22 20:57:46.542 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 14 received task with id: {}
+2017-10-22 20:57:46.544 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 2 received task with id: {}
+2017-10-22 20:57:46.544 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 13 received task with id: {}
+2017-10-22 20:57:46.544 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 14 received task with id: {}
+2017-10-22 20:57:46.545 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 2 received task with id: {}
+2017-10-22 20:57:46.545 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 13 received task with id: {}
+2017-10-22 20:57:46.545 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 9 received task with id: {}
+2017-10-22 20:57:46.545 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 14 received task with id: {}
+2017-10-22 20:57:46.545 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 9 received task with id: {}
+2017-10-22 20:57:46.545 DEBUG 4904 --- [http-nio-8080-exec-6] com.shelest.booster.domain.Developer     : Developer with id: 18 received task with id: {}
+2017-10-22 20:57:46.545 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.b.services.ManagementServiceImpl     : All not assigned tasks are forced to assign automatically
+2017-10-22 20:57:46.545 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.b.controllers.DeveloperController    :  in GET method assignAllTasks(): assigned: 32 tasks among: {}
+2017-10-22 20:57:46.837 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.b.services.DeveloperServiceImpl      : All developers have been updated!
+2017-10-22 20:57:46.838 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.b.controllers.DeveloperController    :  in GET method assignAllTasks(): updated all developers
+2017-10-22 20:57:46.858 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.booster.services.TaskServiceImpl     : All tasks have been updated
+2017-10-22 20:57:46.858 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.b.controllers.DeveloperController    :  in GET method assignAllTasks(): updated all tasks
+2017-10-22 20:57:46.879 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.booster.services.ProjectServiceImpl  : All projects have been updated
+2017-10-22 20:57:46.879 DEBUG 4904 --- [http-nio-8080-exec-6] c.s.b.controllers.DeveloperController    :  in GET method assignAllTasks(): updated all projects
+2017-10-22 20:57:49.199 DEBUG 4904 --- [http-nio-8080-exec-10] c.s.b.controllers.ProjectController      : ProjectController in GET method listProjects(): when called, found : 3 projects
+2017-10-22 20:57:51.326 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.b.controllers.ProjectController      :  in GET method listAssignedDevelopers(): found : 10 developers on project with ID {}: 
+2017-10-22 20:57:59.031 DEBUG 4904 --- [http-nio-8080-exec-9] c.s.b.controllers.DeveloperController    :  in method showTasks():found assigned to developer with ID: 23 tasks: {}
+2017-10-22 20:58:01.635 DEBUG 4904 --- [http-nio-8080-exec-3] com.shelest.booster.domain.Developer     : Developer with id: 23 stopped executing task with id: {}
+2017-10-22 20:58:01.637 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.services.ManagementServiceImpl     : Developer ID: 23is ordered to cancel task ID: {}
+2017-10-22 20:58:01.637 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.controllers.DeveloperController    :  in GET method cancelTask(): Cancelled task with ID:3for developer with ID: {}
+2017-10-22 20:58:01.715 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.services.DeveloperServiceImpl      : Developer with id: 23has been updated
+2017-10-22 20:58:01.718 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.controllers.DeveloperController    :  in GET method cancelTask(): Updated developer with ID:23
+2017-10-22 20:58:01.725 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.booster.services.TaskServiceImpl     : Task with id: 3has been updated
+2017-10-22 20:58:01.725 DEBUG 4904 --- [http-nio-8080-exec-3] c.s.b.controllers.DeveloperController    :  in GET method cancelTask(): Updated task with ID:3
+2017-10-22 20:58:01.757 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.b.services.DeveloperServiceImpl      : Method getByState(State, Pageable) returned developers: 1
+2017-10-22 20:58:01.758 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.b.controllers.DeveloperController    :  in GET method listBench(): getByState(Pageable) is called and found:8developers
+2017-10-22 20:58:01.759 DEBUG 4904 --- [http-nio-8080-exec-4] c.s.b.controllers.DeveloperController    :  in GET method listBench(): new pager object created
+2017-10-22 20:58:08.811 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.booster.services.TaskServiceImpl     : Method showAllTasksByStatus(Pageable, Status) returned tasks: 1
+2017-10-22 20:58:08.813 DEBUG 4904 --- [http-nio-8080-exec-7] c.s.booster.controllers.TaskController   :  in GET method listNotAssignedTasks(): showAllTasksByStatus(Pageable) is called and found:8tasks

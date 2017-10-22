@@ -6,8 +6,7 @@ import com.shelest.booster.utilities.password_validation.ValidPassword;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.hibernate.validator.constraints.Range;
 
-import javax.validation.constraints.*;
-import java.math.BigDecimal;
+import javax.validation.constraints.NotNull;
 
 @PasswordMatches
 public class DeveloperDTO {

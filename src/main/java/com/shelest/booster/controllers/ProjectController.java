@@ -8,7 +8,6 @@ import com.shelest.booster.services.ProjectService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -60,7 +59,7 @@ public class ProjectController {
                                @RequestParam("middlesNeed") int middlesNeed,
                                @RequestParam("juniorsNeed") int juniorsNeed,
                                @RequestParam("maxTasks") int maxTasksForOne) {
-        if(seniorsNeed > 0 & middlesNeed > 0 & juniorsNeed > 0 & maxTasksForOne > 0){
+        if (seniorsNeed > 0 & middlesNeed > 0 & juniorsNeed > 0 & maxTasksForOne > 0) {
             Project project = new Project();
             project.setName(name);
             project.setSeniorsNeed(seniorsNeed);
@@ -68,7 +67,7 @@ public class ProjectController {
             project.setJuniorsNeed(juniorsNeed);
             project.setMaxTasksForOneDev(maxTasksForOne);
             projectService.addProject(project);
-        }else {
+        } else {
             logger.error("Tried to create project with invalid data");
             return new ModelAndView("mustBePositive");
         }
@@ -83,7 +82,7 @@ public class ProjectController {
                                @RequestParam("middlesNeed") int middlesNeed,
                                @RequestParam("juniorsNeed") int juniorsNeed,
                                @RequestParam("maxTasks") int maxTasksForOne, Model model) {
-        if(seniorsNeed > 0 & middlesNeed > 0 & juniorsNeed > 0 & maxTasksForOne > 0){
+        if (seniorsNeed > 0 & middlesNeed > 0 & juniorsNeed > 0 & maxTasksForOne > 0) {
             Project project = projectService.getById(id);
             project.setName(name);
             project.setSeniorsNeed(seniorsNeed);
@@ -91,7 +90,7 @@ public class ProjectController {
             project.setJuniorsNeed(juniorsNeed);
             project.setMaxTasksForOneDev(maxTasksForOne);
             projectService.updateProject(project);
-        }else {
+        } else {
             logger.error("Tried to update project with invalid data");
             return new ModelAndView("mustBePositive");
         }
@@ -112,8 +111,8 @@ public class ProjectController {
         ModelAndView modelAndView = new ModelAndView("projects/projectTeam");
         modelAndView.addObject("developersOnProject", projectService.getById(id).getDevelopersOnProject());
         modelAndView.addObject("project", projectService.getById(id));
-        logger.debug(" in GET method listAssignedDevelopers(): found : {}" ,
-                projectService.getById(id).getDevelopersOnProject().size()+ " developers on project with ID {}: ", id);
+        logger.debug(" in GET method listAssignedDevelopers(): found : {}",
+                projectService.getById(id).getDevelopersOnProject().size() + " developers on project with ID {}: ", id);
         return modelAndView;
     }
 
@@ -126,7 +125,7 @@ public class ProjectController {
         modelAndView.addObject("team", projectService.getById(id).getDevelopersOnProject());
         modelAndView.addObject("developer", developerService.getById(id));
         managementService.removeDeveloperFromProject(developer, project);
-        logger.debug(" in GET method removeDeveloper(): Removed developer with ID: {}", devId+ "from project with ID: {}", id);
+        logger.debug(" in GET method removeDeveloper(): Removed developer with ID: {}", devId + "from project with ID: {}", id);
         projectService.updateProject(project);
         return modelAndView;
     }

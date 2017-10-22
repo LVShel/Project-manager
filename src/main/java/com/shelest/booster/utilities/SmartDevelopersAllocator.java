@@ -15,11 +15,11 @@ public class SmartDevelopersAllocator {
         this.developers = developers;
     }
 
-    public void autoAllocateAllDevelopersToProjects(){
+    public void autoAllocateAllDevelopersToProjects() {
 
     }
 
-    public void removeAllDevelopersFromAllProjects(){
+    public void removeAllDevelopersFromAllProjects() {
 
     }
 }

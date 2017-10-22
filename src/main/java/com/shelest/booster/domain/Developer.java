@@ -88,7 +88,7 @@ public class Developer {
         this.getAssignedTasks().remove(task);
         task.setStatus(Status.NOT_ASSIGNED);
         task.setExecutorID(0);
-        logger.debug("Developer with id: {}", this.getId() +" stopped executing task with id: {}", task.getId());
+        logger.debug("Developer with id: {}", this.getId() + " stopped executing task with id: {}", task.getId());
 
     }
 

@@ -7,7 +7,7 @@ import com.shelest.booster.services.DeveloperService;
 import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
-import com.shelest.booster.utilities.*;
+import com.shelest.booster.utilities.Pager;
 import com.shelest.booster.utilities.enums.Rank;
 import com.shelest.booster.utilities.enums.State;
 import com.shelest.booster.utilities.enums.Status;
@@ -15,7 +15,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -47,16 +46,15 @@ public class DeveloperController {
     private static final int BUTTONS_TO_SHOW = 5;
     private static final int INITIAL_PAGE = 0;
     private static final int INITIAL_PAGE_SIZE = 8;
-    private static final int[] PAGE_SIZES = { 5, 8, 12 };
+    private static final int[] PAGE_SIZES = {5, 8, 12};
 
     @GetMapping("/all")
     public ModelAndView listDevelopers(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
-                                          @RequestParam(value = "page", required = false) Optional<Integer> page,
-                                          @RequestParam(value = "order", required = false) String order,
-                                          @RequestParam(value = "direction", required = false, defaultValue = "1") Integer direction) {
+                                       @RequestParam(value = "page", required = false) Optional<Integer> page,
+                                       @RequestParam(value = "order", required = false) String order,
+                                       @RequestParam(value = "direction", required = false, defaultValue = "1") Integer direction) {
         ModelAndView modelAndView = new ModelAndView("developers/all");
-        // Evaluate page size. If requested parameter is null, return initial
-        // page size
+        // Evaluate page size. If requested parameter is null, return initial page size
         int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
         // Evaluate page. If requested parameter is null or less than 0 (to
         // prevent exception), return initial size. Otherwise, return value of
@@ -76,8 +74,8 @@ public class DeveloperController {
 
     @RequestMapping(value = "/bench", method = RequestMethod.GET)
     public ModelAndView listBench(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
-                                          @RequestParam(value = "page", required = false) Optional<Integer> page,
-                                          @RequestParam(value = "order", required = false) String order) {
+                                  @RequestParam(value = "page", required = false) Optional<Integer> page,
+                                  @RequestParam(value = "order", required = false) String order) {
         ModelAndView modelAndView = new ModelAndView("developers/bench");
         int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
@@ -96,8 +94,8 @@ public class DeveloperController {
 
     @RequestMapping(value = "/newComers", method = RequestMethod.GET)
     public ModelAndView listNewcomers(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
-                                  @RequestParam(value = "page", required = false) Optional<Integer> page,
-                                  @RequestParam(value = "order", required = false) String order) {
+                                      @RequestParam(value = "page", required = false) Optional<Integer> page,
+                                      @RequestParam(value = "order", required = false) String order) {
         ModelAndView modelAndView = new ModelAndView("developers/newComers");
         int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
@@ -146,13 +144,13 @@ public class DeveloperController {
                                @RequestParam("experience") double experience,
                                @RequestParam("qualification") int qualification) {
         Developer developer = developerService.getById(id);
-        if(name.length() > 0 && experience >0 && experience <= 50 && qualification > 0 && qualification <= 100){
+        if (name.length() > 0 && experience > 0 && experience <= 50 && qualification > 0 && qualification <= 100) {
             developer.setName(name);
             developer.setRank(rank);
             developer.setExperience(experience);
             developer.setQualification(qualification);
             developerService.updateDeveloper(developer);
-        }else {
+        } else {
             logger.error("Tried to update developer with invalid data");
             return new ModelAndView("error/errorUpdateDev");
         }
@@ -212,7 +210,7 @@ public class DeveloperController {
             logger.error(" in GET method cancelTask(): Attempted to cancel not assigned task");
             return new ModelAndView("error/cancelNotAssignedTask");
         }
-        return new ModelAndView("redirect:/developers/bench");
+        return new ModelAndView("redirect:/tasks/notAssignedTasks");
     }
 
     @RequestMapping(value = "/{id}/assignToProject", method = RequestMethod.GET)
@@ -225,7 +223,7 @@ public class DeveloperController {
 
     @RequestMapping(value = "/assignToProject", method = RequestMethod.POST)
     public ModelAndView assignToProject(@RequestParam("developer_id") long developerId,
-                               @RequestParam("project_id") long projectId) {
+                                        @RequestParam("project_id") long projectId) {
         Developer developer = developerService.getById(developerId);
         Project project = projectService.getById(projectId);
         managementService.assignDeveloperToProject(developer, project);
@@ -241,14 +239,14 @@ public class DeveloperController {
         List<Project> projects = projectService.showAllProjects();
 
         managementService.assignAllTasks(projects, notAssignedTasks);
-        logger.debug(" in GET method assignAllTasks(): assigned: {}", notAssignedTasks.size() +" tasks among: {}", projects.size()+ " projects");
+        logger.debug(" in GET method assignAllTasks(): assigned: {}", notAssignedTasks.size() + " tasks among: {}", projects.size() + " projects");
         developerService.updateAllDevelopers();
         logger.debug(" in GET method assignAllTasks(): updated all developers");
         taskService.updateAllTasks();
         logger.debug(" in GET method assignAllTasks(): updated all tasks");
         projectService.updateAllProjects();
         logger.debug(" in GET method assignAllTasks(): updated all projects");
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/home");
     }
 
     @RequestMapping(value = "/cancelAllTasks", method = RequestMethod.GET)
@@ -257,7 +255,7 @@ public class DeveloperController {
         List<Project> projects = projectService.showAllProjects();
 
         managementService.cancelAllTasks(projects, assignedTasks);
-        logger.debug(" in GET method cancelAllTasks(): cancelled: {}", assignedTasks.size()+ " tasks among: {}", projects.size()+ " projects");
+        logger.debug(" in GET method cancelAllTasks(): cancelled: {}", assignedTasks.size() + " tasks among: {}", projects.size() + " projects");
         developerService.updateAllDevelopers();
         logger.debug(" in GET method cancelAllTasks(): updated all developers");
         taskService.updateAllTasks();

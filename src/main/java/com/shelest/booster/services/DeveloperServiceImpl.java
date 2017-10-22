@@ -4,8 +4,8 @@ import com.shelest.booster.domain.Developer;
 import com.shelest.booster.repositories.DeveloperRepository;
 import com.shelest.booster.utilities.CustomUserDetails;
 import com.shelest.booster.utilities.DeveloperExistsException;
-import com.shelest.booster.utilities.enums.State;
 import com.shelest.booster.utilities.dto.DeveloperDTO;
+import com.shelest.booster.utilities.enums.State;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -115,10 +115,9 @@ public class DeveloperServiceImpl implements DeveloperService {
             order = "id";
         }
         Sort.Direction dir;
-        if(direction==1){
+        if (direction == 1) {
             dir = Sort.Direction.ASC;
-        }
-        else {
+        } else {
             dir = Sort.Direction.DESC;
         }
         Sort sort = new Sort(new Sort.Order(dir, order));
@@ -134,7 +133,7 @@ public class DeveloperServiceImpl implements DeveloperService {
         if (nameExist(accountDto.getName())) {
             throw new DeveloperExistsException(
                     "There is an account with that userName: "
-                            +  accountDto.getName());
+                            + accountDto.getName());
         }
         Developer developer = new Developer();
         developer.setName(accountDto.getName());

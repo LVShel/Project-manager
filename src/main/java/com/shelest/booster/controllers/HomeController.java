@@ -19,9 +19,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
@@ -92,7 +90,7 @@ public class HomeController {
              BindingResult result) {
         Developer registered = new Developer();
         if (!result.hasErrors()) {
-            registered = createUserAccount(accountDto, result);
+            registered = createUserAccount(accountDto);
         }
         if (registered == null) {
             result.rejectValue("name", "message.regError");
@@ -104,8 +102,8 @@ public class HomeController {
             return new ModelAndView("successRegister", "user", accountDto);
         }
     }
-    private Developer createUserAccount(DeveloperDTO accountDto, BindingResult result) {
-        Developer registered = null;
+    private Developer createUserAccount(DeveloperDTO accountDto) {
+        Developer registered;
         try {
             registered = developerService.registerNewDeveloperAccount(accountDto);
         } catch (DeveloperExistsException e) {

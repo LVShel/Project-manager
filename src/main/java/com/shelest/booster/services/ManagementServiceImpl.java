@@ -54,7 +54,7 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public void assignAllTasks(List<Project> projectList, List<Task> tasks) {
-        for(Project project : projectList){
+        for (Project project : projectList) {
             SmartTaskDistributor taskDistributor = new SmartTaskDistributor(project, tasks);
             taskDistributor.autoAssignAllTasks();
             logger.debug("All not assigned tasks are forced to assign automatically");
@@ -63,7 +63,7 @@ public class ManagementServiceImpl implements ManagementService {
 
     @Override
     public void cancelAllTasks(List<Project> projectList, List<Task> tasks) {
-        for(Project project : projectList) {
+        for (Project project : projectList) {
             SmartTaskDistributor taskDistributor = new SmartTaskDistributor(project, tasks);
             taskDistributor.autoCancelAllTasks();
             logger.debug("All tasks on all projects is forced to cancel automatically");
@@ -86,16 +86,6 @@ public class ManagementServiceImpl implements ManagementService {
     public void removeAllDevelopersFromOneProject(Project project) {
         project.kickAllFromProject();
         logger.debug("Project, ID: {}", project.getId() + "is ordered to kick all developers");
-    }
-
-    @Override
-    public void assignAllDevelopersToProjects(List<Developer> developers, List<Project> projects) {
-
-    }
-
-    @Override
-    public void removeAllDevelopersFromProjects(List<Developer> developers, List<Project> projects) {
-
     }
 
     @Override

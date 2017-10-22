@@ -5,7 +5,6 @@ import com.shelest.booster.domain.Manager;
 import com.shelest.booster.domain.Project;
 import com.shelest.booster.domain.Task;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
@@ -32,9 +31,4 @@ public interface ManagementService extends UserDetailsService {
     void removeDeveloperFromProject(Developer developer, Project project);
 
     void removeAllDevelopersFromOneProject(Project project);
-
-    void assignAllDevelopersToProjects(List<Developer> developers, List<Project> projects);
-
-    void removeAllDevelopersFromProjects(List<Developer> developers, List<Project> projects);
-
 }

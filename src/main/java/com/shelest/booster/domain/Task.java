@@ -1,6 +1,9 @@
 package com.shelest.booster.domain;
 
-import com.shelest.booster.utilities.enums.*;
+import com.shelest.booster.utilities.enums.EstimationStatus;
+import com.shelest.booster.utilities.enums.ExecutionStatus;
+import com.shelest.booster.utilities.enums.Status;
+import com.shelest.booster.utilities.enums.TaskType;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;

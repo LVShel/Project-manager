@@ -2,8 +2,8 @@ package com.shelest.booster.services;
 
 import com.shelest.booster.domain.Developer;
 import com.shelest.booster.utilities.DeveloperExistsException;
-import com.shelest.booster.utilities.enums.State;
 import com.shelest.booster.utilities.dto.DeveloperDTO;
+import com.shelest.booster.utilities.enums.State;
 import org.springframework.data.domain.Page;
 import org.springframework.security.core.userdetails.UserDetailsService;
 

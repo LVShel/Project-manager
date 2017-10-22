@@ -1,7 +1,6 @@
 package com.shelest.booster.services;
 
 import com.shelest.booster.domain.Project;
-import org.springframework.stereotype.Service;
 
 import java.util.List;
 

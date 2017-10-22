@@ -1,13 +1,11 @@
 package com.shelest.booster.services;
 
-import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Project;
 import com.shelest.booster.repositories.ProjectRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -21,7 +19,6 @@ public class ProjectServiceImpl implements ProjectService {
     private ManagementService managementService;
 
     private static Logger logger = LoggerFactory.getLogger(ProjectServiceImpl.class);
-
 
     @Override
     public List<Project> showAllProjects() {

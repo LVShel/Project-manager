@@ -1,6 +1,5 @@
 package com.shelest.booster.utilities;
 
-import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Manager;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;

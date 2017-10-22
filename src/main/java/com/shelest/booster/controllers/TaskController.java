@@ -8,8 +8,8 @@ import com.shelest.booster.services.DeveloperService;
 import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
-import com.shelest.booster.utilities.enums.EstimationStatus;
 import com.shelest.booster.utilities.Pager;
+import com.shelest.booster.utilities.enums.EstimationStatus;
 import com.shelest.booster.utilities.enums.ExecutionStatus;
 import com.shelest.booster.utilities.enums.Status;
 import com.shelest.booster.utilities.enums.TaskType;
@@ -18,11 +18,9 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.format.annotation.DateTimeFormat;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -102,14 +100,14 @@ public class TaskController {
     @PreAuthorize("hasAnyRole('ROLE_ADMIN')")
     @RequestMapping(value = "/doneTasks", method = RequestMethod.GET)
     public ModelAndView listDoneTasks(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
-                                             @RequestParam(value = "page", required = false) Optional<Integer> page,
-                                             @RequestParam(value = "order", required = false) String order) {
+                                      @RequestParam(value = "page", required = false) Optional<Integer> page,
+                                      @RequestParam(value = "order", required = false) String order) {
         ModelAndView modelAndView = new ModelAndView("tasks/doneTasks");
         int evalPageSize = pageSize.orElse(INITIAL_PAGE_SIZE);
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
         Page<Task> tasks = taskService.showAllTasksByExecutionStatusAndStatus(evalPage, evalPageSize, order, ExecutionStatus.DONE, Status.ASSIGNED);
-        logger.debug(" in GET method listDoneTasks(): showAllTasksByExecutionStatus(Pageable) is called and found:{}", tasks.getTotalElements()+ "tasks");
+        logger.debug(" in GET method listDoneTasks(): showAllTasksByExecutionStatus(Pageable) is called and found:{}", tasks.getTotalElements() + "tasks");
         Pager pager = new Pager(tasks.getTotalPages(), tasks.getNumber(), BUTTONS_TO_SHOW);
 
         modelAndView.addObject("tasks", tasks);
@@ -153,7 +151,7 @@ public class TaskController {
                                @RequestParam("startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate,
                                @RequestParam("endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate) {
         int difference = startDate.compareTo(endDate);
-        if(taskDescr.length() <= 300 & difference <= 0){
+        if (taskDescr.length() <= 300 & difference <= 0) {
             Task task = new Task();
             task.setProjectName(projectName);
             task.setTaskType(taskType);
@@ -161,12 +159,12 @@ public class TaskController {
             task.setEndDate(endDate);
             task.setDescription(taskDescr);
             taskService.addTask(task);
-        }else {
-            if(taskDescr.length() > 300){
+        } else {
+            if (taskDescr.length() > 300) {
                 logger.error("Tried to add task description more than 300 length");
                 return new ModelAndView("error/descrLength");
             }
-            if(difference > 0){
+            if (difference > 0) {
                 logger.error("Tried to choose invalid endDate");
                 return new ModelAndView("error/dateDifference");
             }
@@ -196,7 +194,7 @@ public class TaskController {
                                @RequestParam("startDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate startDate,
                                @RequestParam("endDate") @DateTimeFormat(pattern = "dd-MM-yyyy") LocalDate endDate) {
         int difference = startDate.compareTo(endDate);
-        if(taskDescr.length() > 300 & difference <= 0){
+        if (taskDescr.length() > 300 & difference <= 0) {
             Task task = taskService.getById(id);
             task.setProjectName(projectName);
             task.setTaskType(taskType);
@@ -204,7 +202,7 @@ public class TaskController {
             task.setEndDate(endDate);
             task.setDescription(taskDescr);
             taskService.updateTask(task);
-        }else {
+        } else {
             if (taskDescr.length() > 300) {
                 logger.error("Tried to add task description more than 300 length");
                 return new ModelAndView("error/descrLength");
@@ -231,7 +229,7 @@ public class TaskController {
     @RequestMapping(value = "/estimate", method = RequestMethod.POST)
     public ModelAndView estimate(@RequestParam("task_id") long id,
                                  @RequestParam("estimation") int estimation) {
-        if(estimation > 0 & estimation < 100){
+        if (estimation > 0 & estimation < 100) {
             Task task = taskService.getById(id);
             task.getEstimations().add(estimation);
             task.setEstimationStatus(EstimationStatus.ESTIMATED);
@@ -241,7 +239,7 @@ public class TaskController {
             int storyPointsAvg = (int) estimations.stream().mapToInt((x) -> x).summaryStatistics().getAverage();
             task.setStoryPoints(storyPointsAvg);
             taskService.updateTask(task);
-        }else {
+        } else {
             logger.error("Tried to choose invalid endDate");
             return new ModelAndView("error/estimError");
         }

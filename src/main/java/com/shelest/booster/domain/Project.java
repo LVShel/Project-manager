@@ -31,7 +31,7 @@ public class Project {
     public Project() {
     }
 
-    public void addDeveloper(Developer developer){
+    public void addDeveloper(Developer developer) {
         switch (developer.getRank()) {
 
             case JUNIOR:
@@ -50,25 +50,25 @@ public class Project {
         logger.debug("Project with id: {}", this.getId() + " received developer with id: {}", developer.getId());
     }
 
-    public void kickDeveloperToBench(Developer developer){
+    public void kickDeveloperToBench(Developer developer) {
         this.kick(developer);
         developer.setState(State.ON_BENCH);
         developer.setNameOfCurrentProject("Dismissed from project " + this.getName());
         this.dismiss(developer);
-        logger.debug("Project with id: {}", this.getId() +" removed to bench developer with id: {}", developer.getId());
+        logger.debug("Project with id: {}", this.getId() + " removed to bench developer with id: {}", developer.getId());
     }
 
-    public void kickAllFromProject(){
-        for (Developer developer : this.getDevelopersOnProject()){
+    public void kickAllFromProject() {
+        for (Developer developer : this.getDevelopersOnProject()) {
             this.kick(developer);
             developer.setState(State.ON_BENCH);
             developer.setNameOfCurrentProject("Dismissed from project " + this.getName());
         }
         this.dismissAll();
-        logger.debug("Project with id: {}", this.getId() +" dismissed all developers");
+        logger.debug("Project with id: {}", this.getId() + " dismissed all developers");
     }
 
-    private void kick(Developer developer){
+    private void kick(Developer developer) {
         switch (developer.getRank()) {
 
             case JUNIOR:
