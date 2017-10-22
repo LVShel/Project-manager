@@ -9,6 +9,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -18,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
 @Controller
-@Secured("ROLE_ADMIN")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 @RequestMapping("/projects")
 public class ProjectController {
 
@@ -59,13 +60,18 @@ public class ProjectController {
                                @RequestParam("middlesNeed") int middlesNeed,
                                @RequestParam("juniorsNeed") int juniorsNeed,
                                @RequestParam("maxTasks") int maxTasksForOne) {
-        Project project = new Project();
-        project.setName(name);
-        project.setSeniorsNeed(seniorsNeed);
-        project.setMiddlesNeed(middlesNeed);
-        project.setJuniorsNeed(juniorsNeed);
-        project.setMaxTasksForOneDev(maxTasksForOne);
-        projectService.addProject(project);
+        if(seniorsNeed > 0 & middlesNeed > 0 & juniorsNeed > 0 & maxTasksForOne > 0){
+            Project project = new Project();
+            project.setName(name);
+            project.setSeniorsNeed(seniorsNeed);
+            project.setMiddlesNeed(middlesNeed);
+            project.setJuniorsNeed(juniorsNeed);
+            project.setMaxTasksForOneDev(maxTasksForOne);
+            projectService.addProject(project);
+        }else {
+            logger.error("Tried to create project with invalid data");
+            return new ModelAndView("mustBePositive");
+        }
         logger.debug(" in POST method create(): Created and added new project with name : {}", name);
         return new ModelAndView("redirect:/projects");
     }
@@ -77,13 +83,18 @@ public class ProjectController {
                                @RequestParam("middlesNeed") int middlesNeed,
                                @RequestParam("juniorsNeed") int juniorsNeed,
                                @RequestParam("maxTasks") int maxTasksForOne, Model model) {
-        Project project = projectService.getById(id);
-        project.setName(name);
-        project.setSeniorsNeed(seniorsNeed);
-        project.setMiddlesNeed(middlesNeed);
-        project.setJuniorsNeed(juniorsNeed);
-        project.setMaxTasksForOneDev(maxTasksForOne);
-        projectService.updateProject(project);
+        if(seniorsNeed > 0 & middlesNeed > 0 & juniorsNeed > 0 & maxTasksForOne > 0){
+            Project project = projectService.getById(id);
+            project.setName(name);
+            project.setSeniorsNeed(seniorsNeed);
+            project.setMiddlesNeed(middlesNeed);
+            project.setJuniorsNeed(juniorsNeed);
+            project.setMaxTasksForOneDev(maxTasksForOne);
+            projectService.updateProject(project);
+        }else {
+            logger.error("Tried to update project with invalid data");
+            return new ModelAndView("mustBePositive");
+        }
         logger.debug(" in POST method update(): updated project with ID : {}", id);
         return new ModelAndView("redirect:/projects");
     }

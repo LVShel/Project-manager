@@ -1,11 +1,10 @@
 package com.shelest.booster.services;
 
 import com.shelest.booster.domain.Developer;
-import com.shelest.booster.domain.Task;
 import com.shelest.booster.repositories.DeveloperRepository;
 import com.shelest.booster.utilities.CustomUserDetails;
 import com.shelest.booster.utilities.DeveloperExistsException;
-import com.shelest.booster.utilities.State;
+import com.shelest.booster.utilities.enums.State;
 import com.shelest.booster.utilities.dto.DeveloperDTO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,6 +38,11 @@ public class DeveloperServiceImpl implements DeveloperService {
     @Override
     public Developer getById(long id) {
         return repository.findOne(id);
+    }
+
+    @Override
+    public Developer getByNameEquals(String username) {
+        return repository.findByNameEquals(username);
     }
 
     @Override
@@ -106,11 +110,18 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public Page<Developer> findAllPageable(Integer page, Integer size, String order) {
+    public Page<Developer> findAllPageable(Integer page, Integer size, String order, Integer direction) {
         if (StringUtils.isEmpty(order)) {
             order = "id";
         }
-        Sort sort = new Sort(new Sort.Order(Sort.Direction.DESC, order));
+        Sort.Direction dir;
+        if(direction==1){
+            dir = Sort.Direction.ASC;
+        }
+        else {
+            dir = Sort.Direction.DESC;
+        }
+        Sort sort = new Sort(new Sort.Order(dir, order));
         Pageable pageable = new PageRequest(page, size, sort);
         Page<Developer> developerPage = repository.findAll(pageable);
         logger.debug("Method findAllPageable(Pageable) returned developers: {}", developerPage.getTotalElements());

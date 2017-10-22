@@ -6,9 +6,7 @@ import com.shelest.booster.domain.Project;
 import com.shelest.booster.domain.Task;
 import com.shelest.booster.repositories.ManagerRepository;
 import com.shelest.booster.utilities.CustomManagerDetails;
-import com.shelest.booster.utilities.CustomUserDetails;
 import com.shelest.booster.utilities.SmartTaskDistributor;
-import com.shelest.booster.utilities.State;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +24,21 @@ public class ManagementServiceImpl implements ManagementService {
     ManagerRepository repository;
 
     private static Logger logger = LoggerFactory.getLogger(ManagementServiceImpl.class);
+
+    @Override
+    public Optional<Manager> findByName(String username) {
+        return repository.findByName(username);
+    }
+
+    @Override
+    public Manager findByNameEquals(String name) {
+        return repository.findByNameEquals(name);
+    }
+
+    @Override
+    public void update(Manager manager) {
+        repository.save(manager);
+    }
 
     @Override
     public void assignTask(Developer developer, Task task) {

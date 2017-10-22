@@ -6,15 +6,16 @@
     <table class="table table-striped" id="tasks_list">
         <thead>
         <tr >
-            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=id)}">Id</a></th>
-            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=projectName)}">Name of project</a></th>
-            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=taskType)}">Type</a></th>
-            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=startDate)}">Start date</a></th>
-            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=endDate)}">Deadline</a></th>
-            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=storyPoints)}">Story points</a></th>
-            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=status)}">Status</a></th>
-            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=estimationStatus)}">Estimation</a></th>
-            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=executorID)}">Executor</a></th>
+            <th><a th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=id)}">Id</a></th>
+            <th><a th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=projectName)}">Project</a></th>
+            <th><a th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=taskType)}">Type</a></th>
+            <th><a th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=startDate)}">Start date</a></th>
+            <th><a th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=endDate)}">Deadline</a></th>
+            <th><a th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=storyPoints)}">Story points</a></th>
+            <th><a th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=status)}">Status</a></th>
+            <th><a th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=estimationStatus)}">Estimation</a></th>
+            <th><a th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=executionStatus)}">Execution</a></th>
+            <th><a th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=executorID)}">Executor</a></th>
         </tr>
         </thead>
         <tbody>
@@ -27,6 +28,7 @@
             <td class="name" data-th-text="${task.storyPoints}"></td>
             <td class="name" data-th-text="${task.status}"></td>
             <td class="name" data-th-text="${task.estimationStatus}"></td>
+            <td class="name" data-th-text="${task.executionStatus}"></td>
             <td class="name" data-th-text="${task.executorID}"></td>
 
             <td>
@@ -83,9 +85,9 @@
                 <span class="caret"></span>
             </button>
             <ul class="dropdown-menu" role="menu" style="background-color: gainsboro">
-                <li><a href="/tasks/allTasks?pageSize=12">12</a></li>
-                <li><a href="/tasks/allTasks?pageSize=8">8</a></li>
-                <li><a href="/tasks/allTasks?pageSize=5">5</a></li>
+                <li><a href="/tasks/notAssignedTasks?pageSize=12">12</a></li>
+                <li><a href="/tasks/notAssignedTasks?pageSize=8">8</a></li>
+                <li><a href="/tasks/notAssignedTasks?pageSize=5">5</a></li>
             </ul>
         </div>
     </table>
@@ -93,20 +95,20 @@
         <div th:if="${tasks.totalPages != 1}" class="form-group col-md-11 pagination-centered">
             <ul class="pagination">
                 <li th:class="${tasks.number == 0} ? disabled">
-                    <a class="pageLink" th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=${order}, page=1)}">&laquo;</a>
+                    <a class="pageLink" th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=${order}, page=1)}">&laquo;</a>
                 </li>
                 <li th:class="${tasks.number == 0} ? disabled">
-                    <a class="pageLink" th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=${order}, page=${tasks.number})}">&larr;</a>
+                    <a class="pageLink" th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=${order}, page=${tasks.number})}">&larr;</a>
                 </li>
                 <li th:class="${tasks.number == (page - 1)} ? 'active pointer-disabled'"
                     th:each="page : ${#numbers.sequence(pager.startPage, pager.endPage, (pager.startPage > pager.endPage)? -1 : 1)}">
-                    <a class="pageLink" th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=${order}, page=${page})}" th:text="${page}"></a>
+                    <a class="pageLink" th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=${order}, page=${page})}" th:text="${page}"></a>
                 </li>
                 <li th:class="${tasks.number + 1 == tasks.totalPages} ? disabled">
-                    <a class="pageLink" th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=${order}, page=${tasks.number + 2})}">&rarr;</a>
+                    <a class="pageLink" th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=${order}, page=${tasks.number + 2})}">&rarr;</a>
                 </li>
                 <li th:class="${tasks.number + 1 == tasks.totalPages} ? disabled">
-                    <a class="pageLink" th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=${order}, page=${tasks.totalPages})}">&raquo;</a>
+                    <a class="pageLink" th:href="@{/tasks/notAssignedTasks(pageSize=${selectedPageSize}, order=${order}, page=${tasks.totalPages})}">&raquo;</a>
                 </li>
             </ul>
         </div>

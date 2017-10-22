@@ -9,12 +9,18 @@
     </marquee>
     <div sec:authorize="hasRole('ROLE_ADMIN')">
         <ul class="list-group" style="width: 100%">
-            <li class="list-group-item list-group-item-info"><a href="/developers/all">Total developers <span class="badge" th:text="${totalStaffSize}"></span></a></li>
-            <li class="list-group-item list-group-item-info"><a href="/developers/bench">Developers on bench <span class="badge" th:text="${benchSize}"></span></a></li>
-            <li class="list-group-item list-group-item-info"><a href="/projects">Current projects <span class="badge" th:text="${allProjectsSize}"></span></a> </li>
-            <li class="list-group-item list-group-item-info"><a href="/tasks/allTasks">Total tasks <span class="badge" th:text="${allTasksSize}"></span></a> </li>
-            <li class="list-group-item (${unassignedTasksSize == 0} ? list-group-item-info : list-group-item-warning)"><a href="/tasks/notAssignedTasks">Unassigned Tasks <span class="badge" th:text="${unassignedTasksSize}"></span></a> </li>
-            <li class="list-group-item (${free_developers} > 0)? list-group-item-warning : list-group-item-info"><a href="/projects">Developers without tasks <span class="badge" th:text="${free_developers}"></span></a> </li>
+            <li class="list-group-item list-group-item-info"><a href="/developers/all" ><span th:text="#{lang.home.totalDev}"></span>  <span class="badge" th:text="${totalStaffSize}"></span></a></li>
+            <li class="list-group-item list-group-item-info"><a href="/developers/bench" ><span th:text="#{lang.home.devsOnBench}"></span>  <span class="badge" th:text="${benchSize}"></span></a></li>
+            <li class="list-group-item list-group-item-info"><a href="/developers/newComers" ><span th:text="#{lang.home.newComers}"></span>  <span class="badge" th:text="${newComers}"></span></a></li>
+            <li class="list-group-item list-group-item-info"><a href="/projects" ><span th:text="#{lang.home.currProjects}"></span>  <span class="badge" th:text="${allProjectsSize}"></span></a> </li>
+            <li class="list-group-item list-group-item-info"><a href="/tasks/allTasks" ><span th:text="#{lang.home.totalTasks}"></span>  <span class="badge" th:text="${allTasksSize}"></span></a> </li>
+            <li class="list-group-item list-group-item-info"><a href="/tasks/notAssignedTasks" ><span th:text="#{lang.home.notAssignedTasks}"></span>  <span class="badge" th:text="${unassignedTasksSize}"></span></a> </li>
+            <li class="list-group-item list-group-item-info"><a href="/tasks/notAssignedTasks" ><span th:text="#{lang.home.notEstimatedTasks}"></span>  <span class="badge" th:text="${notEstimatedTasks}"></span></a> </li>
+            <li class="list-group-item list-group-item-info"><a href="/tasks/notAssignedTasks" ><span th:text="#{lang.home.estimatedTasks}"></span>  <span class="badge" th:text="${estimatedTasks}"></span></a> </li>
+            <li class="list-group-item list-group-item-info"><a href="/tasks/notAssignedTasks" ><span th:text="#{lang.home.notExecutedTasks}"></span>  <span class="badge" th:text="${notDoneTasks}"></span></a> </li>
+            <li class="list-group-item list-group-item-info"><a href="/tasks/doneTasks" ><span th:text="#{lang.home.executedTasks}"></span>  <span class="badge" th:text="${expectingToClose}"></span></a> </li>
+            <li class="list-group-item list-group-item-info"><a href="/tasks/tasksHistory" ><span th:text="#{lang.home.tasksInArchive}"></span>  <span class="badge" th:text="${closedTasksArchive}"></span></a> </li>
+            <li class="list-group-item list-group-item-info"><a href="/projects" ><span th:text="#{lang.home.devsWithoutTasks}"></span>  <span class="badge" th:text="${free_developers}"></span></a> </li>
         </ul>
     </div>
     <div class="btn-group" sec:authorize="hasRole('ROLE_ADMIN')">
@@ -24,10 +30,10 @@
             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown">
                 Smart aid <span class="caret"></span></button>
             <ul class="dropdown-menu" role="menu">
-                <li><a href="/developers/assignAllTasks">Run smart task distributor</a></li>
-                <li><a href="/developers/cancelAllTasks">Cancel all tasks on all projects (except bench)</a></li>
-                <li><a href="#">Run smart developers allocator</a></li>
-                <li><a href="#">Move all developers to bench</a></li>
+                <li><a href="/developers/assignAllTasks" ><span th:text="#{lang.home.runSmartTask}"></span>  </a></li>
+                <li><a href="/developers/cancelAllTasks" ><span th:text="#{lang.home.autoCancelTasks}"></span>  </a></li>
+                <li><a href="#" ><span th:text="#{lang.home.runSmartAlloc}"></span>  </a></li>
+                <li><a href="#" ><span th:text="#{lang.home.allToBench}"></span>  </a></li>
             </ul>
         </div>
     </div>

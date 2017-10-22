@@ -12,7 +12,7 @@
         <div class="input-group col-xs-2">
             <label for="taskType">Select type of task</label>
             <select id="taskType" name="taskType" class="form-control"  >
-                <option th:each="taskType : ${T(com.shelest.booster.utilities.TaskType).values()}" th:value="${taskType}" th:text="${taskType}"></option>
+                <option th:each="taskType : ${T(com.shelest.booster.utilities.enums.TaskType).values()}" th:value="${taskType}" th:text="${taskType}"></option>
             </select>
         </div>
         <div class="input-group col-xs-2">

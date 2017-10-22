@@ -1,0 +1,18 @@
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content">
+
+    <div class="starter-template">
+        <h1>ERROR!</h1>
+        <div th:inline="text">Hello, <span  sec:authentication="name"></span>
+            this task description is too long(maximum size - 300 smb)!</div>
+        <a href="/tasks/allTasks">Go to tasks</a>
+        <a href="/">Go to homepage</a>
+    </div>
+
+
+</div>
+
+
+</html>

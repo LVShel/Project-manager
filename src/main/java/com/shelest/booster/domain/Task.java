@@ -1,14 +1,11 @@
 package com.shelest.booster.domain;
 
-import com.shelest.booster.utilities.EstimationStatus;
-import com.shelest.booster.utilities.Status;
-import com.shelest.booster.utilities.TaskType;
+import com.shelest.booster.utilities.enums.*;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "tasks")
@@ -18,22 +15,32 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String projectName;
+
     @Enumerated(EnumType.STRING)
     private TaskType taskType;
+
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate startDate;
+
     @DateTimeFormat(pattern = "dd-MM-yyyy")
     private LocalDate endDate;
     private int storyPoints;
+
     @Enumerated(EnumType.STRING)
     private EstimationStatus estimationStatus = EstimationStatus.NOT_ESTIMATED;
+
     @Enumerated(EnumType.STRING)
     private Status status = Status.NOT_ASSIGNED;
     private long executorID;
+
     @ElementCollection
     private List<Integer> estimations;
-    @Column(length = 300)
+
+    @Column(columnDefinition = "TEXT")
     private String description;
+
+    @Enumerated(EnumType.STRING)
+    private ExecutionStatus executionStatus = ExecutionStatus.NOT_DONE;
 
     public Task() {
     }
@@ -124,5 +131,13 @@ public class Task {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ExecutionStatus getExecutionStatus() {
+        return executionStatus;
+    }
+
+    public void setExecutionStatus(ExecutionStatus executionStatus) {
+        this.executionStatus = executionStatus;
     }
 }

@@ -1,0 +1,22 @@
+<html layout:decorator="layout" xmlns:th="http://www.w3.org/1999/xhtml" xmlns:layout="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content">
+
+    <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-2 col-md-offset-3">
+        <h1>ERROR!</h1>
+        <div th:inline="text">Hello, <span  sec:authentication="name"></span>
+            <h4>You are trying to insert invalid data!</h4>
+            <h5>1.Name must not be null</h5>
+            <h5>2.Experience must be positive number less or equal to 50</h5>
+            <h5>3.Qualification must be positive number less or equal to 100</h5>
+        </div>
+        <a href="/developers/bench">Go to bench</a>
+        <a href="/">Go to homepage</a>
+    </div>
+
+
+</div>
+
+
+</html>

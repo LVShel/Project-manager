@@ -6,18 +6,18 @@
     <table class="table table-striped" id="posts_list">
         <thead>
         <tr>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=id)}">Id</a></th>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=name)}">Name</a></th>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=rank)}">Rank</a></th>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=experience)}">Experience</a></th>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=qualification)}">Qualification</a></th>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=state)}">State</a></th>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=nameOfCurrentProject)}">Project</a></th>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=numberOfTasks)}">Tasks</a></th>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=numberOfBugfixingTasks)}">BFX</a></th>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=numberOfDevelopmentTasks)}">DEV</a></th>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=numberOfRefactoringTasks)}">REF</a></th>
-            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=active)}">Active</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=id)}">Id</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=name)}" th:text="#{lang.dev.name}">Name</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=rank)}" th:text="#{lang.dev.rank}">Rank</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=experience)}" th:text="#{lang.dev.experience}">Experience</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=qualification)}" th:text="#{lang.dev.qualification}">Qualification</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=state)}" th:text="#{lang.dev.state}">State</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=nameOfCurrentProject)}" th:text="#{lang.dev.project}">Project</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=numberOfTasks)}" th:text="#{lang.dev.totalTasks}">Tasks</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=numberOfBugfixingTasks)}" th:text="#{lang.dev.bfx}">BFX</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=numberOfDevelopmentTasks)}" th:text="#{lang.dev.dev}">DEV</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=numberOfRefactoringTasks)}" th:text="#{lang.dev.ref}">REF</a></th>
+            <th><a th:href="@{/developers/all(pageSize=${selectedPageSize}, direction=${direction}, order=active)}" th:text="#{lang.dev.active}">Active</a></th>
 
 
         </tr>
@@ -40,7 +40,7 @@
         </tr>
         </tbody>
         <div class="btn-group" align="right">
-            <button type="button" class="btn-xs btn-primary">Items on page</button>
+            <button type="button" class="btn-xs btn-primary" th:text="#{lang.itemsOnPage}">Items on page</button>
             <button type="button" class="btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">
                 <span class="caret"></span>
             </button>
@@ -48,6 +48,16 @@
                 <li><a href="/developers/all?pageSize=12">12</a></li>
                 <li><a href="/developers/all?pageSize=8">8</a></li>
                 <li><a href="/developers/all?pageSize=5">5</a></li>
+            </ul>
+        </div>
+        <div class="btn-group" align="right" >
+            <button type="button" class="btn-xs btn-primary" >Direction</button>
+            <button type="button" class="btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">
+                <span class="caret"></span>
+            </button>
+            <ul class="dropdown-menu" role="menu" style="background-color: gainsboro" >
+                <li><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=${order}, direction=1)}">ASCENDING</a></li>
+                <li><a th:href="@{/developers/all(pageSize=${selectedPageSize}, order=${order}, direction=2)}">DESCENDING</a></li>
             </ul>
         </div>
     </table>

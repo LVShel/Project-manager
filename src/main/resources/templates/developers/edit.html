@@ -9,7 +9,7 @@
         <div class="input-group col-xs-2">
             <label for="rank">Select rank</label>
             <select id="rank" name="rank" class="form-control" >
-                <option th:each="rank : ${T(com.shelest.booster.utilities.Rank).values()}" th:value="${{rank}}" th:text="${rank}"></option>
+                <option th:each="rank : ${T(com.shelest.booster.utilities.enums.Rank).values()}" th:value="${{rank}}" th:text="${rank}"></option>
             </select>
         </div>
         <div class="input-group col-xs-2">
@@ -30,7 +30,7 @@
         <!--<input type="hidden" id="developer_id" rows="5" class="form-control" name="developer_id" th:value="${developer.id}"/>-->
         <!--Name: <input title="name" type="text" name="name" th:value="${developer.name}" />-->
         <!--Rank: <select id="rank" name="rank" class="form-group" align="left" >-->
-        <!--<option th:each="rank : ${T(com.shelest.booster.utilities.Rank).values()}"-->
+        <!--<option th:each="rank : com.shelest.booster.utilities.enums.RankRank).values()}"-->
                 <!--th:value="${{rank}}"-->
                 <!--th:text="${rank}"></option>-->
     <!--</select>-->

@@ -1,7 +1,7 @@
 package com.shelest.booster.repositories;
 
 import com.shelest.booster.domain.Developer;
-import com.shelest.booster.utilities.State;
+import com.shelest.booster.utilities.enums.State;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;

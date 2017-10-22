@@ -1,11 +1,10 @@
 package com.shelest.booster.domain;
 
-import com.shelest.booster.utilities.Role;
+import com.shelest.booster.utilities.enums.Role;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "Managers")
@@ -21,6 +20,8 @@ public class Manager {
     private List<Project> projects = new ArrayList<>();
     @Enumerated(EnumType.STRING)
     private Role role;
+    @OneToOne
+    private Portfolio portfolio;
 
     public Manager(Manager manager) {
         this.id = manager.getId();
@@ -71,5 +72,9 @@ public class Manager {
 
     public void setRole(Role role) {
         this.role = role;
+    }
+
+    public Portfolio getPortfolio() {
+        return portfolio;
     }
 }

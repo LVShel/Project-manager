@@ -6,16 +6,16 @@
         <thead>
         <tr>
             <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=id)}">Id</a></th>
-            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=name)}">Name</a></th>
-            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=rank)}">Rank</a></th>
-            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=experience)}">Experience</a></th>
-            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=qualification)}">Qualification</a></th>
-            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=state)}">State</a></th>
-            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=nameOfCurrentProject)}">Project</a></th>
-            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=numberOfTasks)}">Tasks</a></th>
-            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=numberOfBugfixingTasks)}">BFX</a></th>
-            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=numberOfDevelopmentTasks)}">DEV</a></th>
-            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=numberOfRefactoringTasks)}">REF</a></th>
+            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=name)}" th:text="#{lang.dev.name}">Name</a></th>
+            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=rank)}" th:text="#{lang.dev.rank}">Rank</a></th>
+            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=experience)}" th:text="#{lang.dev.experience}">Experience</a></th>
+            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=qualification)}" th:text="#{lang.dev.qualification}">Qualification</a></th>
+            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=state)}" th:text="#{lang.dev.state}">State</a></th>
+            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=nameOfCurrentProject)}" th:text="#{lang.dev.project}">Project</a></th>
+            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=numberOfTasks)}" th:text="#{lang.dev.totalTasks}">Tasks</a></th>
+            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=numberOfBugfixingTasks)}" th:text="#{lang.dev.bfx}">BFX</a></th>
+            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=numberOfDevelopmentTasks)}" th:text="#{lang.dev.dev}">DEV</a></th>
+            <th><a th:href="@{/developers/bench(pageSize=${selectedPageSize}, order=numberOfRefactoringTasks)}" th:text="#{lang.dev.ref}">REF</a></th>
         </tr>
         </thead>
         <tbody>
@@ -32,7 +32,7 @@
             <td class="name" data-th-text="${developer.numberOfDevelopmentTasks}"></td>
             <td class="name" data-th-text="${developer.numberOfRefactoringTasks}"></td>
 
-            <td title="assign to project">
+            <td th:title="#{lang.dev.title.assignToProject}">
                 <a th:href="@{'/developers/{id}/assignToProject'(id=${developer.id})}" >
                     <span class="fa-stack">
                         <i class="glyphicon glyphicon-share-alt"></i>
@@ -40,7 +40,7 @@
                 </a>
             </td>
 
-            <td title="assign a new task">
+            <td th:title="#{lang.dev.title.assignNewTask}">
                 <a th:href="@{'/developers/{id}/assignTask'(id=${developer.id})}" >
                     <span class="fa-stack">
                         <i class="glyphicon glyphicon-plus"></i>
@@ -48,7 +48,7 @@
                 </a>
             </td>
 
-            <td title="already assigned tasks">
+            <td th:title="#{lang.dev.active.title.showAssignedTasks}">
                 <a th:href="@{'/developers/{id}/showTasks'(id=${developer.id})}" >
                     <span class="fa-stack">
                         <i class="glyphicon glyphicon-tasks"></i>
@@ -57,7 +57,7 @@
                 </a>
             </td>
 
-            <td title="edit developer">
+            <td th:title="#{lang.dev.active.title.editDev}">
                 <a th:href="@{'/developers/{id}/edit'(id=${developer.id})}" class="edit" th:attr="name=${developer.name}" aria-label="edit">
                     <span class="fa-stack">
                         <i class="glyphicon glyphicon-edit"></i>
@@ -66,7 +66,7 @@
                 </a>
             </td>
 
-            <td title="remove developer">
+            <td th:title="#{lang.dev.active.title.removeDev}">
                 <a th:href="@{'/developers/{id}/delete'(id=${developer.id})}" class="delete" th:attr="name=${developer.name}">
                         <span class="fa-stack">
                             <i class="glyphicon glyphicon-trash"></i>
@@ -77,7 +77,7 @@
         </tr>
         </tbody>
         <div class="btn-group" align="right">
-            <button type="button" class="btn-xs btn-primary">Items on page</button>
+            <button type="button" class="btn-xs btn-primary" th:text="#{lang.itemsOnPage}">Items on page</button>
             <button type="button" class="btn-xs btn-primary dropdown-toggle" data-toggle="dropdown">
                 <span class="caret"></span>
             </button>
@@ -111,7 +111,7 @@
             </ul>
         </div>
     </div>
-    <a class="btn btn-primary btn-lg btn-block" href="/developers/newComers">Add new developer</a>
+    <a class="btn btn-primary btn-lg btn-block" href="/developers/newComers" th:text="#{lang.dev.btn.addNew}">Add new developer</a>
 
 </div>
 </html>

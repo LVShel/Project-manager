@@ -1,13 +1,11 @@
 package com.shelest.booster.repositories;
 
 import com.shelest.booster.domain.Developer;
-import com.shelest.booster.utilities.State;
+import com.shelest.booster.utilities.enums.State;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.repository.CrudRepository;
 
-import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 

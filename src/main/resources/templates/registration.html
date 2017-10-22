@@ -16,20 +16,20 @@
             </div>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="password" type="password" th:field="*{password}" class="form-control input" placeholder="Enter your password"/>
+                    <input id="password" type="password" th:field="*{password}" class="form-control input" placeholder="Enter password (must be at least 3 symbols)"/>
                     <p th:each="error : ${#fields.errors('password')}"
                        th:text="${error}">Validation error</p>
                 </div>
                 <div class="input-group">
                     <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
-                    <input id="confirm" type="password" th:field="*{matchingPassword}" class="form-control input" placeholder="Confirm your password"/>
+                    <input id="confirm" type="password" th:field="*{matchingPassword}" class="form-control input" placeholder="Confirm password"/>
                 </div>
 
 
             <div class="form-group">
                 <label for="rank">Select your rank</label>
                 <select id="rank" th:field="*{rank}" class="form-control input" >
-                    <option th:each="rank : ${T(com.shelest.booster.utilities.Rank).values()}" th:value="${{rank}}" th:text="${rank}"></option>
+                    <option th:each="rank : ${T(com.shelest.booster.utilities.enums.Rank).values()}" th:value="${{rank}}" th:text="${rank}"></option>
                 </select>
             </div>
 

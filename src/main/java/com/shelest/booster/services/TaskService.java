@@ -1,9 +1,11 @@
 package com.shelest.booster.services;
 
 import com.shelest.booster.domain.Task;
-import com.shelest.booster.utilities.Status;
+import com.shelest.booster.utilities.enums.EstimationStatus;
+import com.shelest.booster.utilities.enums.ExecutionStatus;
+import com.shelest.booster.utilities.enums.Status;
 import org.springframework.data.domain.Page;
-import org.springframework.stereotype.Service;
+import org.springframework.data.domain.Pageable;
 
 import java.util.List;
 
@@ -12,6 +14,14 @@ public interface TaskService {
     List<Task> showAllTasks();
 
     List<Task> getByStatus(Status status);
+
+    List<Task> getByEstimationStatus(EstimationStatus estimationStatus);
+
+    List<Task> getByExecutionStatus(ExecutionStatus executionStatus);
+
+    List<Task> getAllByStatusIsNot(Status status);
+
+    Page<Task> showAllTaskByStatusIsNot(int page, int size, String order, Status status);
 
     Task getById(long id);
 
@@ -27,5 +37,8 @@ public interface TaskService {
 
     Page<Task> showAllTasksByStatus(int page, int size, String order, Status status);
 
+    Page<Task> showAllTasksByExecutionStatusAndStatus(int page, int size, String order, ExecutionStatus executionStatus, Status status);
 
+
+    List<Task> showAllTasksByExecutionStatusAndStatus(ExecutionStatus executionStatus, Status status);
 }

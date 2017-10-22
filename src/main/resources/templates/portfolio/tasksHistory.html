@@ -1,0 +1,58 @@
+<html layout:decorator="layout" xmlns:layout="http://www.w3.org/1999/xhtml" xmlns:th="http://www.w3.org/1999/xhtml"
+      xmlns:sec="http://www.w3.org/1999/xhtml">
+
+<div layout:fragment="content">
+
+    <table class="table table-striped" id="tasks_list">
+        <thead>
+        <tr >
+            <th><a th:href="@{/tasks/tasksHistory(pageSize=${selectedPageSize}, order=id)}">Id</a></th>
+            <th><a th:href="@{/tasks/tasksHistory(pageSize=${selectedPageSize}, order=projectName)}">Name of project</a></th>
+            <th><a th:href="@{/tasks/tasksHistory(pageSize=${selectedPageSize}, order=taskType)}">Type</a></th>
+            <th><a th:href="@{/tasks/tasksHistory(pageSize=${selectedPageSize}, order=startDate)}">Start date</a></th>
+            <th><a th:href="@{/tasks/tasksHistory(pageSize=${selectedPageSize}, order=endDate)}">Deadline</a></th>
+            <th><a th:href="@{/tasks/tasksHistory(pageSize=${selectedPageSize}, order=storyPoints)}">Story points</a></th>
+            <th><a th:href="@{/tasks/tasksHistory(pageSize=${selectedPageSize}, order=status)}">Status</a></th>
+            <th><a th:href="@{/tasks/tasksHistory(pageSize=${selectedPageSize}, order=estimationStatus)}">Estimation</a></th>
+            <th><a th:href="@{/tasks/tasksHistory(pageSize=${selectedPageSize}, order=executionStatus)}">Execution</a></th>
+            <th><a th:href="@{/tasks/tasksHistory(pageSize=${selectedPageSize}, order=executorID)}">Executor</a></th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr data-th-each="task : ${tasks}">
+            <td class="name" data-th-text="${task.id}"></td>
+            <td class="name" data-th-text="${task.projectName}"></td>
+            <td class="name" data-th-text="${task.taskType}"></td>
+            <td class="name" data-th-text="${{task.startDate}}"></td>
+            <td class="name" data-th-text="${{task.endDate}}"></td>
+            <td class="name" data-th-text="${task.storyPoints}"></td>
+            <td class="name" data-th-text="${task.status}"></td>
+            <td class="name" data-th-text="${task.estimationStatus}"></td>
+            <td class="name" data-th-text="${task.executionStatus}"></td>
+            <td class="name" data-th-text="${task.executorID}"></td>
+
+            <td>
+                <button th:href="'#'+${task.id}" type="button" class="btn-xs btn-primary" data-toggle="modal" >description</button>
+                <div th:id="${task.id}" tabindex="-1" id="myModal2" class="modal fade" role="dialog">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Task description</h4>
+                            </div>
+                            <div class="modal-body" data-th-text="${{task.description}}">
+
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </td>
+
+        </tr>
+        </tbody>
+        </table>
+</div>
+</html>

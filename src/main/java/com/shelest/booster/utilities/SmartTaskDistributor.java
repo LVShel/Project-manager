@@ -3,7 +3,8 @@ package com.shelest.booster.utilities;
 import com.shelest.booster.domain.Developer;
 import com.shelest.booster.domain.Project;
 import com.shelest.booster.domain.Task;
-import com.shelest.booster.services.ProjectServiceImpl;
+import com.shelest.booster.utilities.enums.Rank;
+import com.shelest.booster.utilities.enums.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

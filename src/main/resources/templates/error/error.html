@@ -3,13 +3,12 @@
 
 <div layout:fragment="content">
 
-    <div th:with="httpStatus=${T(org.springframework.http.HttpStatus).valueOf(#response.status)}">
-    <h1 th:text="|${httpStatus} - ${httpStatus.reasonPhrase}|">404</h1>
-    <p th:utext="${errorMessage}">Error java.lang.NullPointerException</p>
-    <a href="/">Back to Home Page</a>
-    </div>
+    <h1>OOPS!</h1>
 
-</div>
+    <p>Application has encountered an error. Please contact support on ...</p>
+    <h3 th:text="'Failed URL: '+${url}"></h3>
+    <h3 th:text="'Exception: '+${exception.message}"></h3>
+  </div>
 
 
-</html>
+  </html>

@@ -14,6 +14,7 @@
             <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=storyPoints)}">Story points</a></th>
             <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=status)}">Status</a></th>
             <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=estimationStatus)}">Estimation</a></th>
+            <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=executionStatus)}">Execution</a></th>
             <th><a th:href="@{/tasks/allTasks(pageSize=${selectedPageSize}, order=executorID)}">Executor</a></th>
         </tr>
         </thead>
@@ -27,6 +28,7 @@
             <td class="name" data-th-text="${task.storyPoints}"></td>
             <td class="name" data-th-text="${task.status}"></td>
             <td class="name" data-th-text="${task.estimationStatus}"></td>
+            <td class="name" data-th-text="${task.executionStatus}"></td>
             <td class="name" data-th-text="${task.executorID}"></td>
 
 

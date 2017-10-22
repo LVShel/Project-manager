@@ -1,16 +1,15 @@
 package com.shelest.booster.domain;
 
-import com.shelest.booster.utilities.Rank;
-import com.shelest.booster.utilities.Role;
-import com.shelest.booster.utilities.State;
-import com.shelest.booster.utilities.Status;
+import com.shelest.booster.utilities.enums.Rank;
+import com.shelest.booster.utilities.enums.Role;
+import com.shelest.booster.utilities.enums.State;
+import com.shelest.booster.utilities.enums.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Set;
 
 @Entity
 @Table(name = "developers")

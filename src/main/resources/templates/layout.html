@@ -29,34 +29,59 @@
             <a class="navbar-brand" href="/">PM Booster</a>
         </div>
         <ul class="nav navbar-nav">
-            <li ><a href="/">Home</a></li>
+            <li ><a sec:authorize="hasRole('ROLE_ADMIN')" href="/home" th:text="#{lang.nav.workbench}">Home</a></li>
             <li sec:authorize="hasRole('ROLE_ADMIN')" class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Team
-                    <span class="caret"></span></a>
+                <a class="dropdown-toggle" data-toggle="dropdown" href="#" ><span th:text="#{lang.nav.team}"></span><span class="caret"></span></a>
                 <ul class="dropdown-menu" style="background-color: gainsboro "  >
-                    <li><a href="/developers/all">All staff</a></li>
-                    <li><a href="/developers/bench">Bench</a></li>
-                    <li><a href="/developers/newComers">Newcomers</a></li>
+                    <li><a href="/developers/all" th:text="#{lang.nav.allStaff}">All staff</a></li>
+                    <li><a href="/developers/bench" th:text="#{lang.nav.bench}">Bench</a></li>
+                    <li><a href="/developers/newComers" th:text="#{lang.nav.newComers}">Newcomers</a></li>
                 </ul>
             </li>
             <li class="dropdown">
-                <a class="dropdown-toggle" data-toggle="dropdown" href="#">Tasks
-                    <span class="caret"></span></a>
+                <a  class="dropdown-toggle" data-toggle="dropdown" href="#" ><span th:text="#{lang.nav.tasks}"></span><span class="caret"></span></a>
                 <ul class="dropdown-menu" style="background-color: gainsboro "  >
-                    <li><a href="/tasks/allTasks">All tasks</a></li>
-                    <li><a href="/tasks/notAssignedTasks">Not assigned tasks</a></li>
-                    <li><a sec:authorize="hasRole('ROLE_ADMIN')" href="/tasks/newTask">New task</a></li>
+                    <li><a sec:authorize="hasRole('ROLE_ADMIN')" href="/tasks/allTasks" th:text="#{lang.nav.allTasks}">All tasks</a></li>
+                    <li><a sec:authorize="hasRole('ROLE_ADMIN')" href="/tasks/notAssignedTasks" th:text="#{lang.nav.notAssignedTasks}">Not assigned tasks</a></li>
+                    <li><a sec:authorize="hasRole('ROLE_USER')" href="/tasks/notAssignedTasks" th:text="#{lang.nav.toEvaluate}">Tasks to evaluate</a></li>
+                    <li><a sec:authorize="hasRole('ROLE_ADMIN')" href="/tasks/doneTasks" th:text="#{lang.nav.doneTasks}">Done tasks</a></li>
+                    <li><a sec:authorize="hasRole('ROLE_USER')" href="/tasks/myTasks" th:text="#{lang.nav.myTasks}">My Tasks</a></li>
                 </ul>
             </li>
-            <li><a sec:authorize="hasRole('ROLE_ADMIN')" href="/projects">Projects</a></li>
-            <li><a sec:authorize="!isAuthenticated()"  href="/register">Register</a></li>
-            <li><a  href="/logout">Logout</a></li>
+            <li><a sec:authorize="hasRole('ROLE_ADMIN')" href="/projects" th:text="#{lang.nav.projects}">Projects</a></li>
+            <li class="dropdown">
+                <a  class="dropdown-toggle" data-toggle="dropdown" href="#" ><span th:text="#{lang.nav.portfolio}"></span><span class="caret"></span></a>
+                <ul class="dropdown-menu" style="background-color: gainsboro "  >
+                    <li><a sec:authorize="hasRole('ROLE_ADMIN')" href="/tasksHistory" th:text="#{lang.nav.tasksHistory}">Tasks history</a></li>
+                    <li><a sec:authorize="hasRole('ROLE_USER')" href="#" th:text="#{lang.nav.projectsHistory}">Projects history</a></li>
+                </ul>
+            </li>
+            <li><a sec:authorize="!isAuthenticated()"  href="/register" th:text="#{lang.nav.register}">Register</a></li>
+            <li><a sec:authorize="!isAuthenticated()"  href="/login" th:text="#{lang.nav.login}">Register</a></li>
+            <li><a  href="/logout" th:text="#{lang.nav.logout}">Logout</a></li>
+
+            <li>
+                <a class="dropdown-toggle" data-toggle="dropdown" >
+            <!--<span th:text="#{lang.change}"></span>:-->
+            <select class="dropdown" data-style="btn-success" id="locales" style="background-color: gainsboro">
+                <option style="color: white" value="" th:text="#{lang.change}"></option>
+                <option style="color: black" value="en" th:text="#{lang.eng}"></option>
+                <option style="color: black" value="ru" th:text="#{lang.ru}"></option>
+            </select>
+                </a>
+            </li>
+
+
+
+
 
         </ul>
-        <p class="navbar-text navbar-right" align="right">
-        <span sec:authorize="isAuthenticated()">
-            Signed in as: <a href="#" class="navbar-link"><span sec:authentication="name"></span></a>
-            | Role: <span sec:authentication="principal.authorities"></span>
+        <p sec:authorize="isAuthenticated()" class="navbar-text navbar-right" align="right">
+            <span th:text="#{lang.nav.signedAs}"></span>
+        <span sec:authorize="isAuthenticated()" >
+            <a href="#" class="navbar-link"><span sec:authentication="name"></span></a>
+            <span th:text="#{lang.nav.role}"></span>
+            <span sec:authentication="principal.authorities"></span>
         </span>
         </p>
     </div>
@@ -101,6 +126,17 @@
         };
         date_input.datepicker(options);
     })
+</script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#locales").change(function () {
+            var selectedOption = $('#locales').val();
+            var loc = window.location.pathname;
+            if (selectedOption != ''){
+                window.location.replace(loc+'?lang=' + selectedOption);
+            }
+        });
+    });
 </script>
 </body>
 

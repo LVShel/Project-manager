@@ -1,20 +1,29 @@
 package com.shelest.booster.utilities.dto;
 
-import com.shelest.booster.utilities.Rank;
+import com.shelest.booster.utilities.enums.Rank;
+import com.shelest.booster.utilities.password_validation.PasswordMatches;
+import com.shelest.booster.utilities.password_validation.ValidPassword;
 import org.hibernate.validator.constraints.NotEmpty;
-import javax.validation.constraints.*;
+import org.hibernate.validator.constraints.Range;
 
+import javax.validation.constraints.*;
+import java.math.BigDecimal;
+
+@PasswordMatches
 public class DeveloperDTO {
 
     @NotNull
     @NotEmpty
     private String name;
     private Rank rank;
+    @Range(max = (long) 50.0)
     private double experience;
+    @Range(max = (long) 100.0)
     private int qualification;
 
     @NotNull
     @NotEmpty
+    @ValidPassword
     private String password;
     private String matchingPassword;
 

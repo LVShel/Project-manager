@@ -8,14 +8,15 @@ import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
 import com.shelest.booster.utilities.*;
+import com.shelest.booster.utilities.enums.Rank;
+import com.shelest.booster.utilities.enums.State;
+import com.shelest.booster.utilities.enums.Status;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -25,8 +26,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Controller
-//@PreAuthorize("hasAnyRole('ADMIN')")
-@Secured("ROLE_ADMIN")
+@PreAuthorize("hasAnyRole('ROLE_ADMIN')")
 @RequestMapping("/developers")
 public class DeveloperController {
 
@@ -46,13 +46,14 @@ public class DeveloperController {
 
     private static final int BUTTONS_TO_SHOW = 5;
     private static final int INITIAL_PAGE = 0;
-    private static final int INITIAL_PAGE_SIZE = 12;
+    private static final int INITIAL_PAGE_SIZE = 8;
     private static final int[] PAGE_SIZES = { 5, 8, 12 };
 
     @GetMapping("/all")
     public ModelAndView listDevelopers(@RequestParam(value = "pageSize", required = false) Optional<Integer> pageSize,
                                           @RequestParam(value = "page", required = false) Optional<Integer> page,
-                                          @RequestParam(value = "order", required = false) String order) {
+                                          @RequestParam(value = "order", required = false) String order,
+                                          @RequestParam(value = "direction", required = false, defaultValue = "1") Integer direction) {
         ModelAndView modelAndView = new ModelAndView("developers/all");
         // Evaluate page size. If requested parameter is null, return initial
         // page size
@@ -62,7 +63,7 @@ public class DeveloperController {
         // param. decreased by 1.
         int evalPage = (page.orElse(0) < 1) ? INITIAL_PAGE : page.get() - 1;
 
-        Page<Developer> persons = developerService.findAllPageable(evalPage, evalPageSize, order);
+        Page<Developer> persons = developerService.findAllPageable(evalPage, evalPageSize, order, direction);
         logger.debug("in GET method listDevelopers(): getByState(Pageable) is called and found: {}", persons.getSize() + "developers");
         Pager pager = new Pager(persons.getTotalPages(), persons.getNumber(), BUTTONS_TO_SHOW);
         modelAndView.addObject("persons", persons);
@@ -145,11 +146,16 @@ public class DeveloperController {
                                @RequestParam("experience") double experience,
                                @RequestParam("qualification") int qualification) {
         Developer developer = developerService.getById(id);
-        developer.setName(name);
-        developer.setRank(rank);
-        developer.setExperience(experience);
-        developer.setQualification(qualification);
-        developerService.updateDeveloper(developer);
+        if(name.length() > 0 && experience >0 && experience <= 50 && qualification > 0 && qualification <= 100){
+            developer.setName(name);
+            developer.setRank(rank);
+            developer.setExperience(experience);
+            developer.setQualification(qualification);
+            developerService.updateDeveloper(developer);
+        }else {
+            logger.error("Tried to update developer with invalid data");
+            return new ModelAndView("error/errorUpdateDev");
+        }
         logger.debug(" in POST method update(): Updated developer with ID:{}", id);
         return new ModelAndView("redirect:/developers/bench");
     }
