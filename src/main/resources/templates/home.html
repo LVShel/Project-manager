@@ -19,7 +19,7 @@
             <li class="list-group-item list-group-item-info"><a href="/tasks/notAssignedTasks" ><span th:text="#{lang.home.estimatedTasks}"></span>  <span class="badge" th:text="${estimatedTasks}"></span></a> </li>
             <li class="list-group-item list-group-item-info"><a href="/tasks/notAssignedTasks" ><span th:text="#{lang.home.notExecutedTasks}"></span>  <span class="badge" th:text="${notDoneTasks}"></span></a> </li>
             <li class="list-group-item list-group-item-info"><a href="/tasks/doneTasks" ><span th:text="#{lang.home.executedTasks}"></span>  <span class="badge" th:text="${expectingToClose}"></span></a> </li>
-            <li class="list-group-item list-group-item-info"><a href="/tasks/tasksHistory" ><span th:text="#{lang.home.tasksInArchive}"></span>  <span class="badge" th:text="${closedTasksArchive}"></span></a> </li>
+            <li class="list-group-item list-group-item-info"><a href="/tasksHistory" ><span th:text="#{lang.home.tasksInArchive}"></span>  <span class="badge" th:text="${closedTasksArchive}"></span></a> </li>
             <li class="list-group-item list-group-item-info"><a href="/projects" ><span th:text="#{lang.home.devsWithoutTasks}"></span>  <span class="badge" th:text="${free_developers}"></span></a> </li>
         </ul>
     </div>

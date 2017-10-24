@@ -22,8 +22,6 @@ public interface DeveloperService extends UserDetailsService {
 
     void removeDeveloper(long id);
 
-    void addDeveloper(Developer developer);
-
     void updateDeveloper(Developer developer);
 
     void updateAllDevelopers();

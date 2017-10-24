@@ -58,12 +58,6 @@ public class DeveloperServiceImpl implements DeveloperService {
     }
 
     @Override
-    public void addDeveloper(Developer developer) {
-        repository.save(developer);
-        logger.debug("New developer adopted, his ID is: {}", developer.getId());
-    }
-
-    @Override
     public void updateDeveloper(Developer developer) {
         repository.save(developer);
         logger.debug("Developer with id: {}", developer.getId() + "has been updated");

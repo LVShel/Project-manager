@@ -262,6 +262,6 @@ public class DeveloperController {
         logger.debug(" in GET method cancelAllTasks(): updated all tasks");
         projectService.updateAllProjects();
         logger.debug(" in GET method cancelAllTasks(): updated all projects");
-        return new ModelAndView("redirect:/");
+        return new ModelAndView("redirect:/home");
     }
 }
