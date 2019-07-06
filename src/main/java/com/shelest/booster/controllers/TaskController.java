@@ -221,7 +221,7 @@ public class TaskController {
     public ModelAndView estimateTask(@PathVariable long id) {
         ModelAndView modelAndView = new ModelAndView("tasks/estimate");
         Task task = taskService.getById(id);
-        modelAndView.addObject("task", task);//todo create whitelabel error page handler
+        modelAndView.addObject("task", task);
         return modelAndView;
     }
 
