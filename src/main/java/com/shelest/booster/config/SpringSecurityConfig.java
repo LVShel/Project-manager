@@ -17,7 +17,7 @@ import org.springframework.security.web.access.AccessDeniedHandler;
 public class SpringSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Autowired
-    DeveloperService developerService;
+    DeveloperService developerService;//
 
     @Autowired
     ManagementService managementService;
