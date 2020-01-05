@@ -146,7 +146,7 @@ public class DeveloperController {
         Developer developer = developerService.getById(id);
         if (name.length() > 0 && experience > 0 && experience <= 50 && qualification > 0 && qualification <= 100) {
             developer.setName(name);
-            developer.setRank(rank);
+            developer.setRnk(rank);
             developer.setExperience(experience);
             developer.setQualification(qualification);
             developerService.updateDeveloper(developer);

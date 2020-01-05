@@ -7,7 +7,6 @@ import com.shelest.booster.services.DeveloperService;
 import com.shelest.booster.services.ManagementService;
 import com.shelest.booster.services.ProjectService;
 import com.shelest.booster.services.TaskService;
-import com.shelest.booster.utilities.Pager;
 import com.shelest.booster.utilities.enums.Rank;
 import com.shelest.booster.utilities.enums.State;
 import com.shelest.booster.utilities.enums.Status;
@@ -19,7 +18,6 @@ import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.Sort;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
@@ -163,7 +161,7 @@ public class DeveloperControllerTest {
         Developer oldDeveloper = new Developer();
         oldDeveloper.setId(DEVELOPER_ID);
         oldDeveloper.setName("zaz");
-        oldDeveloper.setRank(Rank.JUNIOR);
+        oldDeveloper.setRnk(Rank.JUNIOR);
         oldDeveloper.setExperience(1);
         oldDeveloper.setQualification(30);
 
@@ -182,7 +180,7 @@ public class DeveloperControllerTest {
         verify(developerService).updateDeveloper(boundDeveloper.capture());
         assertEquals(DEVELOPER_ID, boundDeveloper.getValue().getId());
         assertEquals(NAME, boundDeveloper.getValue().getName());
-        assertEquals(RANK, boundDeveloper.getValue().getRank());
+        assertEquals(RANK, boundDeveloper.getValue().getRnk());
         assertEquals(EXPERIENCE, boundDeveloper.getValue().getExperience(), DELTA);
         assertEquals(QUALIFICATION, boundDeveloper.getValue().getQualification());
     }
@@ -193,7 +191,7 @@ public class DeveloperControllerTest {
         Developer oldDeveloper = new Developer();
         oldDeveloper.setId(DEVELOPER_ID);
         oldDeveloper.setName("zaz");
-        oldDeveloper.setRank(Rank.JUNIOR);
+        oldDeveloper.setRnk(Rank.JUNIOR);
         oldDeveloper.setExperience(1);
         oldDeveloper.setQualification(30);
 

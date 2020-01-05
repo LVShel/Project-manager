@@ -131,7 +131,7 @@ public class DeveloperServiceImpl implements DeveloperService {
         }
         Developer developer = new Developer();
         developer.setName(accountDto.getName());
-        developer.setRank(accountDto.getRank());
+        developer.setRnk(accountDto.getRnk());
         developer.setExperience(accountDto.getExperience());
         developer.setQualification(accountDto.getQualification());
         developer.setPassword(accountDto.getPassword());

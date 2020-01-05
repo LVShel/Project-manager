@@ -29,6 +29,8 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
+            <version>5.1.9</version>
+            <scope>runtime</scope>
         </dependency>
 
         <dependency>
@@ -39,7 +41,7 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-thymeleaf</artifactId>
-            <version>RELEASE</version>
+            <version>1.5.17.RELEASE</version>
         </dependency>
 
         <dependency>

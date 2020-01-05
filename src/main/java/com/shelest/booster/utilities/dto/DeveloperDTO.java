@@ -14,7 +14,7 @@ public class DeveloperDTO {
     @NotNull
     @NotEmpty
     private String name;
-    private Rank rank;
+    private Rank rnk;
     @Range(max = (long) 50.0)
     private double experience;
     @Range(max = (long) 100.0)
@@ -35,12 +35,12 @@ public class DeveloperDTO {
         this.name = name;
     }
 
-    public Rank getRank() {
-        return rank;
+    public Rank getRnk() {
+        return rnk;
     }
 
-    public void setRank(Rank rank) {
-        this.rank = rank;
+    public void setRnk(Rank rnk) {
+        this.rnk = rnk;
     }
 
     public double getExperience() {

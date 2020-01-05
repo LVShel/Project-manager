@@ -7,7 +7,7 @@
         <tr>
             <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=id)}">Id</a></th>
             <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=name)}">Name</a></th>
-            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=rank)}">Rank</a></th>
+            <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=rnk)}">Rank</a></th>
             <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=experience)}">Experience</a></th>
             <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=qualification)}">Qualification</a></th>
             <th><a th:href="@{/developers/newComers(pageSize=${selectedPageSize}, order=state)}">State</a></th>
@@ -23,7 +23,7 @@
         <tr data-th-each="developer : ${persons}">
             <td class="name" data-th-text="${developer.id}"></td>
             <td class="name" data-th-text="${developer.name}"></td>
-            <td class="name" data-th-text="${developer.rank}"></td>
+            <td class="name" data-th-text="${developer.rnk}"></td>
             <td class="name" data-th-text="${developer.experience}"></td>
             <td class="name" data-th-text="${developer.qualification}"></td>
             <td class="name" data-th-text="${developer.state}"></td>

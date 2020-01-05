@@ -62,7 +62,7 @@ public class HomeController {
         modelAndView.addObject("dateTime", now);
         modelAndView.addObject("free_developers", developerService.getByNumberOfTasks(0).size());
         modelAndView.addObject("expectingToClose", taskService.showAllTasksByExecutionStatusAndStatus(ExecutionStatus.DONE, Status.ASSIGNED).size());
-        modelAndView.addObject("closedTasksArchive", managementService.findByNameEquals(auth.getName()).getPortfolio().getPerformedTasks().size());
+       // modelAndView.addObject("closedTasksArchive", managementService.findByNameEquals(auth.getName()).getPortfolio().getPerformedTasks().size());
         logger.debug(" in method greeting: home page called");
         return modelAndView;
     }

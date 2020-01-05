@@ -23,7 +23,7 @@ public class Developer {
     @Column(name = "password")
     private String password;
     @Enumerated(EnumType.STRING)
-    private Rank rank;
+    private Rank rnk;
     private double experience;
     private int qualification;
     @Enumerated(EnumType.STRING)
@@ -50,7 +50,7 @@ public class Developer {
         this.id = developer.getId();
         this.name = developer.getName();
         this.password = developer.getPassword();
-        this.rank = developer.getRank();
+        this.rnk = developer.getRnk();
         this.experience = developer.getExperience();
         this.qualification = developer.getQualification();
         this.role = developer.getRole();
@@ -168,12 +168,12 @@ public class Developer {
         this.name = name;
     }
 
-    public Rank getRank() {
-        return rank;
+    public Rank getRnk() {
+        return rnk;
     }
 
-    public void setRank(Rank rank) {
-        this.rank = rank;
+    public void setRnk(Rank rnk) {
+        this.rnk = rnk;
     }
 
     public List<Task> getAssignedTasks() {

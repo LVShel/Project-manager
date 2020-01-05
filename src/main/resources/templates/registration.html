@@ -27,9 +27,9 @@
 
 
             <div class="form-group">
-                <label for="rank">Select your rank</label>
-                <select id="rank" th:field="*{rank}" class="form-control input" >
-                    <option th:each="rank : ${T(com.shelest.booster.utilities.enums.Rank).values()}" th:value="${{rank}}" th:text="${rank}"></option>
+                <label for="rnk">Select your rnk</label>
+                <select id="rnk" th:field="*{rnk}" class="form-control input" >
+                    <option th:each="rnk : ${T(com.shelest.booster.utilities.enums.Rank).values()}" th:value="${{rnk}}" th:text="${rnk}"></option>
                 </select>
             </div>
 

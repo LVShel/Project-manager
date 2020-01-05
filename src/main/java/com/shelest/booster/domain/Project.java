@@ -32,7 +32,7 @@ public class Project {
     }
 
     public void addDeveloper(Developer developer) {
-        switch (developer.getRank()) {
+        switch (developer.getRnk()) {
 
             case JUNIOR:
                 juniorsOnProject++;
@@ -69,7 +69,7 @@ public class Project {
     }
 
     private void kick(Developer developer) {
-        switch (developer.getRank()) {
+        switch (developer.getRnk()) {
 
             case JUNIOR:
                 juniorsOnProject--;

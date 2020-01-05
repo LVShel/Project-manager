@@ -92,15 +92,15 @@ public class SmartTaskDistributor {
     }
 
     private Developer findSenior() {
-        return project.getDevelopersOnProject().stream().filter(c -> c.getRank().equals(Rank.SENIOR) & c.getNumberOfTasks() < project.getMaxTasksForOneDev()).findAny().orElse(null);
+        return project.getDevelopersOnProject().stream().filter(c -> c.getRnk().equals(Rank.SENIOR) & c.getNumberOfTasks() < project.getMaxTasksForOneDev()).findAny().orElse(null);
     }
 
     private Developer findMiddle() {
-        return project.getDevelopersOnProject().stream().filter(c -> c.getRank().equals(Rank.MIDDLE) & c.getNumberOfTasks() < project.getMaxTasksForOneDev()).findAny().orElse(null);
+        return project.getDevelopersOnProject().stream().filter(c -> c.getRnk().equals(Rank.MIDDLE) & c.getNumberOfTasks() < project.getMaxTasksForOneDev()).findAny().orElse(null);
     }
 
     private Developer findJunior() {
-        return project.getDevelopersOnProject().stream().filter(c -> c.getRank().equals(Rank.JUNIOR) & c.getNumberOfTasks() < project.getMaxTasksForOneDev()).findAny().orElse(null);
+        return project.getDevelopersOnProject().stream().filter(c -> c.getRnk().equals(Rank.JUNIOR) & c.getNumberOfTasks() < project.getMaxTasksForOneDev()).findAny().orElse(null);
     }
 
 }
